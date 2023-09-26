@@ -11,13 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TimeServiceImpl implements TimeService {
-
 
     private final TimeRepository timeRepository;
 
@@ -33,25 +30,37 @@ public class TimeServiceImpl implements TimeService {
         return timeRepository.save(time);
     }
 
+    @Override
+    @Transactional
+    public TimeEntity editar(Long id, TimeDTO dto) {
+        TimeEntity existingTime = timeRepository.findById(id.intValue())
+                .orElseThrow(TimeNaoEncontradoException::new);
+
+        String novoNome = dto.getNomeTime();
+        if (!novoNome.equals(existingTime.getNomeTime())) {
+            validarSeTimeJaEstaCadastrado(novoNome);
+        }
+
+        existingTime.setNomeTime(novoNome);
+
+        return timeRepository.save(existingTime);
+    }
+
+    @Override
+    @Transactional
+    public String deletar(Long id) {
+        TimeEntity time = timeRepository.findById(id.intValue())
+                .orElseThrow(TimeNaoEncontradoException::new);
+
+        timeRepository.delete(time);
+
+        return "Time deletado com sucesso.";
+    }
+
     private void validarSeTimeJaEstaCadastrado(String nomeTime) {
         if (timeRepository.existsByNomeTime(nomeTime)) {
             throw new RegraNegocioException("Já existe um time com o mesmo nome.");
         }
     }
-
-
-    @Override
-    @Transactional
-    public List<TimeEntity> searchTime(Long id, String nome) {
-       List<TimeEntity> times = timeRepository.searchTime(id, nome);
-        if (times.isEmpty()) {
-            throw new TimeNaoEncontradoException();
-        }
-        return times;
-    }
-
-
-
-
 
 }

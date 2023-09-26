@@ -2,26 +2,21 @@ package io.github.VyctorHugoCorreia.rest.controller;
 
 import io.github.VyctorHugoCorreia.domain.entity.TimeEntity;
 import io.github.VyctorHugoCorreia.domain.repository.TimeRepository;
-import io.github.VyctorHugoCorreia.exception.TimeNaoEncontradoException;
 import io.github.VyctorHugoCorreia.rest.dto.TimeDTO;
 import io.github.VyctorHugoCorreia.service.TimeService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/time")
 public class TimeController {
 
-    private TimeService service;
-    private TimeRepository repository;
+    final TimeService service;
+    final TimeRepository repository;
 
     public TimeController(TimeService service, TimeRepository repository) {
         this.service = service;
@@ -42,6 +37,18 @@ public class TimeController {
     public TimeEntity save(@RequestBody @Valid TimeDTO dto) {
         return service.salvar(dto);
 
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TimeEntity editar(@PathVariable Long id, @RequestBody @Valid TimeDTO dto) {
+        return service.editar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deletar(@PathVariable Long id) {
+        return service.deletar(id);
     }
 
 
