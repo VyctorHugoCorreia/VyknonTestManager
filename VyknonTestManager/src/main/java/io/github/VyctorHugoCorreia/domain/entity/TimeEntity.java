@@ -1,10 +1,11 @@
 package io.github.VyctorHugoCorreia.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,8 @@ public class TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_time")
-    private Integer idTime;
+    private Long idTime;
+
     @Column(name = "nome_time")
     private String nomeTime;
 
