@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.service;
 
 import io.github.vyctorhugocorreia.entity.TimeEntity;
-import io.github.vyctorhugocorreia.rest.dto.TimeDTO;
+import io.github.vyctorhugocorreia.dto.TimeDTO;
 
 public interface TimeService {
 

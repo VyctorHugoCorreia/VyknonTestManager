@@ -1,8 +1,8 @@
-package io.github.vyctorhugocorreia.rest.controller;
+package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
-import io.github.vyctorhugocorreia.rest.dto.TimeDTO;
+import io.github.vyctorhugocorreia.dto.TimeDTO;
 import io.github.vyctorhugocorreia.service.TimeService;
 import jakarta.validation.Valid;
 

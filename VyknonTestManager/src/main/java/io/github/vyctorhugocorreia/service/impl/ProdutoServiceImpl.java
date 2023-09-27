@@ -8,7 +8,7 @@ import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
-import io.github.vyctorhugocorreia.rest.dto.ProdutoDTO;
+import io.github.vyctorhugocorreia.dto.ProdutoDTO;
 import io.github.vyctorhugocorreia.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,18 +1,15 @@
 package io.github.vyctorhugocorreia.service.impl;
 
-import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
-import io.github.vyctorhugocorreia.rest.dto.TimeDTO;
+import io.github.vyctorhugocorreia.dto.TimeDTO;
 import io.github.vyctorhugocorreia.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
