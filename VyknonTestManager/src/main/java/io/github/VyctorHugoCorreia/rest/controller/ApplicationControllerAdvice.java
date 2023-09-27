@@ -1,5 +1,6 @@
 package io.github.VyctorHugoCorreia.rest.controller;
 
+import io.github.VyctorHugoCorreia.exception.ProdutoNaoEncontradoException;
 import io.github.VyctorHugoCorreia.exception.RegraNegocioException;
 import io.github.VyctorHugoCorreia.exception.TimeNaoEncontradoException;
 import io.github.VyctorHugoCorreia.rest.ApiErrors;
@@ -31,7 +32,13 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(TimeNaoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiErrors handleTimeNotFoundException( TimeNaoEncontradoException ex ){
+    public ApiErrors handleTimeNotFoundException(TimeNaoEncontradoException ex) {
+        return new ApiErrors(ex.getMessage());
+    }
+
+    @ExceptionHandler(ProdutoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleProdutoNotFoundException(ProdutoNaoEncontradoException ex) {
         return new ApiErrors(ex.getMessage());
     }
 
