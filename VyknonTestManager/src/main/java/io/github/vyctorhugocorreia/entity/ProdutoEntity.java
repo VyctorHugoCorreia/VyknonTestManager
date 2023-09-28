@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "ctimeproduto")
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProdutoEntity {
 
     @Id
