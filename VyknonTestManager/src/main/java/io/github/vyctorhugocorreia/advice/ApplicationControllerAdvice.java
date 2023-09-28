@@ -3,9 +3,7 @@ package io.github.vyctorhugocorreia.advice;
 import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
