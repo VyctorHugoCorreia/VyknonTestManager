@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 public class ApplicationControllerAdvice {
 
     @ExceptionHandler(RegraNegocioException.class)
-    public ResponseEntity<ApiErrors> handleRegraNegocioException(RegraNegocioException ex) {
-        return ResponseEntity.badRequest().body(new ApiErrors(ex.getMessage()));
+    public ResponseEntity<List<String>> handleRegraNegocioException(RegraNegocioException ex) {
+        return ResponseEntity.badRequest().body(new ApiErrors(ex.getMessage()).errors);
     }
 
 
