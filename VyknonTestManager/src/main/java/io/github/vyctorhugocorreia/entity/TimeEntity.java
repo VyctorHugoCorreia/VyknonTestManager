@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "Ttime")
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class TimeEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
