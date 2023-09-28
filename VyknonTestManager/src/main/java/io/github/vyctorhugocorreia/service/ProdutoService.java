@@ -1,7 +1,7 @@
-package io.github.VyctorHugoCorreia.service;
+package io.github.vyctorhugocorreia.service;
 
-import io.github.VyctorHugoCorreia.domain.entity.ProdutoEntity;
-import io.github.VyctorHugoCorreia.rest.dto.ProdutoDTO;
+import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.dto.ProdutoDTO;
 
 public interface ProdutoService {
 

@@ -1,9 +1,9 @@
-package io.github.VyctorHugoCorreia.rest.controller;
+package io.github.vyctorhugocorreia.controller;
 
-import io.github.VyctorHugoCorreia.domain.entity.TimeEntity;
-import io.github.VyctorHugoCorreia.domain.repository.TimeRepository;
-import io.github.VyctorHugoCorreia.rest.dto.TimeDTO;
-import io.github.VyctorHugoCorreia.service.TimeService;
+import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.dto.TimeDTO;
+import io.github.vyctorhugocorreia.service.TimeService;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;

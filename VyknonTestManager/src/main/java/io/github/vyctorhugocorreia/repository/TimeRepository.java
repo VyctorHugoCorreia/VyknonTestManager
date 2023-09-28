@@ -1,6 +1,6 @@
-package io.github.VyctorHugoCorreia.domain.repository;
+package io.github.vyctorhugocorreia.repository;
 
-import io.github.VyctorHugoCorreia.domain.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.TimeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

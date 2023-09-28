@@ -1,4 +1,4 @@
-package io.github.VyctorHugoCorreia.exception;
+package io.github.vyctorhugocorreia.exception;
 
 public class RegraNegocioException extends RuntimeException{
 

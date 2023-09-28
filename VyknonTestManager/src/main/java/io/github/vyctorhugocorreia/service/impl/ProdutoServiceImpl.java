@@ -1,15 +1,15 @@
-package io.github.VyctorHugoCorreia.service.impl;
+package io.github.vyctorhugocorreia.service.impl;
 
 
-import io.github.VyctorHugoCorreia.domain.entity.ProdutoEntity;
-import io.github.VyctorHugoCorreia.domain.entity.TimeEntity;
-import io.github.VyctorHugoCorreia.domain.repository.ProdutoRepository;
-import io.github.VyctorHugoCorreia.domain.repository.TimeRepository;
-import io.github.VyctorHugoCorreia.exception.ProdutoNaoEncontradoException;
-import io.github.VyctorHugoCorreia.exception.RegraNegocioException;
-import io.github.VyctorHugoCorreia.exception.TimeNaoEncontradoException;
-import io.github.VyctorHugoCorreia.rest.dto.ProdutoDTO;
-import io.github.VyctorHugoCorreia.service.ProdutoService;
+import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.repository.ProdutoRepository;
+import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
+import io.github.vyctorhugocorreia.exception.RegraNegocioException;
+import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.dto.ProdutoDTO;
+import io.github.vyctorhugocorreia.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,6 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
 
-
     @Override
     @Transactional
     public ProdutoEntity salvar(ProdutoDTO dto) {
@@ -34,10 +33,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         String descProduto = dto.getDescProduto();
         validarProdutoParaTimeExistente(descProduto, time);
 
-        ProdutoEntity produto = new ProdutoEntity();
-        produto.setDescProduto(descProduto);
-        produto.setIdTime(time);
-
+        ProdutoEntity produto = ProdutoEntity.builder().
+                descProduto(descProduto)
+                        .idTime(time)
+                                .build();
         return produtoRepository.save(produto);
     }
 

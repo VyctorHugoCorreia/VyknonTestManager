@@ -1,18 +1,15 @@
-package io.github.VyctorHugoCorreia.service.impl;
+package io.github.vyctorhugocorreia.service.impl;
 
-import io.github.VyctorHugoCorreia.domain.entity.ProdutoEntity;
-import io.github.VyctorHugoCorreia.domain.entity.TimeEntity;
-import io.github.VyctorHugoCorreia.domain.repository.ProdutoRepository;
-import io.github.VyctorHugoCorreia.domain.repository.TimeRepository;
-import io.github.VyctorHugoCorreia.exception.RegraNegocioException;
-import io.github.VyctorHugoCorreia.exception.TimeNaoEncontradoException;
-import io.github.VyctorHugoCorreia.rest.dto.TimeDTO;
-import io.github.VyctorHugoCorreia.service.TimeService;
+import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.repository.ProdutoRepository;
+import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.exception.RegraNegocioException;
+import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.dto.TimeDTO;
+import io.github.vyctorhugocorreia.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +24,7 @@ public class TimeServiceImpl implements TimeService {
         String nomeTime = dto.getNomeTime();
         validarSeTimeJaEstaCadastrado(nomeTime);
 
-        TimeEntity time = new TimeEntity();
-        time.setNomeTime(nomeTime);
-
+        TimeEntity time = TimeEntity.builder().nomeTime(nomeTime).build();
         return timeRepository.save(time);
     }
 
@@ -71,8 +66,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     private void verificarProdutosVinculados(TimeEntity time) {
-        List<ProdutoEntity> produtosDoTime = produtoRepository.findByIdTime(time);
-        if (!produtosDoTime.isEmpty()) {
+        if (!produtoRepository.findByIdTime(time).isEmpty()) {
             throw new RegraNegocioException("Não é possível excluir o time, pois há produtos vinculados a ele.");
         }
     }

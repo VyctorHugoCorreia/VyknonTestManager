@@ -1,4 +1,4 @@
-package io.github.VyctorHugoCorreia.rest.dto;
+package io.github.vyctorhugocorreia.dto;
 
 
 import jakarta.validation.constraints.NotEmpty;
