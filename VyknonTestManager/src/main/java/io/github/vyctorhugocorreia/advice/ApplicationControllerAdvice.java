@@ -16,12 +16,14 @@ import java.util.stream.Collectors;
 public class ApplicationControllerAdvice {
 
     @ExceptionHandler(RegraNegocioException.class)
+    @ResponseBody
     public ResponseEntity<List<String>> handleRegraNegocioException(RegraNegocioException ex) {
         return ResponseEntity.badRequest().body(new ApiErrors(ex.getMessage()).errors);
     }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
     public ResponseEntity<List<String>> handleMethodNotValidException(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult().getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
         return ResponseEntity.badRequest().body(new ApiErrors(errors).errors);
@@ -34,6 +36,7 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(ProdutoNaoEncontradoException.class)
+    @ResponseBody
     public ResponseEntity<String> handleProdutoNotFoundException(ProdutoNaoEncontradoException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
 
@@ -41,7 +44,7 @@ public class ApplicationControllerAdvice {
 
      class ApiErrors {
 
-        private List<String> errors;
+        private final List<String> errors;
 
         public ApiErrors(List<String> errors) {
             this.errors = errors;

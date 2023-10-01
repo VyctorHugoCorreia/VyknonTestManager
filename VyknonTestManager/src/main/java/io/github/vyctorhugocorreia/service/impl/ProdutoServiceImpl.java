@@ -35,8 +35,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         ProdutoEntity produto = ProdutoEntity.builder().
                 descProduto(descProduto)
-                        .idTime(time)
-                                .build();
+                .idTime(time)
+                .build();
         return produtoRepository.save(produto);
     }
 

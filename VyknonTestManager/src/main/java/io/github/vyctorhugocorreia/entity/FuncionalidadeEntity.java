@@ -12,21 +12,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ctimeproduto")
+@Table(name = "cfuncionalidade")
 
-public class ProdutoEntity {
+public class FuncionalidadeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tproduto")
-    private Long idTproduto;
+    @Column(name = "id_funcionalidade")
+    private Long idFuncionalidade;
 
-    @Column(name = "desc_produto")
-    private String descProduto;
+    @Column(name = "desc_funcionalidade")
+    private String descFuncionalidade;
 
     @ManyToOne
     @JoinColumn(name = "id_Time")
     private TimeEntity idTime;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tproduto")
+    private ProdutoEntity idTproduto;
 
 
 }

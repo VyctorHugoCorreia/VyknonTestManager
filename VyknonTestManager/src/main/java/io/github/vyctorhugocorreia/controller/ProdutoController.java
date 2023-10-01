@@ -16,15 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produto")
+@AllArgsConstructor
 public class ProdutoController {
 
     private final ProdutoService service;
     private final ProdutoRepository repository;
 
-    public ProdutoController(ProdutoRepository repository, ProdutoService service) {
-        this.repository = repository;
-        this.service = service;
-    }
+
 
     @PostMapping
     public ResponseEntity<ProdutoEntity> save(@RequestBody @Valid ProdutoDTO dto) {

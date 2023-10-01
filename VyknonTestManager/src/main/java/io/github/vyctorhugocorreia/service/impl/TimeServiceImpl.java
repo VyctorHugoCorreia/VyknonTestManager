@@ -24,7 +24,9 @@ public class TimeServiceImpl implements TimeService {
         String nomeTime = dto.getNomeTime();
         validarSeTimeJaEstaCadastrado(nomeTime);
 
-        TimeEntity time = TimeEntity.builder().nomeTime(nomeTime).build();
+        TimeEntity time = TimeEntity.builder()
+                .nomeTime(nomeTime)
+                .build();
         return timeRepository.save(time);
     }
 
