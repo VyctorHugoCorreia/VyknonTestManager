@@ -1,8 +1,6 @@
 package io.github.vyctorhugocorreia.advice;
 
-import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
-import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.exception.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,6 +30,18 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(TimeNaoEncontradoException.class)
     @ResponseBody
     public ResponseEntity<String> handleTimeNotFoundException(TimeNaoEncontradoException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(FuncionalidadeNaoEncontradaException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleFuncionalidadeNotFoundException(FuncionalidadeNaoEncontradaException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PlanoDeTestesNaoEncontradaException.class)
+    @ResponseBody
+    public ResponseEntity<String> handlePlanoNotFoundException(PlanoDeTestesNaoEncontradaException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 

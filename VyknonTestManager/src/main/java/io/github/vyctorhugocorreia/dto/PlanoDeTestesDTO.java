@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FuncionalidadeDTO {
+public class PlanoDeTestesDTO {
 
     private Long idTime;
 
     private Long idTproduto;
 
-    private Long idFuncionalidade;
+    private Long idPlano;
 
-    @NotEmpty(message = "Preencha o nome da funcionalidade.")
-    private String descFuncionalidade;
+    @NotEmpty(message = "Preencha o nome do plano de testes.")
+    private String descPlano;
 }

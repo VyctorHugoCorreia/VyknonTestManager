@@ -20,8 +20,9 @@ public interface FuncionalidadeRepository extends JpaRepository<FuncionalidadeEn
             "(:idTime IS NULL OR f.idTime.idTime = :idTime) AND " +
             "(:idTproduto IS NULL OR f.idTproduto.idTproduto = :idTproduto) AND" +
             "(:descFuncionalidade IS NULL OR f.descFuncionalidade LIKE %:descFuncionalidade%)")
-    List<FuncionalidadeEntity> searchFuncionalidade(@Param("idTime") Long idTime,
-                                      @Param("idTproduto") Long idTproduto,
-                                      @Param("descFuncionalidade") String descFuncionalidade);
+    List<FuncionalidadeEntity> searchFuncionalidade(
+            @Param("idTime") Long idTime,
+            @Param("idTproduto") Long idTproduto,
+            @Param("descFuncionalidade") String descFuncionalidade);
 }
 

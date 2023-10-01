@@ -76,8 +76,7 @@ public class FuncionalidadeServiceImpl implements FuncionalidadeService {
         // Valide se a nova descrição da funcionalidade não entra em conflito com outras funcionalidades do mesmo produto
         validarSeFuncionalidadeExisteParaProdutoEOutras(descFuncionalidade, produto, funcionalidadeExistente);
 
-        // Atualize os valores da funcionalidade existente
-        funcionalidadeExistente.setDescFuncionalidade(descFuncionalidade);
+        funcionalidadeExistente.setDescFuncionalidade(dto.getDescFuncionalidade());
         funcionalidadeExistente.setIdTime(time);
         funcionalidadeExistente.setIdTproduto(produto);
 
