@@ -1,16 +1,19 @@
-CREATE TABLE Ttime (
+CREATE DATABASE IF NOT EXISTS gerTestes;
+USE gerTestes;
+
+CREATE TABLE IF NOT EXISTS Ttime (
     id_time INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_time VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE CTimeProduto (
+CREATE TABLE IF NOT EXISTS CTimeProduto (
     id_tproduto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_produto VARCHAR(100) NOT NULL,
     id_time INT NOT NULL,
     FOREIGN KEY (id_time) REFERENCES Ttime(id_time)
 );
 
-CREATE TABLE CPlanoTestes (
+CREATE TABLE IF NOT EXISTS CPlanoTestes (
     id_plano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_plano VARCHAR(100) NOT NULL,
     id_time INT NOT NULL,
@@ -19,7 +22,7 @@ CREATE TABLE CPlanoTestes (
     FOREIGN KEY (id_tproduto) REFERENCES CTimeProduto(id_tproduto)
 );
 
-CREATE TABLE CSuiteTestes (
+CREATE TABLE IF NOT EXISTS CSuiteTestes (
     id_suite INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_plano VARCHAR(100) NOT NULL,
     id_time INT NOT NULL,
@@ -30,7 +33,7 @@ CREATE TABLE CSuiteTestes (
     FOREIGN KEY (id_plano) REFERENCES CPlanoTestes(id_plano)
 );
 
-CREATE TABLE Cfuncionalidade (
+CREATE TABLE IF NOT EXISTS Cfuncionalidade (
     id_funcionalidade INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_funcionalidade VARCHAR(100) NOT NULL,
     id_time INT NOT NULL,
@@ -39,27 +42,27 @@ CREATE TABLE Cfuncionalidade (
     FOREIGN KEY (id_tproduto) REFERENCES CTimeProduto(id_tproduto)
 );
 
-CREATE TABLE Tplataforma (
+CREATE TABLE IF NOT EXISTS Tplataforma (
     id_plataforma INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_plataforma VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Tstatus (
+CREATE TABLE IF NOT EXISTS Tstatus (
     id_status INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_status VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE TAutomatizado (
+CREATE TABLE IF NOT EXISTS TAutomatizado (
     id_automatizado INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_automatizado VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE TpCenario (
+CREATE TABLE IF NOT EXISTS TpCenario (
     id_tpcenario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     desc_tpcenario VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE TCenario (
+CREATE TABLE IF NOT EXISTS TCenario (
     id_cenario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     titulo_cenario VARCHAR(100) NOT NULL,
     desc_cenario VARCHAR(200) NOT NULL,
@@ -85,7 +88,8 @@ CREATE TABLE TCenario (
     FOREIGN KEY (id_status) REFERENCES Tstatus(id_status),
     FOREIGN KEY (id_automatizado) REFERENCES TAutomatizado(id_automatizado)
 );
-CREATE TABLE Tsteps (
+
+CREATE TABLE IF NOT EXISTS Tsteps (
     id_steps INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_cenario INT NOT NULL,
     ordem INT NOT NULL,
@@ -94,14 +98,14 @@ CREATE TABLE Tsteps (
     FOREIGN KEY (id_cenario) REFERENCES TCenario(id_cenario)
 );
 
-INSERT INTO TAutomatizado (DESC_AUTOMATIZADO)
+INSERT INTO TAutomatizado (desc_automatizado)
 VALUES ('SIM'), ('NÃO'), ('NÃO SE APLICA');
 
-INSERT INTO TpCenario (DESC_TpCenario)
+INSERT INTO TpCenario (desc_tpcenario)
 VALUES ('Fluxo positivo'), ('Fluxo alternativo'), ('Fluxo negativo');
 
-INSERT INTO Tplataforma (DESC_PLATAFORMA)
+INSERT INTO Tplataforma (desc_plataforma)
 VALUES ('Mobile'), ('Web'), ('Api');
 
-INSERT INTO Tstatus (DESC_STATUS)
+INSERT INTO Tstatus (desc_status)
 VALUES ('Executado com sucesso'), ('Executado com falha'), ('Pendente execução');
