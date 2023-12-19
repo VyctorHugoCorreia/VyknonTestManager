@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface FuncionalidadeRepository extends JpaRepository<FuncionalidadeEntity, Integer> {
 
-
     boolean existsByDescFuncionalidadeAndIdTproduto(String descProduto, ProdutoEntity idTproduto);
 
     boolean existsByDescFuncionalidadeAndIdTprodutoAndIdFuncionalidadeNot(String descFuncionalidade, ProdutoEntity idTproduto, Long idFuncionalidade);
