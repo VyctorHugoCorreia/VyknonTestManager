@@ -16,6 +16,7 @@ public interface SuiteDeTesteRepository extends JpaRepository<SuiteDeTesteEntity
 
     boolean existsByDescSuiteAndIdPlanoAndIdSuiteNot(String DescPlano, PlanoDeTesteEntity idPlano, Long idSuite);
 
+    boolean existsByIdPlano(PlanoDeTesteEntity plano);
     @Query("SELECT COUNT(s) FROM SuiteDeTesteEntity s WHERE s.idPlano = :plano")
     int countSuitesByPlano(@Param("plano") PlanoDeTesteEntity plano);
 

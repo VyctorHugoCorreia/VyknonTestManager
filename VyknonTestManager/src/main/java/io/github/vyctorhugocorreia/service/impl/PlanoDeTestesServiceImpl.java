@@ -4,10 +4,12 @@ package io.github.vyctorhugocorreia.service.impl;
 import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
 import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.exception.*;
 import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
+import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.service.PlanoDeTestesService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class PlanoDeTestesServiceImpl implements PlanoDeTestesService {
 
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
+    private final SuiteDeTesteRepository suiteDeTesteRepository;
 
     private final PlanoDeTestesRepository planoDeTestesRepository;
 
@@ -84,8 +87,19 @@ public class PlanoDeTestesServiceImpl implements PlanoDeTestesService {
     @Override
     @Transactional
     public String deletar(Long id) {
+        verificarSuitesVinculadoAoPlanoDeTeste(id);
         planoDeTestesRepository.delete(getExistingPlano(id));
         return "Plano de testes deletado com sucesso.";
+    }
+
+
+    private void verificarSuitesVinculadoAoPlanoDeTeste(Long id) {
+        PlanoDeTesteEntity plano = getExistingPlano(id);
+        boolean SuitesVinculadas = suiteDeTesteRepository.existsByIdPlano(plano);
+        if (SuitesVinculadas) {
+            throw new RegraNegocioException("Não é possível excluir o plano, pois existem suites vinculadas a ele.");
+        }
+
     }
 
     private PlanoDeTesteEntity getExistingPlano(Long id) {
