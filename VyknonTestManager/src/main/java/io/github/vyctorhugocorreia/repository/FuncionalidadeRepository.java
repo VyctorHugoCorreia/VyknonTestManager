@@ -15,6 +15,9 @@ public interface FuncionalidadeRepository extends JpaRepository<FuncionalidadeEn
 
     boolean existsByDescFuncionalidadeAndIdTprodutoAndIdFuncionalidadeNot(String descFuncionalidade, ProdutoEntity idTproduto, Long idFuncionalidade);
 
+    boolean existsByIdTproduto(ProdutoEntity produto);
+
+
 
     @Query("SELECT f FROM FuncionalidadeEntity f WHERE " +
             "(:idTime IS NULL OR f.idTime.idTime = :idTime) AND " +

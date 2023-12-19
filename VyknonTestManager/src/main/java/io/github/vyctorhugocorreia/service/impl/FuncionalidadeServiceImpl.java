@@ -44,7 +44,12 @@ public class FuncionalidadeServiceImpl implements FuncionalidadeService {
         String descFuncionalidade = dto.getDescFuncionalidade();
 
         validarSeFuncionalidadeExisteParaProduto(descFuncionalidade, produto);
-
+        if (dto.getDescFuncionalidade().trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (dto.getDescFuncionalidade().trim().length() > 100) {
+            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+        }
         FuncionalidadeEntity funcionalidade = FuncionalidadeEntity.builder()
                 .descFuncionalidade(descFuncionalidade)
                 .idTime(time)
@@ -72,6 +77,12 @@ public class FuncionalidadeServiceImpl implements FuncionalidadeService {
                 .orElseThrow(ProdutoNaoEncontradoException::new);
 
         String descFuncionalidade = dto.getDescFuncionalidade();
+        if (dto.getDescFuncionalidade().trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (dto.getDescFuncionalidade().trim().length() > 100) {
+            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+        }
 
         // Valide se a nova descrição da funcionalidade não entra em conflito com outras funcionalidades do mesmo produto
         validarSeFuncionalidadeExisteParaProdutoEOutras(descFuncionalidade, produto, funcionalidadeExistente);

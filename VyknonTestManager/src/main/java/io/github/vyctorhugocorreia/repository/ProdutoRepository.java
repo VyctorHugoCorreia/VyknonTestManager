@@ -1,5 +1,6 @@
 package io.github.vyctorhugocorreia.repository;
 
+import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,7 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Integer>
 
 
     boolean existsByDescProdutoAndIdTime(String descProduto, TimeEntity idTime);
+
 
     @Query("SELECT p FROM ProdutoEntity p WHERE " +
             "(:idTime IS NULL OR p.idTime.idTime = :idTime) AND " +

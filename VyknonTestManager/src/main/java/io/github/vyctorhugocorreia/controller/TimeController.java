@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/time")
+@CrossOrigin
 public class TimeController {
 
     final TimeService service;

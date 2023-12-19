@@ -22,6 +22,12 @@ public class TimeServiceImpl implements TimeService {
     @Transactional
     public TimeEntity salvar(TimeDTO dto) {
         String nomeTime = dto.getNomeTime();
+        if (dto.getNomeTime().trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (dto.getNomeTime().trim().length() > 100) {
+            throw new RegraNegocioException("O nome do time deve ter no máximo 100 caracteres");
+        }
         validarSeTimeJaEstaCadastrado(nomeTime);
 
         TimeEntity time = TimeEntity.builder()
@@ -35,7 +41,12 @@ public class TimeServiceImpl implements TimeService {
     public TimeEntity editar(Long id, TimeDTO dto) {
         TimeEntity existingTime = obterTimePorId(id);
         String novoNome = dto.getNomeTime();
-
+        if (novoNome.trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (novoNome.trim().length() > 100) {
+            throw new RegraNegocioException("O nome do time deve ter no máximo 100 caracteres");
+        }
         if (!novoNome.equals(existingTime.getNomeTime())) {
             validarSeTimeJaEstaCadastrado(novoNome);
         }

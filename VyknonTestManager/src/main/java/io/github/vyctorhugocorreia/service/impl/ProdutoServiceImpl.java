@@ -1,8 +1,11 @@
 package io.github.vyctorhugocorreia.service.impl;
 
 
+import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.repository.FuncionalidadeRepository;
+import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
@@ -21,6 +24,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
+    private final FuncionalidadeRepository funcionalidadeRepository;
+    private final PlanoDeTestesRepository planoDeTestesRepository;
 
     @Override
     @Transactional
@@ -32,7 +37,12 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         String descProduto = dto.getDescProduto();
         validarProdutoParaTimeExistente(descProduto, time);
-
+        if (dto.getDescProduto().trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (dto.getDescProduto().trim().length() > 100) {
+            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+        }
         ProdutoEntity produto = ProdutoEntity.builder().
                 descProduto(descProduto)
                 .idTime(time)
@@ -53,16 +63,42 @@ public class ProdutoServiceImpl implements ProdutoService {
             validarProdutoParaNovoTime(novoProdutoDesc, novoTime);
             existingProduto.setIdTime(novoTime);
         }
-
+        if (dto.getDescProduto().trim().isEmpty()) {
+            throw new RegraNegocioException("Preencha um nome válido");
+        }
+        if (dto.getDescProduto().trim().length() > 100) {
+            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+        }
         return produtoRepository.save(existingProduto);
     }
 
     @Override
     @Transactional
     public String deletar(Long id) {
+        verificarFuncionalidadeVinculadoAoProduto(id);
+        verificarPlanoDeTesteVinculadoAoProduto(id);
         produtoRepository.delete(getExistingProduto(id));
+
         return "Produto deletado com sucesso.";
     }
+    private void verificarFuncionalidadeVinculadoAoProduto(Long id) {
+        ProdutoEntity produto = getExistingProduto(id);
+        boolean funcionalidadesVinculadas = funcionalidadeRepository.existsByIdTproduto(produto);
+        if (funcionalidadesVinculadas) {
+            throw new RegraNegocioException("Não é possível excluir o produto, pois existem funcionalidades vinculadas a ele.");
+        }
+
+    }
+
+    private void verificarPlanoDeTesteVinculadoAoProduto(Long id) {
+        ProdutoEntity produto = getExistingProduto(id);
+
+        boolean planoDeTesteVinculado = planoDeTestesRepository.existsByIdTproduto(produto);
+        if (planoDeTesteVinculado) {
+            throw new RegraNegocioException("Não é possível excluir o produto, pois existem planos de teste vinculado a ele.");
+        }
+    }
+
 
     private ProdutoEntity getExistingProduto(Long id) {
         return produtoRepository.findById(id.intValue())

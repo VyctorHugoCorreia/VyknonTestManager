@@ -10,11 +10,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface SuiteDeTesteRepository extends JpaRepository<SuiteDeTesteEntity, Integer> {
+public interface SuiteDeTesteRepository extends JpaRepository<SuiteDeTesteEntity, Long> {
 
     boolean existsByDescSuiteAndIdPlano(String descSuite, PlanoDeTesteEntity idPlano);
 
     boolean existsByDescSuiteAndIdPlanoAndIdSuiteNot(String DescPlano, PlanoDeTesteEntity idPlano, Long idSuite);
+
+    @Query("SELECT COUNT(s) FROM SuiteDeTesteEntity s WHERE s.idPlano = :plano")
+    int countSuitesByPlano(@Param("plano") PlanoDeTesteEntity plano);
+
+    @Query("SELECT s FROM SuiteDeTesteEntity s WHERE s.idPlano = :plano")
+    List<SuiteDeTesteEntity> findBySuitesIdPlano(@Param("plano") PlanoDeTesteEntity plano);
+
 
     @Query("SELECT p FROM SuiteDeTesteEntity p WHERE " +
             "(:idSuite IS NULL OR p.idSuite = :idSuite) AND " +

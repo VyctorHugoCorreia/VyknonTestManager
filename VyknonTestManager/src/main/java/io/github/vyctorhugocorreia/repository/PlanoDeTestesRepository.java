@@ -16,6 +16,9 @@ public interface PlanoDeTestesRepository extends JpaRepository<PlanoDeTesteEntit
     boolean existsByDescPlanoAndIdTprodutoAndIdPlanoNot(String DescPlano, ProdutoEntity idTproduto, Long idPlano);
 
 
+
+
+    boolean existsByIdTproduto(ProdutoEntity produto);
     @Query("SELECT p FROM PlanoDeTesteEntity p WHERE " +
             "(:idTime IS NULL OR p.idTime.idTime = :idTime) AND " +
             "(:idTproduto IS NULL OR p.idTproduto.idTproduto = :idTproduto) AND" +

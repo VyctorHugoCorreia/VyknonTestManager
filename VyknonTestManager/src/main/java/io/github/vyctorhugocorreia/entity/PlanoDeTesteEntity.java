@@ -32,5 +32,6 @@ public class PlanoDeTesteEntity {
     @JoinColumn(name = "id_tproduto")
     private ProdutoEntity idTproduto;
 
-
+    @Transient
+    private int quantidadeSuites;
 }

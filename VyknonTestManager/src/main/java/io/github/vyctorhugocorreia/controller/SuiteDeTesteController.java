@@ -30,7 +30,19 @@ public class SuiteDeTesteController {
     public ResponseEntity<SuiteDeTesteEntity> save(@RequestBody @Valid SuiteDeTesteDTO dto) {
         return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
     }
+    @GetMapping("/plano/{idPlano}")
+    public ResponseEntity<List<SuiteDeTesteEntity>> getSuitesByPlanoId(@PathVariable Long idPlano) {
+        PlanoDeTesteEntity plano = new PlanoDeTesteEntity();
+        plano.setIdPlano(idPlano);
 
+        List<SuiteDeTesteEntity> suites = repository.findBySuitesIdPlano(plano);
+
+        if (suites.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(suites);
+    }
     @GetMapping
     public ResponseEntity<List<SuiteDeTesteEntity>> getSuite(
             @RequestParam(required = false) Long idSuite,

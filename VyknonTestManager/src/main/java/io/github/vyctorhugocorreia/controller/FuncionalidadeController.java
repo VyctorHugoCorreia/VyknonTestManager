@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/funcionalidade")
 @AllArgsConstructor
+@CrossOrigin
 public class FuncionalidadeController {
 
     private final FuncionalidadeService service;

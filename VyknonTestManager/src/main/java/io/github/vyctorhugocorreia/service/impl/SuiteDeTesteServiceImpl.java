@@ -70,7 +70,7 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
     @Override
     public SuiteDeTesteEntity editar(Long id, SuiteDeTesteDTO dto) {
         SuiteDeTesteEntity suiteExistente = suiteDeTesteRepository
-                .findById(id.intValue())
+                .findById(id)
                 .orElseThrow(SuiteDeTesteNaoEncotradoException::new);
 
         Long idTime = dto.getIdTime();
@@ -118,7 +118,7 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
 
 
     private SuiteDeTesteEntity getExistingSuite(Long id) {
-        return suiteDeTesteRepository.findById(id.intValue())
+        return suiteDeTesteRepository.findById(id)
                 .orElseThrow(SuiteDeTesteNaoEncotradoException::new);
     }
 }
