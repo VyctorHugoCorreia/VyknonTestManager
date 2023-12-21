@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Locale;
+
 @Service
 @RequiredArgsConstructor
 public class TimeServiceImpl implements TimeService {
@@ -47,7 +49,7 @@ public class TimeServiceImpl implements TimeService {
         if (novoNome.trim().length() > 100) {
             throw new RegraNegocioException("O nome do time deve ter no máximo 100 caracteres");
         }
-        if (!novoNome.equals(existingTime.getNomeTime())) {
+        if (!novoNome.toLowerCase(Locale.ROOT).equals(existingTime.getNomeTime().toLowerCase(Locale.ROOT))) {
             validarSeTimeJaEstaCadastrado(novoNome);
         }
 

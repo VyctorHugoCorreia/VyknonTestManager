@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/suiteDeTeste")
 @AllArgsConstructor
+@CrossOrigin
 public class SuiteDeTesteController {
 
     private final SuiteDeTesteService service;
@@ -47,12 +48,12 @@ public class SuiteDeTesteController {
     public ResponseEntity<List<SuiteDeTesteEntity>> getSuite(
             @RequestParam(required = false) Long idSuite,
             @RequestParam(required = false) Long idTime,
-            @RequestParam(required = false) Long idProduto,
+            @RequestParam(required = false) Long idTproduto,
             @RequestParam(required = false) Long idPlano,
             @RequestParam(required = false) String descSuite
     ) {
 
-        return ResponseEntity.ok(repository.searchSuite(idSuite, idTime, idProduto, idPlano, descSuite));
+        return ResponseEntity.ok(repository.searchSuite(idSuite, idTime, idTproduto, idPlano, descSuite));
     }
 
     @PutMapping("/{id}")

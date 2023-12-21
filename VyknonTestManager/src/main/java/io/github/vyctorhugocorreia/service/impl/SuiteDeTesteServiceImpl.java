@@ -41,6 +41,8 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
                 .orElseThrow(ProdutoNaoEncontradoException::new);
 
         Long idPlano = dto.getIdPlano();
+        System.out.println(idPlano);
+        System.out.println(idTime);
         PlanoDeTesteEntity plano = planoDeTestesRepository
                 .findById(idPlano.intValue())
                 .filter(p -> p.getIdTime().getIdTime().equals(idTime))

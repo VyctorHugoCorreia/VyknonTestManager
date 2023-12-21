@@ -33,10 +33,10 @@ public class PlanoDeTestesController {
     @GetMapping
     public ResponseEntity<List<PlanoDeTesteEntity>> getPlano(
             @RequestParam(required = false) Long idTime,
-            @RequestParam(required = false) Long idProduto,
+            @RequestParam(required = false) Long idTproduto,
             @RequestParam(required = false) String descPlano
     ) {
-        List<PlanoDeTesteEntity> planos = repository.searchPlano(idTime, idProduto, descPlano);
+        List<PlanoDeTesteEntity> planos = repository.searchPlano(idTime, idTproduto, descPlano);
 
         for (PlanoDeTesteEntity plano : planos) {
             int quantidadeSuites = suiteRepository.countSuitesByPlano(plano);
