@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "Tstatus")
 public class StatusCenarioEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_status")
