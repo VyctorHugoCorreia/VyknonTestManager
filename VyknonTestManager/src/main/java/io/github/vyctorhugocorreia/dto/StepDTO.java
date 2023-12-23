@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagCenarioDTO {
+public class StepDTO {
 
-    private long idTag;
+    private int passo;
 
-    private long idCenario;
+    private String descricao;
 
-    private String descTag;
 }
