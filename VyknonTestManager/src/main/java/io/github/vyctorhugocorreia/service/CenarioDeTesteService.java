@@ -11,7 +11,7 @@ public interface CenarioDeTesteService {
 
   //  CenarioDeTesteEntity editar(Long id, CenarioDeTesteDTO dto);
 
- //   String deletar(Long id);
+  String deletar(Long id);
 
 
 }

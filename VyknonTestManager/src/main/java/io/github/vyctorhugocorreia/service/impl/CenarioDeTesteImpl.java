@@ -116,6 +116,17 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
     }
 
 
+    @Override
+    @Transactional
+    public String deletar(Long id) {
+        CenarioDeTesteEntity cenario = cenarioDeTesteRepository.findById(id.intValue())
+                .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado"));
+
+        cenarioDeTesteRepository.delete(cenario);
+
+        return "Cenário deletado com sucesso.";
+    }
+
 
 
 }
