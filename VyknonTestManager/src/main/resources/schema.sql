@@ -65,8 +65,9 @@ CREATE TABLE IF NOT EXISTS TpCenario (
 CREATE TABLE IF NOT EXISTS TCenario (
     id_cenario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     titulo_cenario VARCHAR(100) NOT NULL,
-    desc_cenario VARCHAR(200) NOT NULL,
-    link_cenario VARCHAR(200) NOT NULL,
+    desc_cenario VARCHAR(200) NULL,
+    link_cenario VARCHAR(200) NULL,
+    id_tag INT NOT NULL,
     id_time INT NOT NULL,
     id_plano INT NOT NULL,
     id_suite INT NOT NULL,
@@ -76,8 +77,8 @@ CREATE TABLE IF NOT EXISTS TCenario (
     id_plataforma INT NOT NULL,
     id_status INT NOT NULL,
     id_automatizado INT NOT NULL,
-    tagcenario VARCHAR(100) NOT NULL,
-    evidencias BLOB NOT NULL,
+    evidencias BLOB  NULL,
+    FOREIGN KEY (id_tag) REFERENCES TtagCenario(id_tag),
     FOREIGN KEY (id_time) REFERENCES Ttime(id_time),
     FOREIGN KEY (id_plano) REFERENCES CPlanoTestes(id_plano),
     FOREIGN KEY (id_suite) REFERENCES CSuiteTestes(id_suite),
@@ -97,6 +98,14 @@ CREATE TABLE IF NOT EXISTS Tsteps (
     status BOOLEAN NOT NULL,
     FOREIGN KEY (id_cenario) REFERENCES TCenario(id_cenario)
 );
+
+CREATE TABLE IF NOT EXISTS TtagCenario (
+    id_tag INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_cenario INT NOT NULL,
+    desc_tag VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_cenario) REFERENCES Tcenario(id_cenario)
+);
+
 
 INSERT INTO TAutomatizado (desc_automatizado)
 VALUES ('SIM'), ('NÃO'), ('NÃO SE APLICA');
