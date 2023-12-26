@@ -45,7 +45,7 @@ public class CenarioDeTesteController {
     }
     @GetMapping
     public List<CenarioDeTesteEntity> getTestCase(
-            @RequestParam(required = false) String idCenario,
+            @RequestParam(required = false) Long idCenario,
             @RequestParam(required = false) String tituloCenario
     ) {
 

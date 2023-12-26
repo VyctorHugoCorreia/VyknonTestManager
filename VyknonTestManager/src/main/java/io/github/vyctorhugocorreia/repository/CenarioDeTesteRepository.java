@@ -19,7 +19,7 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
     @Query("SELECT c FROM CenarioDeTesteEntity c WHERE " +
             "(:idCenario IS NULL OR c.idCenario = :idCenario) AND " +
             "(:tituloCenario IS NULL OR c.tituloCenario LIKE %:tituloCenario%)")
-    List<CenarioDeTesteEntity> searchCenario(@Param("idCenario") String idCenario,
+    List<CenarioDeTesteEntity> searchCenario(@Param("idCenario") Long idCenario,
                                 @Param("tituloCenario") String descCenario);
 
 }
