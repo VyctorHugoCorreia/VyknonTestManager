@@ -1,13 +1,11 @@
 package io.github.vyctorhugocorreia.controller;
 
 
-import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
 import io.github.vyctorhugocorreia.dto.SuiteDeTesteDTO;
 import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
+import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
-import io.github.vyctorhugocorreia.service.PlanoDeTestesService;
 import io.github.vyctorhugocorreia.service.SuiteDeTesteService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,6 +24,8 @@ public class SuiteDeTesteController {
 
     private final SuiteDeTesteService service;
     private final SuiteDeTesteRepository repository;
+
+    private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     @PostMapping
     public ResponseEntity<SuiteDeTesteEntity> save(@RequestBody @Valid SuiteDeTesteDTO dto) {
@@ -53,7 +53,15 @@ public class SuiteDeTesteController {
             @RequestParam(required = false) String descSuite
     ) {
 
-        return ResponseEntity.ok(repository.searchSuite(idSuite, idTime, idTproduto, idPlano, descSuite));
+
+        List<SuiteDeTesteEntity> suiteEntities = repository.searchSuite(idSuite, idTime, idTproduto, idPlano, descSuite);
+
+        for (SuiteDeTesteEntity suiteEntity : suiteEntities) {
+            int countCenarios = cenarioDeTesteRepository.countCenariosBySuite(suiteEntity);
+            suiteEntity.setQuantidadeCenarios(countCenarios);
+        }
+
+        return ResponseEntity.ok(suiteEntities);
     }
 
     @PutMapping("/{id}")

@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.repository;
 
 import io.github.vyctorhugocorreia.entity.CenarioDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +21,9 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             "(:tituloCenario IS NULL OR c.tituloCenario LIKE %:tituloCenario%)")
     List<CenarioDeTesteEntity> searchCenario(@Param("idCenario") Long idCenario,
                                 @Param("tituloCenario") String descCenario);
+
+    @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idSuite = :idSuite")
+    int countCenariosBySuite(@Param("idSuite") SuiteDeTesteEntity suite);
 
 }
 

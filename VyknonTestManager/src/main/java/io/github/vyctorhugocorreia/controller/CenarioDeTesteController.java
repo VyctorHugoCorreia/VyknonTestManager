@@ -2,17 +2,11 @@ package io.github.vyctorhugocorreia.controller;
 
 
 import io.github.vyctorhugocorreia.dto.CenarioDeTesteDTO;
-import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
-import io.github.vyctorhugocorreia.dto.StepDTO;
-import io.github.vyctorhugocorreia.entity.CenarioDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
-import io.github.vyctorhugocorreia.entity.TipoCenarioEntity;
+
+import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
 import io.github.vyctorhugocorreia.service.CenarioDeTesteService;
-import io.github.vyctorhugocorreia.service.PlanoDeTestesService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

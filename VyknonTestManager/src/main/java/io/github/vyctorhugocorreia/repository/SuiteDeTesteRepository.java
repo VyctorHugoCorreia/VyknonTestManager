@@ -29,7 +29,7 @@ public interface SuiteDeTesteRepository extends JpaRepository<SuiteDeTesteEntity
             "(:idTime IS NULL OR p.idTime.idTime = :idTime) AND " +
             "(:idTproduto IS NULL OR p.idTproduto.idTproduto = :idTproduto) AND" +
             "(:idPlano IS NULL OR p.idPlano.idPlano = :idPlano) AND" +
-            "(:descSuite IS NULL OR p.descSuite LIKE :descSuite)")
+            "(:descSuite IS NULL OR p.descSuite LIKE %:descSuite%)")
     List<SuiteDeTesteEntity> searchSuite(
             @Param("idSuite") Long idSuite,
             @Param("idTime") Long idTime,

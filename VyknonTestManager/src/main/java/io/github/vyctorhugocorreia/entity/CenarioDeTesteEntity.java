@@ -80,6 +80,4 @@ public class CenarioDeTesteEntity {
     @Column(name = "tags")
     @Convert(converter = ListConverter.class)
     private List<String> tags;
-
-
 }
