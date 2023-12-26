@@ -36,7 +36,13 @@ public class CenarioDeTesteController {
     public ResponseEntity<CenarioDeTesteEntity> save(@RequestBody @Valid CenarioDeTesteDTO dto) {
         return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
     }
-
+    @PutMapping("/{id}")
+    public ResponseEntity<CenarioDeTesteEntity> update(
+            @PathVariable Long id,
+            @RequestBody @Valid CenarioDeTesteDTO dto
+    ) {
+        return new ResponseEntity<>(service.editar(id, dto), HttpStatus.OK);
+    }
     @GetMapping
     public List<CenarioDeTesteEntity> getTestCase(
             @RequestParam(required = false) String idCenario,

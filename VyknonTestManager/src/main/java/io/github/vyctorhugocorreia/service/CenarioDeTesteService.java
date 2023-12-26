@@ -9,7 +9,7 @@ public interface CenarioDeTesteService {
 
     CenarioDeTesteEntity salvar(CenarioDeTesteDTO dto);
 
-  //  CenarioDeTesteEntity editar(Long id, CenarioDeTesteDTO dto);
+  CenarioDeTesteEntity editar(Long id, CenarioDeTesteDTO dto);
 
   String deletar(Long id);
 
