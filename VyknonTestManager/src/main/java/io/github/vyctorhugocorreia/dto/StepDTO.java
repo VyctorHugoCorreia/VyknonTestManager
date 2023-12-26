@@ -15,4 +15,6 @@ public class StepDTO {
 
     private String descricao;
 
+    private String status;
+
 }
