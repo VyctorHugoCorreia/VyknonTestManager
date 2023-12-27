@@ -1,10 +1,15 @@
 package io.github.vyctorhugocorreia.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.github.vyctorhugocorreia.ListConverter;
+import io.github.vyctorhugocorreia.dto.StepDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Data
@@ -13,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tcenario")
+
 
 public class CenarioDeTesteEntity {
 
@@ -36,7 +42,7 @@ public class CenarioDeTesteEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_plano")
-    private PlanoDeTesteEntity IdPlano;
+    private PlanoDeTesteEntity idPlano;
 
     @ManyToOne
     @JoinColumn(name = "id_suite")
@@ -67,4 +73,11 @@ public class CenarioDeTesteEntity {
     private StatusAutomatizadoEntity idAutomatizado;
 
 
+    @Column(name = "steps")
+    @Convert(converter = ListConverter.class)
+    private List<StepDTO> steps;
+
+    @Column(name = "tags")
+    @Convert(converter = ListConverter.class)
+    private List<String> tags;
 }

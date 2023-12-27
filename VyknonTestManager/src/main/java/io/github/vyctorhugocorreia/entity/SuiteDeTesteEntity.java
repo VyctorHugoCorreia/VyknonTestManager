@@ -36,5 +36,7 @@ public class SuiteDeTesteEntity {
     @JoinColumn(name = "id_plano")
     private PlanoDeTesteEntity idPlano;
 
+    @Transient
+    private int quantidadeCenarios;
 
 }
