@@ -40,10 +40,20 @@ public class CenarioDeTesteController {
     @GetMapping
     public List<CenarioDeTesteEntity> getTestCase(
             @RequestParam(required = false) Long idCenario,
-            @RequestParam(required = false) String tituloCenario
+            @RequestParam(required = false) String tituloCenario,
+            @RequestParam(required = false) Long idTime,
+               @RequestParam(required = false) Long idPlano,
+            @RequestParam(required = false) Long idSuite,
+            @RequestParam(required = false) Long idTproduto,
+            @RequestParam(required = false) Long idFuncionalidade,
+            @RequestParam(required = false) Long idTpcenario,
+            @RequestParam(required = false) Long idPlataforma,
+            @RequestParam(required = false) Long idStatus,
+            @RequestParam(required = false) Long idAutomatizado,
+            @RequestParam(required = false) String tags
     ) {
 
-        return repository.searchCenario(idCenario, tituloCenario);
+        return repository.searchCenario(idCenario, tituloCenario,idTime, idPlano, idSuite, idTproduto, idFuncionalidade,idTpcenario,idPlataforma,idStatus,idAutomatizado,tags);
     }
 
     @DeleteMapping("/{id}")
