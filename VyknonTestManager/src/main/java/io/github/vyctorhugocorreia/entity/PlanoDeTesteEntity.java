@@ -34,4 +34,7 @@ public class PlanoDeTesteEntity {
 
     @Transient
     private int quantidadeSuites;
+
+    @Transient
+    private int quantidadeCenarios;
 }

@@ -29,6 +29,7 @@ public class TimeEntity {
     @NotBlank(message = "Preencha um nome válido")
     private String nomeTime;
 
-
+    @Transient
+    private int quantidadeCenarios;
 
 }

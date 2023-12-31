@@ -28,5 +28,6 @@ public class ProdutoEntity {
     @JoinColumn(name = "id_Time")
     private TimeEntity idTime;
 
-
+    @Transient
+    private int quantidadeCenarios;
 }

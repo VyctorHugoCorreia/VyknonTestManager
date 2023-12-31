@@ -24,6 +24,7 @@ public class TipoPlataformaEntity {
     @Column(name = "desc_plataforma")
     private String descPlataforma;
 
-
+    @Transient
+    private int quantidadeCenarios;
 
 }

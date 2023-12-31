@@ -23,6 +23,7 @@ public class StatusCenarioEntity {
     @Column(name = "desc_status")
     private String descStatus;
 
-
+    @Transient
+    private int quantidadeCenarios;
 
 }

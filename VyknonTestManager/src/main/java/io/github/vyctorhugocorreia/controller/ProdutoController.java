@@ -2,7 +2,9 @@ package io.github.vyctorhugocorreia.controller;
 
 
 import io.github.vyctorhugocorreia.dto.ProdutoDTO;
+import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -22,6 +24,7 @@ public class ProdutoController {
 
     private final ProdutoService service;
     private final ProdutoRepository repository;
+    private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
 
 
@@ -37,7 +40,14 @@ public class ProdutoController {
             @RequestParam(required = false) String descProduto
     ) {
 
-        return ResponseEntity.ok(repository.searchProduto(idTime, idProduto, descProduto));
+        List<ProdutoEntity> produtos = repository.searchProduto(idTime, idProduto, descProduto);
+
+        for (ProdutoEntity produto : produtos) {
+            int quantidadeCenarios = cenarioDeTesteRepository.countScenariosByProduto(produto);
+            produto.setQuantidadeCenarios(quantidadeCenarios);
+        }
+
+        return ResponseEntity.ok(produtos);
     }
 
     @PutMapping("/{id}")

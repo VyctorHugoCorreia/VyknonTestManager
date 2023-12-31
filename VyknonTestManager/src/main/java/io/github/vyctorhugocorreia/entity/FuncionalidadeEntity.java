@@ -32,5 +32,6 @@ public class FuncionalidadeEntity {
     @JoinColumn(name = "id_tproduto")
     private ProdutoEntity idTproduto;
 
-
+    @Transient
+    private int quantidadeCenarios;
 }

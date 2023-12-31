@@ -3,6 +3,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.FuncionalidadeDTO;
 import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
+import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.FuncionalidadeRepository;
 import io.github.vyctorhugocorreia.service.FuncionalidadeService;
 import jakarta.validation.Valid;
@@ -22,6 +24,7 @@ public class FuncionalidadeController {
 
     private final FuncionalidadeService service;
     private final FuncionalidadeRepository repository;
+    private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     @PostMapping
     public ResponseEntity<FuncionalidadeEntity> save(@RequestBody @Valid FuncionalidadeDTO dto) {
@@ -35,7 +38,15 @@ public class FuncionalidadeController {
             @RequestParam(required = false) String descFuncionalidade
     ) {
 
-        return ResponseEntity.ok(repository.searchFuncionalidade(idTime, idProduto, descFuncionalidade));
+        List<FuncionalidadeEntity> funcionalidades = repository.searchFuncionalidade(idTime, idProduto, descFuncionalidade);
+
+        for (FuncionalidadeEntity funcionalidade : funcionalidades) {
+            int quantidadeCenarios = cenarioDeTesteRepository.countScenariosByFeature(funcionalidade);
+            funcionalidade.setQuantidadeCenarios(quantidadeCenarios);
+        }
+
+        return ResponseEntity.ok(funcionalidades);
+
     }
 
     @PutMapping("/{id}")
