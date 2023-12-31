@@ -14,7 +14,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
 
     List<CenarioDeTesteEntity> findByIdCenario(CenarioDeTesteEntity cenario);
 
-
     @Query("SELECT c FROM CenarioDeTesteEntity c WHERE " +
             "(:idCenario IS NULL OR c.idCenario = :idCenario) AND " +
             "(:tituloCenario IS NULL OR c.tituloCenario LIKE %:tituloCenario%) AND " +
@@ -42,8 +41,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             @Param("idAutomatizado") Long idAutomatizado,
             @Param("tags") String tags);
 
-
-
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idTproduto = :idTproduto")
     int countScenariosByProduto(@Param("idTproduto") ProdutoEntity idTproduto);
 
@@ -64,7 +61,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
     int countCenariosByScenarioType(@Param("idTpcenario") TipoCenarioEntity idTpcenario,
                                             @Param("idTime") TimeEntity idTime);
 
-
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idStatus = :idStatus " +
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
     int countCenariosByScenarioStatus(@Param("idStatus") StatusCenarioEntity idStatus,
@@ -79,7 +75,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
     int countCenariosByPlataformType(@Param("idPlataforma") TipoPlataformaEntity idPlataforma,
                                      @Param("idTime") TimeEntity idTime);
-
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c " +
             "WHERE (:idFuncionalidade IS NULL OR c.idFuncionalidade = :idFuncionalidade) " +
