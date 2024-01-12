@@ -39,6 +39,8 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
 
     private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
+    private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
+
     @Override
     @Transactional
     public CenarioDeTesteEntity salvar(CenarioDeTesteDTO dto) {
@@ -199,8 +201,11 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
     @Override
     @Transactional
     public String deletar(Long id) {
+
         CenarioDeTesteEntity cenario = cenarioDeTesteRepository.findById(id.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado"));
+
+        historyStatusScenarioRepository.deleteByCenario(id);
 
         cenarioDeTesteRepository.delete(cenario);
 

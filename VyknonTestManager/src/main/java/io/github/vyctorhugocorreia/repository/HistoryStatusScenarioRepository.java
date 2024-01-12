@@ -2,6 +2,7 @@ package io.github.vyctorhugocorreia.repository;
 
 import io.github.vyctorhugocorreia.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -12,5 +13,9 @@ public interface HistoryStatusScenarioRepository extends JpaRepository<HistorySt
 
     @Query("SELECT h FROM HistoryStatusScenarioEntity h WHERE h.idCenario.idCenario = :idCenario")
     List<HistoryStatusScenarioEntity> findByCenarioId(@Param("idCenario") Long idCenario);
+
+    @Modifying
+    @Query("DELETE FROM HistoryStatusScenarioEntity h WHERE h.idCenario.idCenario = :idCenario")
+    void deleteByCenario(Long idCenario);
 }
 

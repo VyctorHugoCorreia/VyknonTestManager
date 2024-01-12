@@ -13,7 +13,7 @@ import java.util.List;
 public class HistoryStatusScenarioDTO {
     private Long idHistory;
     private Long idCenario;
-    private Long statusBeforeId;
-    private Long statusAfterId;
+    private Long statusBefore;
+    private Long statusAfter;
     private LocalDateTime dateUpdate;
 }

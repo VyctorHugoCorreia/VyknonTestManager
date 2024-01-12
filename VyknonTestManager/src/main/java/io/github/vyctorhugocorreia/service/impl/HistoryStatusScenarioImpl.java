@@ -31,14 +31,14 @@ public class HistoryStatusScenarioImpl implements HistoriyStatusScenarioService 
     public HistoryStatusScenarioEntity salvar(HistoryStatusScenarioDTO dto) {
 
         int idCenario = dto.getIdCenario().intValue();
-        int idStatusBefore = dto.getStatusBeforeId().intValue();
-        int idStatusAfter = dto.getStatusAfterId().intValue();
+        int idStatusBefore = dto.getStatusBefore().intValue();
+        int idStatusAfter = dto.getStatusAfter().intValue();
 
         CenarioDeTesteEntity cenario = cenarioDeTesteRepository.findById(idCenario)
                 .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado com ID: " + dto.getIdCenario()));
 
         StatusCenarioEntity statusBefore = statusCenarioRepository.findById(idStatusBefore)
-                .orElseThrow(() -> new RegraNegocioException("Status Before não encontrado com ID: " + dto.getStatusBeforeId()));
+                .orElseThrow(() -> new RegraNegocioException("Status Before não encontrado com ID: " + idStatusBefore));
 
         StatusCenarioEntity statusAfter = statusCenarioRepository
                 .findById(idStatusAfter)
