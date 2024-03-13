@@ -3,6 +3,8 @@ package io.github.vyctorhugocorreia.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -24,4 +26,6 @@ public class CenarioDeTesteDTO {
     private Long idAutomatizado;
     private List<StepDTO> steps;
     private List<String> tags;
+    private LocalDateTime dateCreation;
+
 }

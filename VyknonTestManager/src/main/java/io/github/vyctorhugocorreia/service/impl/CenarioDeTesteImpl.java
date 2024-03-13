@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -112,6 +113,7 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .idAutomatizado(statusAutomatizado)
         .steps(stepsList)
         .tags(tagsList)
+        .dateCreation(LocalDateTime.now())
         .build();
 
         return cenarioDeTesteRepository.save(cenario);
