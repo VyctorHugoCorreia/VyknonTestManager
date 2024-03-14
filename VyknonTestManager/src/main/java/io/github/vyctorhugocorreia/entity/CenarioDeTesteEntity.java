@@ -84,4 +84,7 @@ public class CenarioDeTesteEntity {
 
     @Column(name = "date_creation")
     private LocalDateTime dateCreation;
+
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate;
 }

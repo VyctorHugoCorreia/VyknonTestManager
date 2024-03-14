@@ -27,5 +27,6 @@ public class CenarioDeTesteDTO {
     private List<StepDTO> steps;
     private List<String> tags;
     private LocalDateTime dateCreation;
+    private LocalDateTime dateUpdate;
 
 }

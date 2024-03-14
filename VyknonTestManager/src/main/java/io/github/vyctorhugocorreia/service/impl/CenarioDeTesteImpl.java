@@ -114,6 +114,7 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .steps(stepsList)
         .tags(tagsList)
         .dateCreation(LocalDateTime.now())
+        .dateUpdate(LocalDateTime.now())
         .build();
 
         return cenarioDeTesteRepository.save(cenario);
@@ -179,7 +180,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
                 .findById(idAutomatizado.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Status automatizado não encontrada"));
 
-        // Atualize todos os campos do cenário existente com base no DTO recebido
         cenarioExistente.setTituloCenario(tituloCenario);
         cenarioExistente.setDescCenario(descCenario);
         cenarioExistente.setLinkCenario(linkCenario);
@@ -194,6 +194,7 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         cenarioExistente.setIdPlataforma(tipoPlataforma);
         cenarioExistente.setIdStatus(statusCenario);
         cenarioExistente.setIdAutomatizado(statusAutomatizado);
+        cenarioExistente.setDateUpdate(LocalDateTime.now());
 
         return cenarioDeTesteRepository.save(cenarioExistente);
     }
