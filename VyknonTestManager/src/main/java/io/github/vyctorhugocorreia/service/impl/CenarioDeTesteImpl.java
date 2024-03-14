@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -35,6 +36,8 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
     private final StatusAutomatizadoRepository statusAutomatizadoRepository;
 
     private final CenarioDeTesteRepository cenarioDeTesteRepository;
+
+    private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
 
     @Override
     @Transactional
@@ -101,6 +104,8 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .idAutomatizado(statusAutomatizado)
         .steps(stepsList)
         .tags(tagsList)
+        .dateCreation(LocalDateTime.now())
+        .dateUpdate(LocalDateTime.now())
         .build();
 
         return cenarioDeTesteRepository.save(cenario);
@@ -161,7 +166,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
                 .findById(idAutomatizado.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Status automatizado não encontrada"));
 
-        // Atualize todos os campos do cenário existente com base no DTO recebido
         cenarioExistente.setTituloCenario(tituloCenario);
         cenarioExistente.setDescCenario(descCenario);
         cenarioExistente.setLinkCenario(linkCenario);
@@ -175,6 +179,7 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         cenarioExistente.setIdPlataforma(tipoPlataforma);
         cenarioExistente.setIdStatus(statusCenario);
         cenarioExistente.setIdAutomatizado(statusAutomatizado);
+        cenarioExistente.setDateUpdate(LocalDateTime.now());
 
         return cenarioDeTesteRepository.save(cenarioExistente);
     }
@@ -184,8 +189,11 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
     @Override
     @Transactional
     public String deletar(Long id) {
+
         CenarioDeTesteEntity cenario = cenarioDeTesteRepository.findById(id.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado"));
+
+        historyStatusScenarioRepository.deleteByCenario(id);
 
         cenarioDeTesteRepository.delete(cenario);
 

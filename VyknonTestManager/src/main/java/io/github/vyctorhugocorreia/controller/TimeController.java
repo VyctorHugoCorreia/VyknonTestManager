@@ -1,28 +1,29 @@
 package io.github.vyctorhugocorreia.controller;
 
+import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.dto.TimeDTO;
 import io.github.vyctorhugocorreia.service.TimeService;
 import jakarta.validation.Valid;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/api/time")
+@AllArgsConstructor
 @CrossOrigin
 public class TimeController {
 
     final TimeService service;
     final TimeRepository repository;
-
-    public TimeController(TimeService service, TimeRepository repository) {
-        this.service = service;
-        this.repository = repository;
-    }
+    final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     @GetMapping
     public List<TimeEntity> getTime(
@@ -30,7 +31,14 @@ public class TimeController {
             @RequestParam(required = false) String nomeTime
     ) {
 
-        return repository.searchTime(idTime, nomeTime);
+        List<TimeEntity> timeEntities = repository.searchTime(idTime, nomeTime);
+
+        for (TimeEntity timeEntity : timeEntities) {
+            int countCenarios = cenarioDeTesteRepository.countScenariosByTime(timeEntity);
+            timeEntity.setQuantidadeCenarios(countCenarios);
+        }
+
+        return timeEntities;
     }
 
     @PostMapping

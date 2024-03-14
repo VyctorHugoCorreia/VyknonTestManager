@@ -8,10 +8,7 @@ import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.exception.*;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
-import io.github.vyctorhugocorreia.repository.ProdutoRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.repository.*;
 import io.github.vyctorhugocorreia.service.SuiteDeTesteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +22,7 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
     private final PlanoDeTestesRepository planoDeTestesRepository;
+    private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
 
     @Override
@@ -113,9 +111,22 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
     }
 
     @Override
-    public String deletar(Long id) {
-        suiteDeTesteRepository.delete(getExistingSuite(id));
-        return "Plano de testes deletado com sucesso.";
+    public String deletar(Long idSuite) {
+        SuiteDeTesteEntity suite = suiteDeTesteRepository.findById(idSuite)
+                .orElseThrow(() -> new RegraNegocioException("Suite não encontrada"));
+
+        int quantidadeCenarios = cenarioDeTesteRepository.countCenariosBySuite(suite);
+
+        if (possuiCenariosVinculados(quantidadeCenarios)) {
+            throw new RegraNegocioException("Não é possível excluir a suíte pois existem cenários vinculados a ela.");
+        }
+
+        suiteDeTesteRepository.delete(suite);
+        return "Suite de testes deletada com sucesso.";
+    }
+
+    private boolean possuiCenariosVinculados(int quantidadeCenarios) {
+        return quantidadeCenarios > 0;
     }
 
 

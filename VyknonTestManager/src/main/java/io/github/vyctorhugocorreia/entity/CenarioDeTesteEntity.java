@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -76,4 +77,10 @@ public class CenarioDeTesteEntity {
     @Column(name = "tags")
     @Convert(converter = ListConverter.class)
     private List<String> tags;
+
+    @Column(name = "date_creation")
+    private LocalDateTime dateCreation;
+
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate;
 }

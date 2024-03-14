@@ -25,6 +25,9 @@ public class StatusAutomatizadoEntity {
     @Column(name = "desc_automatizado")
     private String descAutomatizado;
 
+    @Transient
+    private int quantidadeCenarios;
+
 
 
 }

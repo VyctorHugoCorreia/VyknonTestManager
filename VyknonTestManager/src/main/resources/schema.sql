@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS TCenario (
     FOREIGN KEY (id_automatizado) REFERENCES TAutomatizado(id_automatizado)
 );
 
-CREATE TABLE IF NOT EXISTS Tsteps (
-    id_steps INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS THistorico_status_cenario (
+    id_historico INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_cenario INT NOT NULL,
     ordem INT NOT NULL,
     desc_steps VARCHAR(250) NOT NULL,

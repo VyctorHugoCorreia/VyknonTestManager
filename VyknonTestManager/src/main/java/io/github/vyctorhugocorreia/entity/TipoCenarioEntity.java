@@ -24,6 +24,9 @@ public class TipoCenarioEntity {
     @Column(name = "desc_tpcenario")
     private String descTpcenario;
 
+    @Transient
+    private int quantidadeCenarios;
+
 
 
 }
