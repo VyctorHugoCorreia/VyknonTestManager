@@ -1,17 +1,10 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.dto.TimeDTO;
-import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
 import io.github.vyctorhugocorreia.entity.StatusAutomatizadoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.StatusAutomatizadoRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
-import io.github.vyctorhugocorreia.service.TimeService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

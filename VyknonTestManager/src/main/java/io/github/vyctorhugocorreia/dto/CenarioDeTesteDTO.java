@@ -19,7 +19,6 @@ public class CenarioDeTesteDTO {
     private Long idPlano;
     private Long idSuite;
     private Long idTproduto;
-    private Long idFuncionalidade;
     private Long idTpcenario;
     private Long idPlataforma;
     private Long idStatus;

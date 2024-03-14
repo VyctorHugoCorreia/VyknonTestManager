@@ -1,6 +1,5 @@
 package io.github.vyctorhugocorreia.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.vyctorhugocorreia.ListConverter;
 import io.github.vyctorhugocorreia.dto.StepDTO;
 import jakarta.persistence.*;
@@ -53,9 +52,6 @@ public class CenarioDeTesteEntity {
     @JoinColumn(name = "id_tproduto")
     private ProdutoEntity idTproduto;
 
-    @ManyToOne
-    @JoinColumn(name = "id_funcionalidade")
-    private FuncionalidadeEntity idFuncionalidade;
 
     @ManyToOne
     @JoinColumn(name = "id_tpcenario")

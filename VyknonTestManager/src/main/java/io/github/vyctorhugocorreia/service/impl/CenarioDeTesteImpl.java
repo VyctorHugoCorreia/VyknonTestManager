@@ -2,7 +2,6 @@ package io.github.vyctorhugocorreia.service.impl;
 
 
 import io.github.vyctorhugocorreia.dto.CenarioDeTesteDTO;
-import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
 import io.github.vyctorhugocorreia.dto.StepDTO;
 import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.*;
@@ -27,8 +26,6 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
     private final SuiteDeTesteRepository suiteDeTesteRepository;
 
     private final ProdutoRepository produtoRepository;
-
-    private final FuncionalidadeRepository funcionalidadeRepository;
 
     private final TipoCenarioRepository tipoCenarioRepository;
 
@@ -55,7 +52,6 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
         Long idPlano = dto.getIdPlano();
         Long idSuite = dto.getIdSuite();
         Long idTproduto = dto.getIdTproduto();
-        Long idFuncionalidade = dto.getIdFuncionalidade();
         Long idTpcenario = dto.getIdTpcenario();
         Long idPlataforma = dto.getIdPlataforma();
         Long idStatus = dto.getIdStatus();
@@ -77,10 +73,6 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
         ProdutoEntity produto = produtoRepository
                 .findById(idTproduto.intValue())
                 .orElseThrow(ProdutoNaoEncontradoException::new);
-
-        FuncionalidadeEntity funcionalidade = funcionalidadeRepository
-                .findById(idFuncionalidade.intValue())
-                .orElseThrow(FuncionalidadeNaoEncontradaException::new);
 
         TipoCenarioEntity tipoCenario = tipoCenarioRepository
                 .findById(idTpcenario.intValue())
@@ -106,7 +98,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .idPlano(plano)
         .idSuite(suite)
         .idTproduto(produto)
-        .idFuncionalidade(funcionalidade)
         .idTpcenario(tipoCenario)
         .idPlataforma(tipoPlataforma)
         .idStatus(statusCenario)
@@ -133,7 +124,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         Long idPlano = dto.getIdPlano();
         Long idSuite = dto.getIdSuite();
         Long idTproduto = dto.getIdTproduto();
-        Long idFuncionalidade = dto.getIdFuncionalidade();
         Long idTpcenario = dto.getIdTpcenario();
         Long idPlataforma = dto.getIdPlataforma();
         Long idStatus = dto.getIdStatus();
@@ -160,10 +150,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
                 .findById(idTproduto.intValue())
                 .orElseThrow(ProdutoNaoEncontradoException::new);
 
-        FuncionalidadeEntity funcionalidade = funcionalidadeRepository
-                .findById(idFuncionalidade.intValue())
-                .orElseThrow(FuncionalidadeNaoEncontradaException::new);
-
         TipoCenarioEntity tipoCenario = tipoCenarioRepository
                 .findById(idTpcenario.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Tipo de cenário não encontrado"));
@@ -189,7 +175,6 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         cenarioExistente.setIdPlano(plano);
         cenarioExistente.setIdSuite(suite);
         cenarioExistente.setIdTproduto(produto);
-        cenarioExistente.setIdFuncionalidade(funcionalidade);
         cenarioExistente.setIdTpcenario(tipoCenario);
         cenarioExistente.setIdPlataforma(tipoPlataforma);
         cenarioExistente.setIdStatus(statusCenario);

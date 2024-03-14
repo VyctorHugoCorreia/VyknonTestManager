@@ -21,7 +21,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             "(:idPlano IS NULL OR c.idPlano.idPlano = :idPlano) AND " +
             "(:idSuite IS NULL OR c.idSuite.idSuite = :idSuite) AND " +
             "(:idTproduto IS NULL OR c.idTproduto.idTproduto = :idTproduto) AND " +
-            "(:idFuncionalidade IS NULL OR c.idFuncionalidade.idFuncionalidade = :idFuncionalidade) AND " +
             "(:idTpcenario IS NULL OR c.idTpcenario.idTpcenario = :idTpcenario) AND " +
             "(:idPlataforma IS NULL OR c.idPlataforma.idPlataforma = :idPlataforma) AND " +
             "(:idStatus IS NULL OR c.idStatus.idStatus = :idStatus) AND " +
@@ -34,7 +33,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             @Param("idPlano") Long idPlano,
             @Param("idSuite") Long idSuite,
             @Param("idTproduto") Long idTproduto,
-            @Param("idFuncionalidade") Long idFuncionalidade,
             @Param("idTpcenario") Long idTpcenario,
             @Param("idPlataforma") Long idPlataforma,
             @Param("idStatus") Long idStatus,
@@ -44,8 +42,6 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idTproduto = :idTproduto")
     int countScenariosByProduto(@Param("idTproduto") ProdutoEntity idTproduto);
 
-    @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idFuncionalidade = :idFuncionalidade")
-    int countScenariosByFeature(@Param("idFuncionalidade") FuncionalidadeEntity idFuncionalidade);
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idPlano = :idPlano")
     int countScenariosByTestPlan(@Param("idPlano") PlanoDeTesteEntity idPlano);
 
@@ -77,15 +73,13 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
                                      @Param("idTime") TimeEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c " +
-            "WHERE (:idFuncionalidade IS NULL OR c.idFuncionalidade = :idFuncionalidade) " +
-            "AND (:idPlano IS NULL OR c.idPlano = :idPlano) " +
+            "WHERE (:idPlano IS NULL OR c.idPlano = :idPlano) " +
             "AND (:idSuite IS NULL OR c.idSuite = :idSuite) " +
             "AND (:idTpcenario IS NULL OR c.idTpcenario = :idTpcenario) " +
             "AND (:idStatus IS NULL OR c.idStatus = :idStatus) " +
             "AND (:idAutomatizado IS NULL OR c.idAutomatizado = :idAutomatizado) " +
             "AND (:idPlataforma IS NULL OR c.idPlataforma = :idPlataforma)")
     int countCenariosByMultipleCriteria(
-            @Param("idFuncionalidade") FuncionalidadeEntity idFuncionalidade,
             @Param("idPlano") PlanoDeTesteEntity idPlano,
             @Param("idSuite") SuiteDeTesteEntity idSuite,
             @Param("idTpcenario") TipoCenarioEntity idTpcenario,

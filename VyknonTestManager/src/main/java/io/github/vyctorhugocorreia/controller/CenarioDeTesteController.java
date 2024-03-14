@@ -25,7 +25,7 @@ public class CenarioDeTesteController {
 
     private final CenarioDeTesteService service;
     private final CenarioDeTesteRepository repository;
-    private final SuiteDeTesteRepository suiteRepository;
+
     @PostMapping
     public ResponseEntity<CenarioDeTesteEntity> save(@RequestBody @Valid CenarioDeTesteDTO dto) {
         return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
@@ -45,7 +45,6 @@ public class CenarioDeTesteController {
                @RequestParam(required = false) Long idPlano,
             @RequestParam(required = false) Long idSuite,
             @RequestParam(required = false) Long idTproduto,
-            @RequestParam(required = false) Long idFuncionalidade,
             @RequestParam(required = false) Long idTpcenario,
             @RequestParam(required = false) Long idPlataforma,
             @RequestParam(required = false) Long idStatus,
@@ -53,7 +52,7 @@ public class CenarioDeTesteController {
             @RequestParam(required = false) String tags
     ) {
 
-        return repository.searchCenario(idCenario, tituloCenario,idTime, idPlano, idSuite, idTproduto, idFuncionalidade,idTpcenario,idPlataforma,idStatus,idAutomatizado,tags);
+        return repository.searchCenario(idCenario, tituloCenario,idTime, idPlano, idSuite, idTproduto,idTpcenario,idPlataforma,idStatus,idAutomatizado,tags);
     }
 
     @DeleteMapping("/{id}")

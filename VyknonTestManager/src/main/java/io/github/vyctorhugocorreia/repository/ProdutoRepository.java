@@ -1,6 +1,5 @@
 package io.github.vyctorhugocorreia.repository;
 
-import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
