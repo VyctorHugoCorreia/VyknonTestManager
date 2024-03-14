@@ -1,10 +1,8 @@
 package io.github.vyctorhugocorreia.service.impl;
 
 
-import io.github.vyctorhugocorreia.entity.FuncionalidadeEntity;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
-import io.github.vyctorhugocorreia.repository.FuncionalidadeRepository;
 import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
@@ -24,7 +22,6 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
-    private final FuncionalidadeRepository funcionalidadeRepository;
     private final PlanoDeTestesRepository planoDeTestesRepository;
 
     @Override
@@ -75,20 +72,12 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public String deletar(Long id) {
-        verificarFuncionalidadeVinculadoAoProduto(id);
         verificarPlanoDeTesteVinculadoAoProduto(id);
         produtoRepository.delete(getExistingProduto(id));
 
         return "Produto deletado com sucesso.";
     }
-    private void verificarFuncionalidadeVinculadoAoProduto(Long id) {
-        ProdutoEntity produto = getExistingProduto(id);
-        boolean funcionalidadesVinculadas = funcionalidadeRepository.existsByIdTproduto(produto);
-        if (funcionalidadesVinculadas) {
-            throw new RegraNegocioException("Não é possível excluir o produto, pois existem funcionalidades vinculadas a ele.");
-        }
 
-    }
 
     private void verificarPlanoDeTesteVinculadoAoProduto(Long id) {
         ProdutoEntity produto = getExistingProduto(id);
