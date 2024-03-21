@@ -1,6 +1,7 @@
 package io.github.vyctorhugocorreia.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,8 @@ import java.util.UUID;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity {
 
@@ -32,6 +35,7 @@ public class UsuarioEntity {
 
     @Column(name = "senha")
     @NotBlank(message = "Preencha uma senha válido")
+    @JsonIgnore
     private String senha;
 
     @Transient

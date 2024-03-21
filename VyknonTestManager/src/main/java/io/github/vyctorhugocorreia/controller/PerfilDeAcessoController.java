@@ -17,18 +17,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/perfilDeAcesso")
 @RequiredArgsConstructor
+@CrossOrigin
 public class PerfilDeAcessoController {
 
     private final PerfilDeAcessoRepository repository;
 
     @PostMapping
     @Transactional
+    @PreAuthorize("hasRole('Administrador')")
     public ResponseEntity<PerfilDeAcessoEntity> salvar(@RequestBody PerfilDeAcessoEntity perfilDeAcesso){
         repository.save(perfilDeAcesso);
         return ResponseEntity.ok(perfilDeAcesso);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('Administrador')")
     public ResponseEntity<List<PerfilDeAcessoEntity>> listar(){
         return ResponseEntity.ok(repository.findAll());
     }

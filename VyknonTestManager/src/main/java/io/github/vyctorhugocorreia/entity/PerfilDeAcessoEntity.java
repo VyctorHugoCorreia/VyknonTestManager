@@ -13,8 +13,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "perfildeacesso")
 public class PerfilDeAcessoEntity {
 
