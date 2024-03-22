@@ -1,17 +1,19 @@
 package io.github.vyctorhugocorreia.repository;
 
-import io.github.vyctorhugocorreia.entity.TimeEntity;
 import io.github.vyctorhugocorreia.entity.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, String> {
 
+
     Optional<UsuarioEntity> findByLogin(String login);
+
 
 
     @Query("""
@@ -23,5 +25,9 @@ public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, String>
     )
     List<UsuarioEntity> searchUser(@Param("nome") String nome,
                                    @Param("login") String login);
+
+    boolean existsByNome(String nome);
+    boolean existsBylogin(String login);
+
 
 }

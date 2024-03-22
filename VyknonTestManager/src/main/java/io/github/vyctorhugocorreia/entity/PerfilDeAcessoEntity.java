@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,5 +27,9 @@ public class PerfilDeAcessoEntity {
     @Column(name = "nome")
     @NotBlank(message = "Preencha um nome válido")
     private String nome;
+
+    public PerfilDeAcessoEntity(String nome) {
+        this.nome = nome;
+    }
 
 }

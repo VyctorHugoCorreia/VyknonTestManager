@@ -5,16 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDTO {
+public class PerfilDeAcessoDTO {
 
     private String id;
     private String nome;
-    private String login;
-    private String senha;
-    private PerfilDeAcessoEntity perfilDeAcesso;
 }
