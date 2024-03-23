@@ -24,7 +24,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class UsuarioController {
 
 
-    private final TokenService tokenService;
     private final UsuarioService usuarioService;
 
 
@@ -35,20 +34,4 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping("/auth")
-    public TokenDTO autenticar(@RequestBody LoginDTO dto) {
-        try {
-            UsuarioEntity usuario = UsuarioEntity.builder()
-                    .login(dto.getLogin())
-                    .senha(dto.getSenha())
-                    .build();
-
-            UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
-            String token = tokenService.generateToken(usuario);
-            return new TokenDTO(usuario.getLogin(), token);
-
-        } catch (UsernameNotFoundException | ResponseStatusException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        }
-    }
 }

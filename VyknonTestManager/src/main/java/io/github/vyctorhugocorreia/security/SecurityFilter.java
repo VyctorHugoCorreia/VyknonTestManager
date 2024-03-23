@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -32,10 +33,12 @@ public class SecurityFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
+
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");

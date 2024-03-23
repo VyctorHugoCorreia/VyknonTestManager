@@ -14,6 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -33,12 +38,30 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer ->{
-                    customizer.requestMatchers("/api/usuarios/auth").permitAll();
+                    customizer.requestMatchers("/api/login").permitAll();
                     customizer.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilter(corsFilter())
                 .build();
+
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
     @Bean
