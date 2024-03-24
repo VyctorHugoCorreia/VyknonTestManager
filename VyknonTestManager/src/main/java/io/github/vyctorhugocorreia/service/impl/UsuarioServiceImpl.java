@@ -62,6 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioEntity usuario = repository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado."));
 
+
         return User
                 .builder()
                 .username(usuario.getLogin())
@@ -70,14 +71,25 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .build();
     }
 
-    public UserDetails autenticar(UsuarioEntity usuario){
+    public UserDetails autenticar(UsuarioEntity usuario) throws RegraNegocioException {
+        boolean userExists = repository.existsBylogin(usuario.getLogin());
+
+        if (!userExists) {
+            throw new RegraNegocioException("Usuário ou senha inválidos.");
+        }
+
         UserDetails userDetails = loadUserByUsername(usuario.getLogin());
-       boolean senhasBatem = passwordEncoder.matches(usuario.getSenha(), userDetails.getPassword());
-       if(senhasBatem){
-           return userDetails;
-       }
-       throw new RegraNegocioException("Usuário ou senha inválido");
+        boolean senhasBatem = passwordEncoder.matches(usuario.getSenha(), userDetails.getPassword());
+
+        if (senhasBatem) {
+            return userDetails;
+        } else {
+            throw new RegraNegocioException("Usuário ou senha inválidos.");
+        }
     }
+
+
+
 
 
 

@@ -5,6 +5,7 @@ import io.github.vyctorhugocorreia.dto.LoginDTO;
 import io.github.vyctorhugocorreia.dto.TokenDTO;
 import io.github.vyctorhugocorreia.dto.UsuarioDTO;
 import io.github.vyctorhugocorreia.entity.UsuarioEntity;
+import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.security.TokenService;
 import io.github.vyctorhugocorreia.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -38,9 +39,9 @@ public class LoginController {
             UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
             String token = tokenService.generateToken(usuario);
             return new TokenDTO(usuario.getLogin(), token);
-
-        } catch (UsernameNotFoundException | ResponseStatusException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (RegraNegocioException e) {
+            throw new RegraNegocioException(e.getMessage());
         }
     }
+
 }
