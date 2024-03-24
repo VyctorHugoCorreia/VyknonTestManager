@@ -34,7 +34,8 @@ public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, String>
 
 
     boolean existsByNome(String nome);
-    boolean existsBylogin(String login);
+    boolean existsByLoginAndStatus(String login, String status);
+    boolean existsByLogin(String login);
 
     @Query("SELECT u.perfilDeAcesso.nome FROM UsuarioEntity u WHERE u.login = :login")
     String findPerfilDeAcessoByLogin(@Param("login") String login);

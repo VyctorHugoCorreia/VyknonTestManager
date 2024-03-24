@@ -40,7 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RegraNegocioException("Já existe um usuário com este nome.");
         }
 
-        if (repository.existsBylogin(login)) {
+        if (repository.existsByLogin(login)) {
             throw new RegraNegocioException("Já existe um usuário com este login.");
         }
 
@@ -53,6 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .login(login)
                 .senha(senha)
                 .perfilDeAcesso(perfilDeAcessoEntity)
+                .status("ACTIVE")
                 .build();
         return repository.save(usuario);
     }
@@ -72,10 +73,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     public UserDetails autenticar(UsuarioEntity usuario) throws RegraNegocioException {
-        boolean userExists = repository.existsBylogin(usuario.getLogin());
+        boolean userExists = repository.existsByLogin(usuario.getLogin());
 
         if (!userExists) {
             throw new RegraNegocioException("Usuário ou senha inválidos.");
+        }
+
+        boolean userExistsInactive = repository.existsByLoginAndStatus(usuario.getLogin(), "INACTIVE");
+
+        if (userExistsInactive) {
+            throw new RegraNegocioException("Usuário inativo, entre em contato com o administrador para ativar.");
         }
 
         UserDetails userDetails = loadUserByUsername(usuario.getLogin());
