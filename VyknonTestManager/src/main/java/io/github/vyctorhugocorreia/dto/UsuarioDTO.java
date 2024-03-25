@@ -16,6 +16,7 @@ public class UsuarioDTO {
     private String nome;
     private String login;
     private String senha;
+    private String senhaAntiga;
     private String status;
     private PerfilDeAcessoEntity perfilDeAcesso;
 }

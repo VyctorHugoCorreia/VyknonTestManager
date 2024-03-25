@@ -2,6 +2,7 @@ package io.github.vyctorhugocorreia.controller;
 
 
 import io.github.vyctorhugocorreia.dto.LoginDTO;
+import io.github.vyctorhugocorreia.dto.ProdutoDTO;
 import io.github.vyctorhugocorreia.dto.TokenDTO;
 import io.github.vyctorhugocorreia.dto.UsuarioDTO;
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
@@ -10,6 +11,7 @@ import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import io.github.vyctorhugocorreia.security.TokenService;
 import io.github.vyctorhugocorreia.service.UsuarioService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +53,17 @@ private final UsuarioRepository repository;
 
         return ResponseEntity.ok(usuarios);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deletar(@PathVariable String id, @RequestParam @Pattern(regexp = "^(ACTIVE|INACTIVE)$") String status) {
+        return usuarioService.deletar(id, status);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioEntity> editar(@PathVariable String id, @RequestBody @Valid UsuarioDTO dto) {
+        return ResponseEntity.ok(usuarioService.editar(id, dto));
+    }
+
 
 }
