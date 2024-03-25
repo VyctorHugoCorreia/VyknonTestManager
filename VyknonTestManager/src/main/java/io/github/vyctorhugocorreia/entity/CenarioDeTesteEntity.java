@@ -83,4 +83,8 @@ public class CenarioDeTesteEntity {
 
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
+
+    @JoinColumn(name = "usuario")
+    @ManyToOne
+    private UsuarioEntity usuario;
 }

@@ -1,18 +1,18 @@
 package io.github.vyctorhugocorreia.service.impl;
 
 
-import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
 import io.github.vyctorhugocorreia.dto.SuiteDeTesteDTO;
-import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.ProdutoEntity;
-import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.*;
 import io.github.vyctorhugocorreia.repository.*;
 import io.github.vyctorhugocorreia.service.SuiteDeTesteService;
+import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +23,7 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
     private final TimeRepository timeRepository;
     private final PlanoDeTestesRepository planoDeTestesRepository;
     private final CenarioDeTesteRepository cenarioDeTesteRepository;
+    private final UserInfo userInfo;
 
 
     @Override
@@ -46,6 +47,9 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
                 .filter(p -> p.getIdTime().getIdTime().equals(idTime))
                 .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
 
+        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
+        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+
 
         String descSuite = dto.getDescSuite();
 
@@ -56,10 +60,10 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
                 .idTime(time)
                 .idTproduto(produto)
                 .idPlano(plano)
+                .usuario(usuario)
                 .build();
         return suiteDeTesteRepository.save(suite);
     }
-
 
     private void validarSeSuiteExisteParaPlano(String descSuite, PlanoDeTesteEntity plano) {
         if (suiteDeTesteRepository.existsByDescSuiteAndIdPlano(descSuite, plano)) {

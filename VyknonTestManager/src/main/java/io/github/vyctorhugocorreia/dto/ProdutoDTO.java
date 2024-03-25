@@ -18,4 +18,6 @@ public class ProdutoDTO {
 
     @NotEmpty(message = "Preencha o nome do produto.")
     private String descProduto;
+
+    private String usuario;
 }

@@ -2,19 +2,19 @@ package io.github.vyctorhugocorreia.service.impl;
 
 
 import io.github.vyctorhugocorreia.dto.PlanoDeTestesDTO;
-import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.ProdutoEntity;
-import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.*;
 import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.service.PlanoDeTestesService;
+import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service
@@ -24,7 +24,7 @@ public class PlanoDeTestesServiceImpl implements PlanoDeTestesService {
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
     private final SuiteDeTesteRepository suiteDeTesteRepository;
-
+    private final UserInfo userInfo;
     private final PlanoDeTestesRepository planoDeTestesRepository;
 
     @Override
@@ -45,11 +45,15 @@ public class PlanoDeTestesServiceImpl implements PlanoDeTestesService {
         String descPlano = dto.getDescPlano();
 
         validarSePlanoExisteParaProduto(descPlano, produto);
+        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
+        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+
 
         PlanoDeTesteEntity plano = PlanoDeTesteEntity.builder()
                 .descPlano(descPlano)
                 .idTime(time)
                 .idTproduto(produto)
+                .usuario(usuario)
                 .build();
         return planoDeTestesRepository.save(plano);
     }

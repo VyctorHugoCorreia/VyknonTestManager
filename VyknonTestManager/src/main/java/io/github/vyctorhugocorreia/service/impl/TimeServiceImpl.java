@@ -7,13 +7,11 @@ import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
 import io.github.vyctorhugocorreia.dto.TimeDTO;
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import io.github.vyctorhugocorreia.service.TimeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import io.github.vyctorhugocorreia.util.UserInfo;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -24,7 +22,7 @@ public class TimeServiceImpl implements TimeService {
 
     private final TimeRepository timeRepository;
     private final ProdutoRepository produtoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UserInfo userInfo;
     @Override
     @Transactional
     public TimeEntity salvar(TimeDTO dto) {
@@ -37,7 +35,7 @@ public class TimeServiceImpl implements TimeService {
         }
         validarSeTimeJaEstaCadastrado(nomeTime);
 
-        Optional<UsuarioEntity> usuarioOptional = obterUsuarioLogado();
+        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
         UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
 
         TimeEntity time = TimeEntity.builder()
@@ -47,11 +45,6 @@ public class TimeServiceImpl implements TimeService {
         return timeRepository.save(time);
     }
 
-    private Optional<UsuarioEntity> obterUsuarioLogado() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<UsuarioEntity> usuario = usuarioRepository.findByLogin(authentication.getName());
-        return usuario;
-    }
 
     @Override
     @Transactional
