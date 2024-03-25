@@ -1,17 +1,22 @@
 package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.UsuarioEntity;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
 import io.github.vyctorhugocorreia.dto.TimeDTO;
+import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import io.github.vyctorhugocorreia.service.TimeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +24,7 @@ public class TimeServiceImpl implements TimeService {
 
     private final TimeRepository timeRepository;
     private final ProdutoRepository produtoRepository;
-
+    private final UsuarioRepository usuarioRepository;
     @Override
     @Transactional
     public TimeEntity salvar(TimeDTO dto) {
@@ -32,10 +37,20 @@ public class TimeServiceImpl implements TimeService {
         }
         validarSeTimeJaEstaCadastrado(nomeTime);
 
+        Optional<UsuarioEntity> usuarioOptional = obterUsuarioLogado();
+        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+
         TimeEntity time = TimeEntity.builder()
                 .nomeTime(nomeTime)
+                .usuario(usuario)
                 .build();
         return timeRepository.save(time);
+    }
+
+    private Optional<UsuarioEntity> obterUsuarioLogado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByLogin(authentication.getName());
+        return usuario;
     }
 
     @Override

@@ -29,6 +29,10 @@ public class TimeEntity {
     @NotBlank(message = "Preencha um nome válido")
     private String nomeTime;
 
+    @JoinColumn(name = "usuario")
+    @ManyToOne
+    private UsuarioEntity usuario;
+
     @Transient
     private int quantidadeCenarios;
 

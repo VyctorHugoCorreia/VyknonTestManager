@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "perfildeacesso")
-public class PerfilDeAcessoEntity {
+public class PerfilDeAcessoEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
