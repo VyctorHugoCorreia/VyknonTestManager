@@ -51,4 +51,8 @@ public class LoginController {
         }
     }
 
+    @PutMapping("/trocar-senha")
+    public ResponseEntity<UsuarioEntity> editar(@RequestBody @Valid UsuarioDTO dto) {
+        return ResponseEntity.ok(usuarioService.editarSenha(dto));
+    }
 }

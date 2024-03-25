@@ -17,5 +17,7 @@ public interface UsuarioService {
 
     String deletar(String id, @Pattern(regexp = "^(ACTIVE|INACTIVE)$") String status);
     UsuarioEntity editar(String id, UsuarioDTO dto);
+    UsuarioEntity editarSenha(UsuarioDTO dto);
+
 
 }

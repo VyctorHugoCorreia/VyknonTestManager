@@ -70,11 +70,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         String senhaAntiga = dto.getSenhaAntiga();
         String perfilDeAcesso = dto.getPerfilDeAcesso().getNome();
 
-        if (repository.existsByNome(nome) && !Objects.equals(usuarioExistente.getNome(), nome)) {
+        if (Objects.nonNull(nome) && !nome.isEmpty() && repository.existsByNome(nome) && !Objects.equals(usuarioExistente.getNome(), nome)) {
             throw new RegraNegocioException("Já existe um usuário com este nome.");
         }
 
-        if (repository.existsByLogin(login) && !Objects.equals(usuarioExistente.getLogin(), login)) {
+        if (Objects.nonNull(login) && !login.isEmpty() && repository.existsByLogin(login) && !Objects.equals(usuarioExistente.getLogin(), login)) {
             throw new RegraNegocioException("Já existe um usuário com este login.");
         }
 
@@ -86,8 +86,12 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .findByNome(perfilDeAcesso)
                 .orElseThrow(() -> new RegraNegocioException("Perfil de acesso não encontrado"));
 
-        usuarioExistente.setNome(nome);
-        usuarioExistente.setLogin(login);
+        if(Objects.nonNull(nome) && !nome.isEmpty()){
+            usuarioExistente.setNome(nome);
+        }
+        if(Objects.nonNull(login) && !login.isEmpty()){
+            usuarioExistente.setLogin(login);
+        }
         if (senha != null && !senha.isEmpty()) {
             usuarioExistente.setSenha(passwordEncoder.encode(senha));
         }
@@ -96,9 +100,31 @@ public class UsuarioServiceImpl implements UsuarioService {
         return repository.save(usuarioExistente);
     }
 
-    private UsuarioEntity getExistingUser(String id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado com o ID: " + id));
+    @Transactional
+    public UsuarioEntity editarSenha(UsuarioDTO dto) {
+        UsuarioEntity usuarioExistente = getExistingUser(dto.getLogin());
+        String login = dto.getLogin();
+        String senha = dto.getSenha();
+        String senhaAntiga = dto.getSenhaAntiga();
+
+        if (Objects.nonNull(login) && !login.isEmpty() && repository.existsByLogin(login) && !Objects.equals(usuarioExistente.getLogin(), login)) {
+            throw new RegraNegocioException("Já existe um usuário com este login.");
+        }
+
+        if (Objects.nonNull(senhaAntiga) && !senhaAntiga.isEmpty() && !passwordEncoder.matches(senhaAntiga, usuarioExistente.getSenha())) {
+            throw new RegraNegocioException("Senha atual inválida.");
+        }
+
+            usuarioExistente.setLogin(login);
+
+            usuarioExistente.setSenha(passwordEncoder.encode(senha));
+
+        return repository.save(usuarioExistente);
+    }
+
+    private UsuarioEntity getExistingUser(String login) {
+        return repository.findByLogin(login)
+                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado com o login: " + login));
     }
 
     @Override

@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(customizer ->{
                     customizer.requestMatchers("/api/login").permitAll();
+                    customizer.requestMatchers("/api/trocar-senha").permitAll();
                     customizer.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
