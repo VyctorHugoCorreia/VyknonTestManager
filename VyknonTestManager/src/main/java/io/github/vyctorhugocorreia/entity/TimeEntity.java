@@ -29,7 +29,7 @@ public class TimeEntity {
     @NotBlank(message = "Preencha um nome válido")
     private String nomeTime;
 
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "id_usuario")
     @ManyToOne
     private UsuarioEntity usuario;
 

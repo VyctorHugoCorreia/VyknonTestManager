@@ -47,9 +47,6 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
                 .filter(p -> p.getIdTime().getIdTime().equals(idTime))
                 .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
 
-        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
-        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
-
 
         String descSuite = dto.getDescSuite();
 
@@ -60,7 +57,7 @@ public class SuiteDeTesteServiceImpl implements SuiteDeTesteService {
                 .idTime(time)
                 .idTproduto(produto)
                 .idPlano(plano)
-                .usuario(usuario)
+                .usuario(userInfo.usuario())
                 .build();
         return suiteDeTesteRepository.save(suite);
     }

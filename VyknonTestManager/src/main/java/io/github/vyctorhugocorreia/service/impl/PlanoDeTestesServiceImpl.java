@@ -45,15 +45,12 @@ public class PlanoDeTestesServiceImpl implements PlanoDeTestesService {
         String descPlano = dto.getDescPlano();
 
         validarSePlanoExisteParaProduto(descPlano, produto);
-        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
-        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
-
 
         PlanoDeTesteEntity plano = PlanoDeTesteEntity.builder()
                 .descPlano(descPlano)
                 .idTime(time)
                 .idTproduto(produto)
-                .usuario(usuario)
+                .usuario(userInfo.usuario())
                 .build();
         return planoDeTestesRepository.save(plano);
     }

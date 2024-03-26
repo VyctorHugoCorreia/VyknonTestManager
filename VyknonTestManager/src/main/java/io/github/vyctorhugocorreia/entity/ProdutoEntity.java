@@ -28,7 +28,7 @@ public class ProdutoEntity {
     @JoinColumn(name = "id_Time")
     private TimeEntity idTime;
 
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "id_usuario")
     @ManyToOne
     private UsuarioEntity usuario;
 

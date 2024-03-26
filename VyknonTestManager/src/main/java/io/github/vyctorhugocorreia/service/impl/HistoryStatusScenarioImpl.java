@@ -6,6 +6,7 @@ import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.repository.*;
 import io.github.vyctorhugocorreia.service.HistoriyStatusScenarioService;
+import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ public class HistoryStatusScenarioImpl implements HistoriyStatusScenarioService 
     private final StatusCenarioRepository statusCenarioRepository;
 
     private final TimeRepository timeRepository;
-
+private final UserInfo userInfo;
     @Override
     @Transactional
     public HistoryStatusScenarioEntity salvar(HistoryStatusScenarioDTO dto) {
@@ -49,6 +50,7 @@ public class HistoryStatusScenarioImpl implements HistoriyStatusScenarioService 
                 .statusBefore(statusBefore)
                 .statusAfter(statusAfter)
                 .dateUpdate(LocalDateTime.now())
+                .usuario(userInfo.usuario())
                 .build();
 
 

@@ -47,14 +47,10 @@ public class ProdutoServiceImpl implements ProdutoService {
             throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
         }
 
-        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
-        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
-
-
         ProdutoEntity produto = ProdutoEntity.builder().
                 descProduto(descProduto)
                 .idTime(time)
-                .usuario(usuario)
+                .usuario(userInfo.usuario())
                 .build();
         return produtoRepository.save(produto);
     }

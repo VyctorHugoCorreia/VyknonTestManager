@@ -40,7 +40,8 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
     private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
-private final UserInfo userInfo;
+
+    private final UserInfo userInfo;
     @Override
     @Transactional
     public CenarioDeTesteEntity salvar(CenarioDeTesteDTO dto) {
