@@ -28,6 +28,10 @@ public class ProdutoEntity {
     @JoinColumn(name = "id_Time")
     private TimeEntity idTime;
 
+    @JoinColumn(name = "id_usuario")
+    @ManyToOne
+    private UsuarioEntity usuario;
+
     @Transient
     private int quantidadeCenarios;
 }

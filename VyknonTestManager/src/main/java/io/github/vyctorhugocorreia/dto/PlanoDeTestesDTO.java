@@ -20,4 +20,6 @@ public class PlanoDeTestesDTO {
 
     @NotEmpty(message = "Preencha o nome do plano de testes.")
     private String descPlano;
+
+    private String usuario;
 }

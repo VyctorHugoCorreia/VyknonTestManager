@@ -38,4 +38,8 @@ public class HistoryStatusScenarioEntity {
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
+    @JoinColumn(name = "id_usuario")
+    @ManyToOne
+    private UsuarioEntity usuario;
+
 }

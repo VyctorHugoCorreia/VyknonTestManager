@@ -7,12 +7,14 @@ import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.*;
 import io.github.vyctorhugocorreia.repository.*;
 import io.github.vyctorhugocorreia.service.CenarioDeTesteService;
+import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -39,6 +41,7 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
 
     private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
 
+    private final UserInfo userInfo;
     @Override
     @Transactional
     public CenarioDeTesteEntity salvar(CenarioDeTesteDTO dto) {
@@ -90,6 +93,9 @@ public class CenarioDeTesteImpl implements CenarioDeTesteService {
                 .findById(idAutomatizado.intValue())
                 .orElseThrow(() -> new RegraNegocioException("Status automatizado não encontrada"));
 
+        Optional<UsuarioEntity> usuarioOptional = userInfo.obterUsuarioLogado();
+        UsuarioEntity usuario = usuarioOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+
 CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .tituloCenario(tituloCenario)
         .descCenario(descCenario)
@@ -106,6 +112,7 @@ CenarioDeTesteEntity cenario = CenarioDeTesteEntity.builder()
         .tags(tagsList)
         .dateCreation(LocalDateTime.now())
         .dateUpdate(LocalDateTime.now())
+        .usuario(usuario)
         .build();
 
         return cenarioDeTesteRepository.save(cenario);

@@ -22,4 +22,6 @@ public class SuiteDeTesteDTO {
 
     @NotEmpty(message = "Preencha o nome da suite de testes.")
     private String descSuite;
+
+    private String usuario;
 }

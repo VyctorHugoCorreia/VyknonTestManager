@@ -3,6 +3,7 @@ package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.entity.ProdutoEntity;
 import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.UsuarioEntity;
 import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
@@ -11,9 +12,12 @@ import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
 import io.github.vyctorhugocorreia.dto.ProdutoDTO;
 import io.github.vyctorhugocorreia.service.ProdutoService;
+import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service
@@ -23,6 +27,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final ProdutoRepository produtoRepository;
     private final TimeRepository timeRepository;
     private final PlanoDeTestesRepository planoDeTestesRepository;
+    private final UserInfo userInfo;
+
 
     @Override
     @Transactional
@@ -40,9 +46,11 @@ public class ProdutoServiceImpl implements ProdutoService {
         if (dto.getDescProduto().trim().length() > 100) {
             throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
         }
+
         ProdutoEntity produto = ProdutoEntity.builder().
                 descProduto(descProduto)
                 .idTime(time)
+                .usuario(userInfo.usuario())
                 .build();
         return produtoRepository.save(produto);
     }

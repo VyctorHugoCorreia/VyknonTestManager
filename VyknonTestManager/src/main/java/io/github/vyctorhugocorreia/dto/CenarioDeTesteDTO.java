@@ -27,5 +27,5 @@ public class CenarioDeTesteDTO {
     private List<String> tags;
     private LocalDateTime dateCreation;
     private LocalDateTime dateUpdate;
-
+    private String usuario;
 }

@@ -16,4 +16,6 @@ public class TimeDTO {
 
     @NotEmpty(message = "Preencha o nome do time.")
     private String nomeTime;
+
+    private String usuario;
 }

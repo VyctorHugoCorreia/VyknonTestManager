@@ -32,6 +32,10 @@ public class PlanoDeTesteEntity {
     @JoinColumn(name = "id_tproduto")
     private ProdutoEntity idTproduto;
 
+    @JoinColumn(name = "id_usuario")
+    @ManyToOne
+    private UsuarioEntity usuario;
+
     @Transient
     private int quantidadeSuites;
 

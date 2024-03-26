@@ -16,4 +16,5 @@ public class HistoryStatusScenarioDTO {
     private Long statusBefore;
     private Long statusAfter;
     private LocalDateTime dateUpdate;
+    private String usuario;
 }
