@@ -33,7 +33,7 @@ public class HistoryStatusScenarioController {
             @RequestParam(required = false) Long idCenario
     ) {
 
-        return repository.findByCenarioId(idCenario);
+        return repository.findByIdScenario(idCenario);
     }
 
 }

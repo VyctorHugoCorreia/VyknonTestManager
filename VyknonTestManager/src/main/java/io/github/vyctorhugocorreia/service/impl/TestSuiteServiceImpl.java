@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TestSuiteServiceImpl implements TestSuiteService {
 
-    private final SuiteDeTesteRepository testSuiteRepository;
-    private final ProdutoRepository productRepository;
-    private final TimeRepository teamRepository;
-    private final PlanoDeTestesRepository testPlanRepository;
-    private final CenarioDeTesteRepository scenarioRepository;
+    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
+    private final ProductRepository productRepository;
+    private final TeamRepository teamRepository;
+    private final TestPlanRepository testPlanRepository;
+    private final ScenarioRepository scenarioRepository;
     private final UserInfo userInfo;
 
 
@@ -57,7 +57,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
     }
 
     private void validateIfSuiteExistsForPlan(String descTestSuite, TestPlanEntity testPlan) {
-        if (testSuiteRepository.existsByDescSuiteAndIdPlano(descTestSuite, testPlan)) {
+        if (testSuiteRepository.existsByDescTestSuiteAndIdTestPlan(descTestSuite, testPlan)) {
             throw new RuleBusinessException("Já existe uma suite de testes com o mesmo nome para este plano.");
         }
     }
@@ -99,7 +99,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
     }
 
     void validateIfSuiteExistsForPlan(String descTestPlan, TestPlanEntity testPlan, testSuiteEntity existingSuite) {
-        if (testSuiteRepository.existsByDescSuiteAndIdPlanoAndIdSuiteNot(descTestPlan, testPlan, existingSuite.getIdTestSuite())) {
+        if (testSuiteRepository.existsByDescTestSuiteAndIdTestPlanAndIdTestSuiteNot(descTestPlan, testPlan, existingSuite.getIdTestSuite())) {
             throw new RuleBusinessException("Já existe uma suite de testes com o mesmo nome para este plano de testes.");
         }
     }
@@ -109,7 +109,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
         testSuiteEntity testSuiteEntity = testSuiteRepository.findById(idSuite)
                 .orElseThrow(() -> new RuleBusinessException("Suite não encontrada"));
 
-        int scenarioQuantity = scenarioRepository.countCenariosBySuite(testSuiteEntity);
+        int scenarioQuantity = scenarioRepository.countCenariosByTestSuite(testSuiteEntity);
 
         if (haveLinkedScenario(scenarioQuantity)) {
             throw new RuleBusinessException("Não é possível excluir a suíte pois existem cenários vinculados a ela.");

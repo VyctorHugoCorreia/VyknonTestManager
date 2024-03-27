@@ -1,8 +1,8 @@
 package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.entity.TeamEntity;
-import io.github.vyctorhugocorreia.repository.ProdutoRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.repository.ProductRepository;
+import io.github.vyctorhugocorreia.repository.TeamRepository;
 import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.exception.TeamNotFoundException;
 import io.github.vyctorhugocorreia.dto.TeamDTO;
@@ -17,8 +17,8 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
 
-    private final TimeRepository teamRepository;
-    private final ProdutoRepository productRepository;
+    private final TeamRepository teamRepository;
+    private final ProductRepository productRepository;
     private final UserInfo userInfo;
     @Override
     @Transactional
@@ -78,13 +78,13 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private void validateIfTeamIsAlreadyRegistered(String name) {
-        if (teamRepository.existsByNomeTime(name)) {
+        if (teamRepository.existsByNameTeam(name)) {
             throw new RuleBusinessException("Já existe um time com o mesmo nome.");
         }
     }
 
-    private void checkedLinkedProducts(TeamEntity time) {
-        if (!productRepository.findByIdTime(time).isEmpty()) {
+    private void checkedLinkedProducts(TeamEntity team) {
+        if (!productRepository.findByIdTeam(team).isEmpty()) {
             throw new RuleBusinessException("Não é possível excluir o time, pois há produtos vinculados a ele.");
         }
     }

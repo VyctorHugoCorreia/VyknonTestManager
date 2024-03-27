@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 public class HistoryStatusScenarioImpl implements HistoryStatusScenarioService {
 
     private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
-    private final CenarioDeTesteRepository scenarioDeTesteRepository;
-    private final StatusCenarioRepository scenarioStatusRepository;
+    private final ScenarioRepository scenarioDeTesteRepository;
+    private final ScenarioStatusRepository scenarioStatusRepository;
 
-    private final TimeRepository timeRepository;
+    private final TeamRepository teamRepository;
 private final UserInfo userInfo;
     @Override
     @Transactional

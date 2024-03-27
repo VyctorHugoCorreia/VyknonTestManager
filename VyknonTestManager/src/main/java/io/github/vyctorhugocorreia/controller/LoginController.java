@@ -6,7 +6,7 @@ import io.github.vyctorhugocorreia.dto.TokenDTO;
 import io.github.vyctorhugocorreia.dto.UserDTO;
 import io.github.vyctorhugocorreia.entity.UserEntity;
 import io.github.vyctorhugocorreia.exception.RuleBusinessException;
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
+import io.github.vyctorhugocorreia.repository.UserRepository;
 import io.github.vyctorhugocorreia.security.TokenService;
 import io.github.vyctorhugocorreia.service.UserService;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class LoginController {
 
     private final TokenService tokenService;
     private final UserService userService;
-    private final UsuarioRepository userRepository;
+    private final UserRepository userRepository;
 
     @PostMapping
     public TokenDTO autenticar(@RequestBody LoginDTO dto) {
@@ -37,8 +37,8 @@ public class LoginController {
             UserDetails userAuthentication = userService.authentication(usuario);
             String token = tokenService.generateToken(usuario);
 
-            String accessProfile = userRepository.findPerfilDeAcessoByLogin(dto.getLogin());
-            String username = userRepository.findNomeByLogin(dto.getLogin());
+            String accessProfile = userRepository.findAccessProfileByLogin(dto.getLogin());
+            String username = userRepository.findNameByLogin(dto.getLogin());
 
 
             return new TokenDTO(usuario.getLogin(), token, accessProfile, username);

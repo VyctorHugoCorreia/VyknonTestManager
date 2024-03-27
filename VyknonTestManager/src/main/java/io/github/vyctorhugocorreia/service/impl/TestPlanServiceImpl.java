@@ -4,10 +4,9 @@ package io.github.vyctorhugocorreia.service.impl;
 import io.github.vyctorhugocorreia.dto.TestPlanDTO;
 import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.exception.*;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
-import io.github.vyctorhugocorreia.repository.ProdutoRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.repository.TestPlanRepository;
+import io.github.vyctorhugocorreia.repository.ProductRepository;
+import io.github.vyctorhugocorreia.repository.TeamRepository;
 import io.github.vyctorhugocorreia.service.TestPlanService;
 import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TestPlanServiceImpl implements TestPlanService {
 
-    private final ProdutoRepository productRepository;
-    private final TimeRepository teamRepository;
-    private final SuiteDeTesteRepository testSuiteRepository;
+    private final ProductRepository productRepository;
+    private final TeamRepository teamRepository;
+    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
     private final UserInfo userInfo;
-    private final PlanoDeTestesRepository testPlanRepository;
+    private final TestPlanRepository testPlanRepository;
 
     @Override
     @Transactional
@@ -93,8 +92,8 @@ public class TestPlanServiceImpl implements TestPlanService {
 
     private void checkSuitesLinkedToTestPlan(Long id) {
         TestPlanEntity testPlan = getExistingPlano(id);
-        boolean SuitesVinculadas = testSuiteRepository.existsByIdPlano(testPlan);
-        if (SuitesVinculadas) {
+        boolean testSuiteLinked = testSuiteRepository.existsByIdTestPlan(testPlan);
+        if (testSuiteLinked) {
             throw new RuleBusinessException("Não é possível excluir o plano, pois existem suites vinculadas a ele.");
         }
 
@@ -107,13 +106,13 @@ public class TestPlanServiceImpl implements TestPlanService {
 
 
     void validateIfPlanExistsForProduct(String descTestPlan, ProductEntity product) {
-        if (testPlanRepository.existsByDescPlanoAndIdTproduto(descTestPlan, product)) {
+        if (testPlanRepository.existsByDescTestPlanAndIdProduct(descTestPlan, product)) {
             throw new RuleBusinessException("Já existe um plano com o mesmo nome para este produto.");
         }
     }
 
     void validateIfPlanExistsForProductAndOthers(String descTestPlan, ProductEntity product, TestPlanEntity existingTestPlan) {
-        if (testPlanRepository.existsByDescPlanoAndIdTprodutoAndIdPlanoNot(descTestPlan, product, existingTestPlan.getIdTestPlan())) {
+        if (testPlanRepository.existsByDescTestPlanAndIdProductAndIdTestPlanNot(descTestPlan, product, existingTestPlan.getIdTestPlan())) {
             throw new RuleBusinessException("Já existe um plano de testes com o mesmo nome para este produto.");
         }
     }

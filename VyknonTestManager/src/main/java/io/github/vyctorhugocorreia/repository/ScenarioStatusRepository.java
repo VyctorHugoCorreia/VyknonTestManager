@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 
-public interface StatusCenarioRepository extends JpaRepository<ScenarioStatusEntity, Integer> {
+public interface ScenarioStatusRepository extends JpaRepository<ScenarioStatusEntity, Integer> {
 
     List<ScenarioStatusEntity> findAll();
 }

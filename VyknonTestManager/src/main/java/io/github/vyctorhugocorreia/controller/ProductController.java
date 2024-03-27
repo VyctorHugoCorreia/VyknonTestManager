@@ -3,8 +3,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.ProductDTO;
 import io.github.vyctorhugocorreia.entity.ProductEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.ProdutoRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.ProductRepository;
 import io.github.vyctorhugocorreia.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService service;
-    private final ProdutoRepository repository;
-    private final CenarioDeTesteRepository scenarioRepository;
+    private final ProductRepository repository;
+    private final ScenarioRepository scenarioRepository;
 
 
 
@@ -39,10 +39,10 @@ public class ProductController {
             @RequestParam(required = false) String descProduct
     ) {
 
-        List<ProductEntity> products = repository.searchProduto(idTeam, idProduct, descProduct);
+        List<ProductEntity> products = repository.searchProduct(idTeam, idProduct, descProduct);
 
         for (ProductEntity product : products) {
-            int scenarioQuantity = scenarioRepository.countScenariosByProduto(product);
+            int scenarioQuantity = scenarioRepository.countScenariosByProduct(product);
             product.setScenarioQuantity(scenarioQuantity);
         }
 

@@ -2,8 +2,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.ScenarioStatusEntity;
 import io.github.vyctorhugocorreia.entity.TeamEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.StatusCenarioRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @CrossOrigin
 public class ScenarioStatusController {
 
-    final StatusCenarioRepository repository;
-    private final CenarioDeTesteRepository scenarioRepository;
+    final ScenarioStatusRepository repository;
+    private final ScenarioRepository scenarioRepository;
 
     @GetMapping
     public List<ScenarioStatusEntity> getScenarioStatus(@RequestParam(required = false) TeamEntity idTeam) {

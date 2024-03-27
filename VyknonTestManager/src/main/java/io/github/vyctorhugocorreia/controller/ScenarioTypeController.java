@@ -2,8 +2,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.entity.ScenarioTypeEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.TipoCenarioRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ScenarioTypeController {
 
-    final TipoCenarioRepository repository;
-    final CenarioDeTesteRepository scenarioRepository;
+    final ScenarioTypeRepository repository;
+    final ScenarioRepository scenarioRepository;
 
 
 

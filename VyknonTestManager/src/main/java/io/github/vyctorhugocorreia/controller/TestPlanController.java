@@ -3,9 +3,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.TestPlanDTO;
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.TestPlanRepository;
 import io.github.vyctorhugocorreia.service.TestPlanService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,10 +22,10 @@ import java.util.List;
 public class TestPlanController {
 
     private final TestPlanService service;
-    private final PlanoDeTestesRepository repository;
-    private final SuiteDeTesteRepository testSuiteRepository;
+    private final TestPlanRepository repository;
+    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
 
-    private final CenarioDeTesteRepository scenarioRepository;
+    private final ScenarioRepository scenarioRepository;
 
     @PostMapping
     public ResponseEntity<TestPlanEntity> save(@RequestBody @Valid TestPlanDTO dto) {
@@ -42,9 +41,9 @@ public class TestPlanController {
     ) {
         List<TestPlanEntity> testPlanEntities = repository.searchPlano(idTestPlan,idTeam, idProduct, descTestPlan);
 
-        for (TestPlanEntity plano : testPlanEntities) {
-            int quantidadeSuites = testSuiteRepository.countSuitesByPlano(plano);
-            plano.setTestSuiteQuantity(quantidadeSuites);
+        for (TestPlanEntity testPlan : testPlanEntities) {
+            int testSuiteQuantity = testSuiteRepository.countSuitesByTestPlan(testPlan);
+            testPlan.setTestSuiteQuantity(testSuiteQuantity);
         }
 
         for (TestPlanEntity plano : testPlanEntities) {

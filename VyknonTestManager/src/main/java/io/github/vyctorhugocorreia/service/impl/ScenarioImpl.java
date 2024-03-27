@@ -20,23 +20,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScenarioImpl implements ScenarioService {
 
-    private final TimeRepository teamRepository;
+    private final TeamRepository teamRepository;
 
-    private final PlanoDeTestesRepository testPlanRepository;
+    private final TestPlanRepository testPlanRepository;
 
-    private final SuiteDeTesteRepository testSuiteRepository;
+    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
 
-    private final ProdutoRepository productRepository;
+    private final ProductRepository productRepository;
 
-    private final TipoCenarioRepository scenarioTypeRepository;
+    private final ScenarioTypeRepository scenarioTypeRepository;
 
-    private final TipoPlataformaRepository platformTypeRepository;
+    private final PlatformTypeRepository platformTypeRepository;
 
-    private final StatusCenarioRepository scenarioStatusRepository;
+    private final ScenarioStatusRepository scenarioStatusRepository;
 
-    private final StatusAutomatizadoRepository automationStatusRepository;
+    private final AutomationStatusRepository automationStatusRepository;
 
-    private final CenarioDeTesteRepository scenarioRepository;
+    private final ScenarioRepository scenarioRepository;
 
     private final HistoryStatusScenarioRepository historyStatusScenarioRepository;
 
@@ -197,7 +197,7 @@ ScenarioEntity scenario = ScenarioEntity.builder()
         ScenarioEntity scenario = scenarioRepository.findById(id.intValue())
                 .orElseThrow(() -> new RuleBusinessException("Cenário não encontrado"));
 
-        historyStatusScenarioRepository.deleteByCenario(id);
+        historyStatusScenarioRepository.deleteByScenario(id);
 
         scenarioRepository.delete(scenario);
 

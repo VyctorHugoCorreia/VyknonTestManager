@@ -1,8 +1,8 @@
 package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.TeamEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.TeamRepository;
 import io.github.vyctorhugocorreia.dto.TeamDTO;
 import io.github.vyctorhugocorreia.service.TeamService;
 import jakarta.validation.Valid;
@@ -20,8 +20,8 @@ import java.util.List;
 public class TeamController {
 
     final TeamService service;
-    final TimeRepository repository;
-    final CenarioDeTesteRepository scenarioRepository;
+    final TeamRepository repository;
+    final ScenarioRepository scenarioRepository;
 
     @GetMapping
     public List<TeamEntity> getTime(
@@ -29,10 +29,10 @@ public class TeamController {
             @RequestParam(required = false) String nameTeam
     ) {
 
-        List<TeamEntity> teamEntities = repository.searchTime(idTeam, nameTeam);
+        List<TeamEntity> teamEntities = repository.searchTeam(idTeam, nameTeam);
 
         for (TeamEntity teamEntity : teamEntities) {
-            int scenarioQuantity = scenarioRepository.countScenariosByTime(teamEntity);
+            int scenarioQuantity = scenarioRepository.countScenariosByTeam(teamEntity);
             teamEntity.setScenarioQuantity(scenarioQuantity);
         }
 

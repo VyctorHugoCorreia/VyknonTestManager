@@ -3,9 +3,9 @@ package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.entity.ProductEntity;
 import io.github.vyctorhugocorreia.entity.TeamEntity;
-import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
-import io.github.vyctorhugocorreia.repository.ProdutoRepository;
-import io.github.vyctorhugocorreia.repository.TimeRepository;
+import io.github.vyctorhugocorreia.repository.TestPlanRepository;
+import io.github.vyctorhugocorreia.repository.ProductRepository;
+import io.github.vyctorhugocorreia.repository.TeamRepository;
 import io.github.vyctorhugocorreia.exception.ProductNotFoundException;
 import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.exception.TeamNotFoundException;
@@ -21,9 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private final ProdutoRepository productRepository;
-    private final TimeRepository teamRepository;
-    private final PlanoDeTestesRepository testPlanRepository;
+    private final ProductRepository productRepository;
+    private final TeamRepository teamRepository;
+    private final TestPlanRepository testPlanRepository;
     private final UserInfo userInfo;
 
 
@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
     private void checkProductLinkedTestPlan(Long id) {
         ProductEntity produto = getExistingProduto(id);
 
-        boolean planoDeTesteVinculado = testPlanRepository.existsByIdTproduto(produto);
+        boolean planoDeTesteVinculado = testPlanRepository.existsByIdProduct(produto);
         if (planoDeTesteVinculado) {
             throw new RuleBusinessException("Não é possível excluir o produto, pois existem planos de teste vinculado a ele.");
         }
@@ -111,8 +111,8 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(TeamNotFoundException::new);
     }
 
-    private void validateProductForExistingTeam(String newProductDesc, TeamEntity time) {
-        if (productRepository.existsByDescProdutoAndIdTime(newProductDesc, time)) {
+    private void validateProductForExistingTeam(String newProductDesc, TeamEntity team) {
+        if (productRepository.existsByDescProductAndIdTeam(newProductDesc, team)) {
             throw new RuleBusinessException("Já existe um produto com o mesmo nome para este time.");
         }
     }

@@ -3,7 +3,7 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.AccessProfileDTO;
 import io.github.vyctorhugocorreia.entity.AccessProfileEntity;
-import io.github.vyctorhugocorreia.repository.PerfilDeAcessoRepository;
+import io.github.vyctorhugocorreia.repository.AccessProfileRepository;
 import io.github.vyctorhugocorreia.service.AccessProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @CrossOrigin
 public class AccessProfileController {
 
-    private final PerfilDeAcessoRepository repository;
+    private final AccessProfileRepository repository;
     private final AccessProfileService service;
 
     @PostMapping

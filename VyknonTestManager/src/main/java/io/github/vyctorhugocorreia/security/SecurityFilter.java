@@ -1,6 +1,6 @@
 package io.github.vyctorhugocorreia.security;
 
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
+import io.github.vyctorhugocorreia.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private UsuarioRepository repository;
+    private UserRepository repository;
 
 
     @Override

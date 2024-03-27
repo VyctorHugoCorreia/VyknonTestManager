@@ -4,8 +4,8 @@ package io.github.vyctorhugocorreia.controller;
 import io.github.vyctorhugocorreia.dto.TestSuiteDTO;
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
 import io.github.vyctorhugocorreia.entity.testSuiteEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.testSuiteRepository;
 import io.github.vyctorhugocorreia.service.TestSuiteService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,9 +23,9 @@ import java.util.List;
 public class TestSuiteController {
 
     private final TestSuiteService service;
-    private final SuiteDeTesteRepository repository;
+    private final testSuiteRepository repository;
 
-    private final CenarioDeTesteRepository scenarioRepository;
+    private final ScenarioRepository scenarioRepository;
 
     @PostMapping
     public ResponseEntity<testSuiteEntity> save(@RequestBody @Valid TestSuiteDTO dto) {
@@ -36,7 +36,7 @@ public class TestSuiteController {
         TestPlanEntity testPlan = new TestPlanEntity();
         testPlan.setIdTestPlan(idTestPlan);
 
-        List<testSuiteEntity> suites = repository.findBySuitesIdPlano(testPlan);
+        List<testSuiteEntity> suites = repository.findBySuitesIdTestPlan(testPlan);
 
         if (suites.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -57,7 +57,7 @@ public class TestSuiteController {
         List<testSuiteEntity> testSuiteEntities = repository.searchSuite(idTestSuite, idTeam, idProduct, idTestPlan, descTestSuite);
 
         for (testSuiteEntity testSuiteEntity : testSuiteEntities) {
-            int scenarioQuantity = scenarioRepository.countCenariosBySuite(testSuiteEntity);
+            int scenarioQuantity = scenarioRepository.countCenariosByTestSuite(testSuiteEntity);
             testSuiteEntity.setScenarioQuantity(scenarioQuantity);
         }
 

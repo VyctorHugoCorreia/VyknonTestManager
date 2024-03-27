@@ -2,8 +2,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.AutomationStatusEntity;
 import io.github.vyctorhugocorreia.entity.TeamEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.StatusAutomatizadoRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.AutomationStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @CrossOrigin
 public class AutomationStatusController {
 
-    final StatusAutomatizadoRepository repository;
-    final CenarioDeTesteRepository scenarioRepository;
+    final AutomationStatusRepository repository;
+    final ScenarioRepository scenarioRepository;
 
 
     @GetMapping

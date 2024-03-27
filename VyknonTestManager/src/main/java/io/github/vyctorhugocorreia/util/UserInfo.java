@@ -2,7 +2,7 @@ package io.github.vyctorhugocorreia.util;
 
 import io.github.vyctorhugocorreia.entity.UserEntity;
 import io.github.vyctorhugocorreia.exception.RuleBusinessException;
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
+import io.github.vyctorhugocorreia.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Component
 public class UserInfo {
 
-    private final UsuarioRepository userRepository;
+    private final UserRepository userRepository;
 
     public Optional<UserEntity> getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

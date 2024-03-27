@@ -2,8 +2,8 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.entity.PlatformTypeEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.TipoPlataformaRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
+import io.github.vyctorhugocorreia.repository.PlatformTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @CrossOrigin
 public class PlatformTypeController {
 
-    final TipoPlataformaRepository repository;
-     final CenarioDeTesteRepository scenarioRepository;
+    final PlatformTypeRepository repository;
+     final ScenarioRepository scenarioRepository;
 
 
     @GetMapping

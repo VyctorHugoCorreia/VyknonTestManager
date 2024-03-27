@@ -3,7 +3,7 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.UserDTO;
 import io.github.vyctorhugocorreia.entity.UserEntity;
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
+import io.github.vyctorhugocorreia.repository.UserRepository;
 import io.github.vyctorhugocorreia.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -23,7 +23,7 @@ public class UserController {
 
 
     private final UserService userService;
-private final UsuarioRepository repository;
+private final UserRepository repository;
 
     @PostMapping
     @PreAuthorize("hasRole('Administrador')")

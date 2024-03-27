@@ -6,8 +6,8 @@ import io.github.vyctorhugocorreia.entity.AccessProfileEntity;
 import io.github.vyctorhugocorreia.entity.UserEntity;
 
 import io.github.vyctorhugocorreia.exception.RuleBusinessException;
-import io.github.vyctorhugocorreia.repository.PerfilDeAcessoRepository;
-import io.github.vyctorhugocorreia.repository.UsuarioRepository;
+import io.github.vyctorhugocorreia.repository.AccessProfileRepository;
+import io.github.vyctorhugocorreia.repository.UserRepository;
 import io.github.vyctorhugocorreia.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -22,8 +22,8 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UsuarioRepository repository;
-    private final PerfilDeAcessoRepository accessProfileRepository;
+    private final UserRepository repository;
+    private final AccessProfileRepository accessProfileRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         String password = passwordEncoder.encode(dto.getPassword());
         String accessProfile = dto.getAccessProfile().getName();
 
-        if (repository.existsByNome(name)) {
+        if (repository.existsByName(name)) {
             throw new RuleBusinessException("Já existe um usuário com este nome.");
         }
 
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         }
 
         AccessProfileEntity accessProfileEntity = accessProfileRepository
-                .findByNome(accessProfile)
+                .findByName(accessProfile)
                 .orElseThrow(() -> new RuleBusinessException("Perfil de acesso não encontrado"));
 
         UserEntity userEntity = UserEntity.builder()
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         String oldPassword = dto.getOldPassword();
         String accessProfile = dto.getAccessProfile().getName();
 
-        if (Objects.nonNull(name) && !name.isEmpty() && repository.existsByNome(name) && !Objects.equals(existingUser.getName(), name)) {
+        if (Objects.nonNull(name) && !name.isEmpty() && repository.existsByName(name) && !Objects.equals(existingUser.getName(), name)) {
             throw new RuleBusinessException("Já existe um usuário com este nome.");
         }
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         }
 
         AccessProfileEntity accessProfileEntity = accessProfileRepository
-                .findByNome(accessProfile)
+                .findByName(accessProfile)
                 .orElseThrow(() -> new RuleBusinessException("Perfil de acesso não encontrado"));
 
         if(Objects.nonNull(name) && !name.isEmpty()){

@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface HistoryStatusScenarioRepository extends JpaRepository<HistoryStatusScenarioEntity, Integer> {
 
-    @Query("SELECT h FROM HistoryStatusScenarioEntity h WHERE h.idCenario.idCenario = :idCenario")
-    List<HistoryStatusScenarioEntity> findByCenarioId(@Param("idCenario") Long idCenario);
+    @Query("SELECT h FROM HistoryStatusScenarioEntity h WHERE h.idScenario.idScenario = :idScenario")
+    List<HistoryStatusScenarioEntity> findByIdScenario(@Param("idScenario") Long idScenario);
 
     @Modifying
-    @Query("DELETE FROM HistoryStatusScenarioEntity h WHERE h.idCenario.idCenario = :idCenario")
-    void deleteByCenario(Long idCenario);
+    @Query("DELETE FROM HistoryStatusScenarioEntity h WHERE h.idScenario.idScenario = :idScenario")
+    void deleteByScenario(Long idScenario);
 }
 

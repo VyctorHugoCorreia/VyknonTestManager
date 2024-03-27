@@ -4,7 +4,7 @@ package io.github.vyctorhugocorreia.controller;
 import io.github.vyctorhugocorreia.dto.ScenarioDTO;
 
 import io.github.vyctorhugocorreia.entity.*;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
+import io.github.vyctorhugocorreia.repository.ScenarioRepository;
 import io.github.vyctorhugocorreia.service.ScenarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
 public class CenarioDeTesteController {
 
     private final ScenarioService service;
-    private final CenarioDeTesteRepository repository;
+    private final ScenarioRepository repository;
 
     @PostMapping
     public ResponseEntity<ScenarioEntity> save(@RequestBody @Valid ScenarioDTO dto) {

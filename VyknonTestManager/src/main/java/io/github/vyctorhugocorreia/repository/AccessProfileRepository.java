@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface PerfilDeAcessoRepository extends JpaRepository<AccessProfileEntity, String> {
+public interface AccessProfileRepository extends JpaRepository<AccessProfileEntity, String> {
 
-    Optional<AccessProfileEntity> findByNome(String nome);
-    boolean existsByNome(String nome);
+    Optional<AccessProfileEntity> findByName(String name);
+    boolean existsByName(String nome);
 }
