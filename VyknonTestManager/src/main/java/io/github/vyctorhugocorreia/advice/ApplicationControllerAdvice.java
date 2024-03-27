@@ -15,7 +15,7 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(RuleBusinessException.class)
     @ResponseBody
-    public ResponseEntity<List<String>> handleRegraNegocioException(RuleBusinessException ex) {
+    public ResponseEntity<List<String>> handleRuleBusinessException(RuleBusinessException ex) {
         return ResponseEntity.badRequest().body(new ApiErrors(ex.getMessage()).errors);
     }
 
@@ -29,20 +29,20 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(TeamNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handleTimeNotFoundException(TeamNotFoundException ex) {
+    public ResponseEntity<String> handleTeamNotFoundException(TeamNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
 
     @ExceptionHandler(TestPlanNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handlePlanoNotFoundException(TestPlanNotFoundException ex) {
+    public ResponseEntity<String> handleTestPlanoNotFoundException(TestPlanNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handleProdutoNotFoundException(ProductNotFoundException ex) {
+    public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
 
     }
@@ -55,8 +55,8 @@ public class ApplicationControllerAdvice {
             this.errors = errors;
         }
 
-        public ApiErrors(String mensagemErro) {
-            this.errors = Arrays.asList(mensagemErro);
+        public ApiErrors(String errorMessage) {
+            this.errors = Arrays.asList(errorMessage);
         }
 
      }
