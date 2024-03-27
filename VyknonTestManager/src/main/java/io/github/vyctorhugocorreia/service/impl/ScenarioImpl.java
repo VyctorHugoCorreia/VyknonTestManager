@@ -24,7 +24,7 @@ public class ScenarioImpl implements ScenarioService {
 
     private final TestPlanRepository testPlanRepository;
 
-    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
+    private final TestSuiteRepository testSuiteRepository;
 
     private final ProductRepository productRepository;
 

@@ -7,6 +7,7 @@ import io.github.vyctorhugocorreia.exception.*;
 import io.github.vyctorhugocorreia.repository.TestPlanRepository;
 import io.github.vyctorhugocorreia.repository.ProductRepository;
 import io.github.vyctorhugocorreia.repository.TeamRepository;
+import io.github.vyctorhugocorreia.repository.TestSuiteRepository;
 import io.github.vyctorhugocorreia.service.TestPlanService;
 import io.github.vyctorhugocorreia.util.UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TestPlanServiceImpl implements TestPlanService {
 
     private final ProductRepository productRepository;
     private final TeamRepository teamRepository;
-    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
+    private final TestSuiteRepository testSuiteRepository;
     private final UserInfo userInfo;
     private final TestPlanRepository testPlanRepository;
 

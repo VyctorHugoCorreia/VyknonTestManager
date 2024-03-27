@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TestSuiteServiceImpl implements TestSuiteService {
 
-    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
+    private final TestSuiteRepository testSuiteRepository;
     private final ProductRepository productRepository;
     private final TeamRepository teamRepository;
     private final TestPlanRepository testPlanRepository;

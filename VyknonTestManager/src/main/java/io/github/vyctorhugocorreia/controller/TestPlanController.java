@@ -5,6 +5,7 @@ import io.github.vyctorhugocorreia.dto.TestPlanDTO;
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
 import io.github.vyctorhugocorreia.repository.ScenarioRepository;
 import io.github.vyctorhugocorreia.repository.TestPlanRepository;
+import io.github.vyctorhugocorreia.repository.TestSuiteRepository;
 import io.github.vyctorhugocorreia.service.TestPlanService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class TestPlanController {
 
     private final TestPlanService service;
     private final TestPlanRepository repository;
-    private final io.github.vyctorhugocorreia.repository.testSuiteRepository testSuiteRepository;
+    private final TestSuiteRepository testSuiteRepository;
 
     private final ScenarioRepository scenarioRepository;
 

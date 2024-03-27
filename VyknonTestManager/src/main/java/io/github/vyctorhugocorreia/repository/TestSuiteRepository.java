@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface testSuiteRepository extends JpaRepository<testSuiteEntity, Long> {
+public interface TestSuiteRepository extends JpaRepository<testSuiteEntity, Long> {
 
     boolean existsByDescTestSuiteAndIdTestPlan(String descSuite, TestPlanEntity idPlano);
 

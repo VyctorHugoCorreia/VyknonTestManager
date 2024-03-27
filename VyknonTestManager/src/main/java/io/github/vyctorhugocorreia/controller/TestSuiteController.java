@@ -5,7 +5,7 @@ import io.github.vyctorhugocorreia.dto.TestSuiteDTO;
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
 import io.github.vyctorhugocorreia.entity.testSuiteEntity;
 import io.github.vyctorhugocorreia.repository.ScenarioRepository;
-import io.github.vyctorhugocorreia.repository.testSuiteRepository;
+import io.github.vyctorhugocorreia.repository.TestSuiteRepository;
 import io.github.vyctorhugocorreia.service.TestSuiteService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
 public class TestSuiteController {
 
     private final TestSuiteService service;
-    private final testSuiteRepository repository;
+    private final TestSuiteRepository repository;
 
     private final ScenarioRepository scenarioRepository;
 
