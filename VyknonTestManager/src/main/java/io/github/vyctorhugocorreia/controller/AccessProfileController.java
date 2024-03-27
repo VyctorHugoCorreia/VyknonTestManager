@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/perfilDeAcesso")
+@RequestMapping("/api/access-profile")
 @RequiredArgsConstructor
 @CrossOrigin
 public class AccessProfileController {

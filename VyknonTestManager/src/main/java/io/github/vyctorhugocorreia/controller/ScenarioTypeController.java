@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/tipoCenario")
+@RequestMapping("/api/scenario-type")
 @CrossOrigin
 @AllArgsConstructor
 
@@ -23,14 +23,14 @@ public class ScenarioTypeController {
 
 
     @GetMapping
-    public List<ScenarioTypeEntity> getStatus(
+    public List<ScenarioTypeEntity> getScenarioStatus(
             @RequestParam(required = false) TeamEntity idTeam
     ) {
 
         List<ScenarioTypeEntity> scenarioTypeEntityList = repository.findAll();
 
         for (ScenarioTypeEntity scenarioType : scenarioTypeEntityList) {
-            int scenarioQuantity = scenarioRepository.countCenariosByScenarioType(scenarioType,idTeam);
+            int scenarioQuantity = scenarioRepository.countScenariosByScenarioType(scenarioType,idTeam);
             scenarioType.setScenarioQuantity(scenarioQuantity);
         }
 

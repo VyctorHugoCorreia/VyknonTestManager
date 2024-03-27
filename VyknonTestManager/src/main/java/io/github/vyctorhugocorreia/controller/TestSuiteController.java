@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/suiteDeTeste")
+@RequestMapping("/api/test-suite")
 @AllArgsConstructor
 @CrossOrigin
 public class TestSuiteController {
@@ -57,7 +57,7 @@ public class TestSuiteController {
         List<testSuiteEntity> testSuiteEntities = repository.searchSuite(idTestSuite, idTeam, idProduct, idTestPlan, descTestSuite);
 
         for (testSuiteEntity testSuiteEntity : testSuiteEntities) {
-            int scenarioQuantity = scenarioRepository.countCenariosByTestSuite(testSuiteEntity);
+            int scenarioQuantity = scenarioRepository.countScenariosByTestSuite(testSuiteEntity);
             testSuiteEntity.setScenarioQuantity(scenarioQuantity);
         }
 

@@ -47,27 +47,27 @@ public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Intege
     int countScenariosByTeam(@Param("idTeam") TeamEntity idTeam);
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idTestSuite = :idTestSuite")
-    int countCenariosByTestSuite(@Param("idTestSuite") testSuiteEntity idTestSuite);
+    int countScenariosByTestSuite(@Param("idTestSuite") testSuiteEntity idTestSuite);
 
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idScenarioType = :idScenarioType " +
             "AND (:idTeam IS NULL OR c.idTeam = :idTeam)")
-    int countCenariosByScenarioType(@Param("idScenarioType") ScenarioTypeEntity idScenarioType,
+    int countScenariosByScenarioType(@Param("idScenarioType") ScenarioTypeEntity idScenarioType,
                                             @Param("idTeam") TeamEntity idTeam);
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idScenarioStatus = :idScenarioStatus " +
             "AND (:idTeam IS NULL OR c.idTeam = :idTeam)")
-    int countCenariosByScenarioStatus(@Param("idScenarioStatus") ScenarioStatusEntity idScenarioStatus,
+    int countScenariosByScenarioStatus(@Param("idScenarioStatus") ScenarioStatusEntity idScenarioStatus,
                                       @Param("idTeam") TeamEntity idTeam);
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idAutomationStatus = :idAutomationStatus "+
             "AND (:idTeam IS NULL OR c.idTeam = :idTeam)")
-    int countCenariosByAutomationStatus(@Param("idAutomationStatus") AutomationStatusEntity idAutomationStatus,
+    int countScenariosByAutomationStatus(@Param("idAutomationStatus") AutomationStatusEntity idAutomationStatus,
                                         @Param("idTeam") TeamEntity idTeam);
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idPlatformType = :idPlatformType " +
             "AND (:idTeam IS NULL OR c.idTeam = :idTeam)")
-    int countCenariosByPlataformType(@Param("idPlatformType") PlatformTypeEntity idPlatformType,
+    int countScenariosByPlataformType(@Param("idPlatformType") PlatformTypeEntity idPlatformType,
                                      @Param("idTeam") TeamEntity idTeam);
 
 }

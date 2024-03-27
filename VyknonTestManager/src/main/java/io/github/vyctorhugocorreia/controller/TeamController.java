@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/time")
+@RequestMapping("/api/team")
 @AllArgsConstructor
 @CrossOrigin
 public class TeamController {
@@ -24,7 +24,7 @@ public class TeamController {
     final ScenarioRepository scenarioRepository;
 
     @GetMapping
-    public List<TeamEntity> getTime(
+    public List<TeamEntity> getTeam(
             @RequestParam(required = false) Long idTeam,
             @RequestParam(required = false) String nameTeam
     ) {

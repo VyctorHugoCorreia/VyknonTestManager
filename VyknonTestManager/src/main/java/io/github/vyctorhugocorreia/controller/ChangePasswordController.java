@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/trocar-senha")
+@RequestMapping("/api/change-password")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ChangePasswordController {

@@ -109,7 +109,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
         testSuiteEntity testSuiteEntity = testSuiteRepository.findById(idSuite)
                 .orElseThrow(() -> new RuleBusinessException("Suite não encontrada"));
 
-        int scenarioQuantity = scenarioRepository.countCenariosByTestSuite(testSuiteEntity);
+        int scenarioQuantity = scenarioRepository.countScenariosByTestSuite(testSuiteEntity);
 
         if (haveLinkedScenario(scenarioQuantity)) {
             throw new RuleBusinessException("Não é possível excluir a suíte pois existem cenários vinculados a ela.");

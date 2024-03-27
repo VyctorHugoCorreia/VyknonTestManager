@@ -27,28 +27,28 @@ public class LoginController {
     private final UserRepository userRepository;
 
     @PostMapping
-    public TokenDTO autenticar(@RequestBody LoginDTO dto) {
+    public TokenDTO authentication(@RequestBody LoginDTO dto) {
         try {
-            UserEntity usuario = UserEntity.builder()
+            UserEntity user = UserEntity.builder()
                     .login(dto.getLogin())
                     .password(dto.getPassword())
                     .build();
 
-            UserDetails userAuthentication = userService.authentication(usuario);
-            String token = tokenService.generateToken(usuario);
+            UserDetails userAuthentication = userService.authentication(user);
+            String token = tokenService.generateToken(user);
 
             String accessProfile = userRepository.findAccessProfileByLogin(dto.getLogin());
             String username = userRepository.findNameByLogin(dto.getLogin());
 
 
-            return new TokenDTO(usuario.getLogin(), token, accessProfile, username);
+            return new TokenDTO(user.getLogin(), token, accessProfile, username);
         } catch (RuleBusinessException e) {
             throw new RuleBusinessException(e.getMessage());
         }
     }
 
     @PutMapping("/trocar-senha")
-    public ResponseEntity<UserEntity> passwordEdit(@RequestBody @Valid UserDTO dto) {
+    public ResponseEntity<UserEntity> changePassword(@RequestBody @Valid UserDTO dto) {
         return ResponseEntity.ok(userService.passwordEdit(dto));
     }
 }

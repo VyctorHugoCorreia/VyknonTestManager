@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/tipoPlataforma")
+@RequestMapping("/api/platform-type")
 @AllArgsConstructor
 @CrossOrigin
 public class PlatformTypeController {
@@ -21,13 +21,13 @@ public class PlatformTypeController {
 
 
     @GetMapping
-    public List<PlatformTypeEntity> getPlataforma(@RequestParam(required = false) TeamEntity idTeam
+    public List<PlatformTypeEntity> getPlatform(@RequestParam(required = false) TeamEntity idTeam
     ) {
 
         List<PlatformTypeEntity> platformTypeEntitiesList = repository.findAll();
 
         for (PlatformTypeEntity platformType : platformTypeEntitiesList) {
-            int scenarioQuantity = scenarioRepository.countCenariosByPlataformType(platformType,idTeam);
+            int scenarioQuantity = scenarioRepository.countScenariosByPlataformType(platformType,idTeam);
             platformType.setScenarioQuantity(scenarioQuantity);
         }
 

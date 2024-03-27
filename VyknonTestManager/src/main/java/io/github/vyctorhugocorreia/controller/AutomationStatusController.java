@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/statusAutomatizado")
+@RequestMapping("/api/automation-status")
 @AllArgsConstructor
 @CrossOrigin
 public class AutomationStatusController {
@@ -26,7 +26,7 @@ public class AutomationStatusController {
         List<AutomationStatusEntity> automationStatusEntities = repository.findAll();
 
         for (AutomationStatusEntity automationStatus : automationStatusEntities) {
-            int scenarioQuantity = scenarioRepository.countCenariosByAutomationStatus(automationStatus,idTeam);
+            int scenarioQuantity = scenarioRepository.countScenariosByAutomationStatus(automationStatus,idTeam);
             automationStatus.setScenarioQuantity(scenarioQuantity);
         }
 

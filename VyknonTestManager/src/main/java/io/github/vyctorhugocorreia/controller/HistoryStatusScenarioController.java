@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/historyStatusScenario")
+@RequestMapping("/api/history-status-scenario")
 @AllArgsConstructor
 @CrossOrigin
 public class HistoryStatusScenarioController {

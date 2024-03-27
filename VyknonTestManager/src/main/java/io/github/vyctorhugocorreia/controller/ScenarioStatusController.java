@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/statusCenario")
+@RequestMapping("/api/scenario-status")
 @AllArgsConstructor
 @CrossOrigin
 public class ScenarioStatusController {
@@ -25,7 +25,7 @@ public class ScenarioStatusController {
         List<ScenarioStatusEntity> scenarioStatusEntities = repository.findAll();
 
         for (ScenarioStatusEntity scenarioStatus : scenarioStatusEntities) {
-            int quantidadeCenarios = scenarioRepository.countCenariosByScenarioStatus(scenarioStatus,idTeam);
+            int quantidadeCenarios = scenarioRepository.countScenariosByScenarioStatus(scenarioStatus,idTeam);
             scenarioStatus.setScenarioQuantity(quantidadeCenarios);
         }
 

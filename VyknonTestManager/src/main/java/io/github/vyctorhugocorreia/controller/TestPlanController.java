@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/planoDeTeste")
+@RequestMapping("/api/test-plan")
 @AllArgsConstructor
 @CrossOrigin
 public class TestPlanController {
