@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class HistoryStatusScenarioDTO {
     private Long idHistory;
-    private Long idCenario;
+    private Long idScenario;
     private Long statusBefore;
     private Long statusAfter;
     private LocalDateTime dateUpdate;
-    private String usuario;
+    private String user;
 }

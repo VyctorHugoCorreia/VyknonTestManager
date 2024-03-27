@@ -1,18 +1,12 @@
 package io.github.vyctorhugocorreia.controller;
 
 
-import io.github.vyctorhugocorreia.dto.CenarioDeTesteDTO;
 import io.github.vyctorhugocorreia.dto.HistoryStatusScenarioDTO;
-import io.github.vyctorhugocorreia.entity.CenarioDeTesteEntity;
 import io.github.vyctorhugocorreia.entity.HistoryStatusScenarioEntity;
-import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.HistoryStatusScenarioRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
-import io.github.vyctorhugocorreia.service.CenarioDeTesteService;
-import io.github.vyctorhugocorreia.service.HistoriyStatusScenarioService;
+import io.github.vyctorhugocorreia.service.HistoryStatusScenarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +20,7 @@ import java.util.List;
 @CrossOrigin
 public class HistoryStatusScenarioController {
 
-    private final HistoriyStatusScenarioService service;
+    private final HistoryStatusScenarioService service;
     private final HistoryStatusScenarioRepository repository;
 
     @PostMapping

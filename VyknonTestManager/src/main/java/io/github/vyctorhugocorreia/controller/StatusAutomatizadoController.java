@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.entity.StatusAutomatizadoEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.AutomationStatusEntity;
+import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.StatusAutomatizadoRepository;
 import lombok.AllArgsConstructor;
@@ -21,11 +21,11 @@ public class StatusAutomatizadoController {
 
 
     @GetMapping
-    public List<StatusAutomatizadoEntity> getStatus(@RequestParam(required = false) TimeEntity idTime) {
+    public List<AutomationStatusEntity> getStatus(@RequestParam(required = false) TeamEntity idTime) {
 
-        List<StatusAutomatizadoEntity> status = repository.findAll();
+        List<AutomationStatusEntity> status = repository.findAll();
 
-        for (StatusAutomatizadoEntity statusAutomatizado : status) {
+        for (AutomationStatusEntity statusAutomatizado : status) {
             int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByAutomationStatus(statusAutomatizado,idTime);
             statusAutomatizado.setQuantidadeCenarios(quantidadeCenarios);
         }

@@ -12,6 +12,6 @@ public class TokenDTO {
 
     private String login;
     private String token;
-    private String perfilDeAcesso;
-    private String nome;
+    private String accessProfile;
+    private String name;
 }

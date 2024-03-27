@@ -1,8 +1,8 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.dto.UsuarioDTO;
-import io.github.vyctorhugocorreia.entity.UsuarioEntity;
-import io.github.vyctorhugocorreia.service.UsuarioService;
+import io.github.vyctorhugocorreia.dto.UserDTO;
+import io.github.vyctorhugocorreia.entity.UserEntity;
+import io.github.vyctorhugocorreia.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class TrocarSenhaController {
 
 
-    private final UsuarioService usuarioService;
+    private final UserService userService;
 
     @PutMapping
-    public ResponseEntity<UsuarioEntity> editar(@RequestBody @Valid UsuarioDTO dto) {
-        return ResponseEntity.ok(usuarioService.editarSenha(dto));
+    public ResponseEntity<UserEntity> editar(@RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.ok(userService.editarSenha(dto));
     }
 }

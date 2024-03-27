@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEntity, Integer> {
+public interface CenarioDeTesteRepository extends JpaRepository<ScenarioEntity, Integer> {
 
-    List<CenarioDeTesteEntity> findAll();
+    List<ScenarioEntity> findAll();
 
-    List<CenarioDeTesteEntity> findByIdCenario(CenarioDeTesteEntity cenario);
+    List<ScenarioEntity> findByIdCenario(ScenarioEntity cenario);
 
     @Query("SELECT c FROM CenarioDeTesteEntity c WHERE " +
             "(:idCenario IS NULL OR c.idCenario = :idCenario) AND " +
@@ -26,7 +26,7 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             "(:idStatus IS NULL OR c.idStatus.idStatus = :idStatus) AND " +
             "(:idAutomatizado IS NULL OR c.idAutomatizado.idAutomatizado = :idAutomatizado) AND" +
             "(:tags IS NULL OR c.tags LIKE %:tags%) " )
-    List<CenarioDeTesteEntity> searchCenario(
+    List<ScenarioEntity> searchCenario(
             @Param("idCenario") Long idCenario,
             @Param("tituloCenario") String tituloCenario,
             @Param("idTime") Long idTime,
@@ -40,37 +40,37 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             @Param("tags") String tags);
 
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idTproduto = :idTproduto")
-    int countScenariosByProduto(@Param("idTproduto") ProdutoEntity idTproduto);
+    int countScenariosByProduto(@Param("idTproduto") ProductEntity idTproduto);
 
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idPlano = :idPlano")
-    int countScenariosByTestPlan(@Param("idPlano") PlanoDeTesteEntity idPlano);
+    int countScenariosByTestPlan(@Param("idPlano") TestPlanEntity idPlano);
 
     @Query("SELECT COUNT(s) FROM CenarioDeTesteEntity s WHERE s.idTime = :idTime")
-    int countScenariosByTime(@Param("idTime") TimeEntity idTime);
+    int countScenariosByTime(@Param("idTime") TeamEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idSuite = :idSuite")
-    int countCenariosBySuite(@Param("idSuite") SuiteDeTesteEntity idSuite);
+    int countCenariosBySuite(@Param("idSuite") testSuiteEntity idSuite);
 
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idTpcenario = :idTpcenario " +
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
-    int countCenariosByScenarioType(@Param("idTpcenario") TipoCenarioEntity idTpcenario,
-                                            @Param("idTime") TimeEntity idTime);
+    int countCenariosByScenarioType(@Param("idTpcenario") ScenarioTypeEntity idTpcenario,
+                                            @Param("idTime") TeamEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idStatus = :idStatus " +
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
-    int countCenariosByScenarioStatus(@Param("idStatus") StatusCenarioEntity idStatus,
-                                      @Param("idTime") TimeEntity idTime);
+    int countCenariosByScenarioStatus(@Param("idStatus") ScenarioStatusEntity idStatus,
+                                      @Param("idTime") TeamEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idAutomatizado = :idAutomatizado "+
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
-    int countCenariosByAutomationStatus(@Param("idAutomatizado") StatusAutomatizadoEntity idAutomatizado,
-                                        @Param("idTime") TimeEntity idTime);
+    int countCenariosByAutomationStatus(@Param("idAutomatizado") AutomationStatusEntity idAutomatizado,
+                                        @Param("idTime") TeamEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c WHERE c.idPlataforma = :idPlataforma " +
             "AND (:idTime IS NULL OR c.idTime = :idTime)")
-    int countCenariosByPlataformType(@Param("idPlataforma") TipoPlataformaEntity idPlataforma,
-                                     @Param("idTime") TimeEntity idTime);
+    int countCenariosByPlataformType(@Param("idPlataforma") PlatformTypeEntity idPlataforma,
+                                     @Param("idTime") TeamEntity idTime);
 
     @Query("SELECT COUNT(c) FROM CenarioDeTesteEntity c " +
             "WHERE (:idPlano IS NULL OR c.idPlano = :idPlano) " +
@@ -80,12 +80,12 @@ public interface CenarioDeTesteRepository extends JpaRepository<CenarioDeTesteEn
             "AND (:idAutomatizado IS NULL OR c.idAutomatizado = :idAutomatizado) " +
             "AND (:idPlataforma IS NULL OR c.idPlataforma = :idPlataforma)")
     int countCenariosByMultipleCriteria(
-            @Param("idPlano") PlanoDeTesteEntity idPlano,
-            @Param("idSuite") SuiteDeTesteEntity idSuite,
-            @Param("idTpcenario") TipoCenarioEntity idTpcenario,
-            @Param("idStatus") StatusCenarioEntity idStatus,
-            @Param("idAutomatizado") StatusAutomatizadoEntity idAutomatizado,
-            @Param("idPlataforma") TipoPlataformaEntity idPlataforma);
+            @Param("idPlano") TestPlanEntity idPlano,
+            @Param("idSuite") testSuiteEntity idSuite,
+            @Param("idTpcenario") ScenarioTypeEntity idTpcenario,
+            @Param("idStatus") ScenarioStatusEntity idStatus,
+            @Param("idAutomatizado") AutomationStatusEntity idAutomatizado,
+            @Param("idPlataforma") PlatformTypeEntity idPlataforma);
 
 }
 

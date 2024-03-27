@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.repository;
 
-import io.github.vyctorhugocorreia.entity.PlanoDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.ProdutoEntity;
+import io.github.vyctorhugocorreia.entity.TestPlanEntity;
+import io.github.vyctorhugocorreia.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,22 +9,22 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface PlanoDeTestesRepository extends JpaRepository<PlanoDeTesteEntity, Integer> {
+public interface PlanoDeTestesRepository extends JpaRepository<TestPlanEntity, Integer> {
 
-    boolean existsByDescPlanoAndIdTproduto(String DescPlano, ProdutoEntity idTproduto);
+    boolean existsByDescPlanoAndIdTproduto(String DescPlano, ProductEntity idTproduto);
 
-    boolean existsByDescPlanoAndIdTprodutoAndIdPlanoNot(String DescPlano, ProdutoEntity idTproduto, Long idPlano);
-
-
+    boolean existsByDescPlanoAndIdTprodutoAndIdPlanoNot(String DescPlano, ProductEntity idTproduto, Long idPlano);
 
 
-    boolean existsByIdTproduto(ProdutoEntity produto);
+
+
+    boolean existsByIdTproduto(ProductEntity produto);
     @Query("SELECT p FROM PlanoDeTesteEntity p WHERE " +
             "(:idPlano IS NULL OR p.idPlano = :idPlano) AND " +
             "(:idTime IS NULL OR p.idTime.idTime = :idTime) AND " +
             "(:idTproduto IS NULL OR p.idTproduto.idTproduto = :idTproduto) AND" +
             "(:descPlano IS NULL OR p.descPlano LIKE %:descPlano%)")
-    List<PlanoDeTesteEntity> searchPlano(
+    List<TestPlanEntity> searchPlano(
             @Param("idPlano") Long idPlano,
             @Param("idTime") Long idTime,
             @Param("idTproduto") Long idTproduto,

@@ -4,7 +4,7 @@ package io.github.vyctorhugocorreia.security;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import io.github.vyctorhugocorreia.entity.UsuarioEntity;
+import io.github.vyctorhugocorreia.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class TokenService {
     @Value("${security.jwt.chave-assinatura}")
     private String chaveAutenticacao;
 
-    public String generateToken(UsuarioEntity usuario){
+    public String generateToken(UserEntity usuario){
         try{
             Algorithm algorithm = Algorithm.HMAC256(chaveAutenticacao);
             String token = JWT.create()

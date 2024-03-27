@@ -1,11 +1,8 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.entity.StatusAutomatizadoEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
-import io.github.vyctorhugocorreia.entity.TipoCenarioEntity;
-import io.github.vyctorhugocorreia.entity.TipoPlataformaEntity;
+import io.github.vyctorhugocorreia.entity.TeamEntity;
+import io.github.vyctorhugocorreia.entity.PlatformTypeEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.StatusAutomatizadoRepository;
 import io.github.vyctorhugocorreia.repository.TipoPlataformaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +21,12 @@ public class TipoPlataformaController {
 
 
     @GetMapping
-    public List<TipoPlataformaEntity> getPlataforma(@RequestParam(required = false) TimeEntity idTime
+    public List<PlatformTypeEntity> getPlataforma(@RequestParam(required = false) TeamEntity idTime
     ) {
 
-        List<TipoPlataformaEntity> tipoPlataformaEntityList = repository.findAll();
+        List<PlatformTypeEntity> tipoPlataformaEntityList = repository.findAll();
 
-        for (TipoPlataformaEntity tipoPlataforma : tipoPlataformaEntityList) {
+        for (PlatformTypeEntity tipoPlataforma : tipoPlataformaEntityList) {
             int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByPlataformType(tipoPlataforma,idTime);
             tipoPlataforma.setQuantidadeCenarios(quantidadeCenarios);
         }

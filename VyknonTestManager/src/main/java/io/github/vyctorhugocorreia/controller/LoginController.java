@@ -3,21 +3,17 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.LoginDTO;
 import io.github.vyctorhugocorreia.dto.TokenDTO;
-import io.github.vyctorhugocorreia.dto.UsuarioDTO;
-import io.github.vyctorhugocorreia.entity.UsuarioEntity;
+import io.github.vyctorhugocorreia.dto.UserDTO;
+import io.github.vyctorhugocorreia.entity.UserEntity;
 import io.github.vyctorhugocorreia.exception.RegraNegocioException;
 import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import io.github.vyctorhugocorreia.security.TokenService;
-import io.github.vyctorhugocorreia.service.UsuarioService;
+import io.github.vyctorhugocorreia.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/login")
@@ -27,18 +23,18 @@ public class LoginController {
 
 
     private final TokenService tokenService;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
     private final UsuarioRepository usuarioRepository;
 
     @PostMapping
     public TokenDTO autenticar(@RequestBody LoginDTO dto) {
         try {
-            UsuarioEntity usuario = UsuarioEntity.builder()
+            UserEntity usuario = UserEntity.builder()
                     .login(dto.getLogin())
                     .senha(dto.getSenha())
                     .build();
 
-            UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
+            UserDetails usuarioAutenticado = userService.autenticar(usuario);
             String token = tokenService.generateToken(usuario);
 
             String perfilDeAcesso = usuarioRepository.findPerfilDeAcessoByLogin(dto.getLogin());
@@ -52,7 +48,7 @@ public class LoginController {
     }
 
     @PutMapping("/trocar-senha")
-    public ResponseEntity<UsuarioEntity> editar(@RequestBody @Valid UsuarioDTO dto) {
-        return ResponseEntity.ok(usuarioService.editarSenha(dto));
+    public ResponseEntity<UserEntity> editar(@RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.ok(userService.editarSenha(dto));
     }
 }

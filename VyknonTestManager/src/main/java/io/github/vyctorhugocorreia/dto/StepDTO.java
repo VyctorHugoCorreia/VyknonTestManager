@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StepDTO {
 
-    private int passo;
+    private int step;
 
-    private String descricao;
+    private String description;
 
     private String status;
 

@@ -1,17 +1,14 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.entity.SuiteDeTesteEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
-import io.github.vyctorhugocorreia.dto.TimeDTO;
-import io.github.vyctorhugocorreia.service.TimeService;
+import io.github.vyctorhugocorreia.dto.TeamDTO;
+import io.github.vyctorhugocorreia.service.TeamService;
 import jakarta.validation.Valid;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,19 +19,19 @@ import java.util.List;
 @CrossOrigin
 public class TimeController {
 
-    final TimeService service;
+    final TeamService service;
     final TimeRepository repository;
     final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     @GetMapping
-    public List<TimeEntity> getTime(
+    public List<TeamEntity> getTime(
             @RequestParam(required = false) Long idTime,
             @RequestParam(required = false) String nomeTime
     ) {
 
-        List<TimeEntity> timeEntities = repository.searchTime(idTime, nomeTime);
+        List<TeamEntity> timeEntities = repository.searchTime(idTime, nomeTime);
 
-        for (TimeEntity timeEntity : timeEntities) {
+        for (TeamEntity timeEntity : timeEntities) {
             int countCenarios = cenarioDeTesteRepository.countScenariosByTime(timeEntity);
             timeEntity.setQuantidadeCenarios(countCenarios);
         }
@@ -44,14 +41,14 @@ public class TimeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TimeEntity save(@RequestBody @Valid TimeDTO dto) {
+    public TeamEntity save(@RequestBody @Valid TeamDTO dto) {
         return service.salvar(dto);
 
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TimeEntity editar(@PathVariable Long id, @RequestBody @Valid TimeDTO dto) {
+    public TeamEntity editar(@PathVariable Long id, @RequestBody @Valid TeamDTO dto) {
         return service.editar(id, dto);
     }
 

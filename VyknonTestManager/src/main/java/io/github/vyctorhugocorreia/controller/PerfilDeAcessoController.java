@@ -1,12 +1,10 @@
 package io.github.vyctorhugocorreia.controller;
 
 
-import io.github.vyctorhugocorreia.dto.PerfilDeAcessoDTO;
-import io.github.vyctorhugocorreia.dto.UsuarioDTO;
-import io.github.vyctorhugocorreia.entity.PerfilDeAcessoEntity;
-import io.github.vyctorhugocorreia.entity.UsuarioEntity;
+import io.github.vyctorhugocorreia.dto.AccessProfileDTO;
+import io.github.vyctorhugocorreia.entity.AccessProfileEntity;
 import io.github.vyctorhugocorreia.repository.PerfilDeAcessoRepository;
-import io.github.vyctorhugocorreia.service.PerfilDeAcessoService;
+import io.github.vyctorhugocorreia.service.AccessProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,20 +21,20 @@ import java.util.List;
 public class PerfilDeAcessoController {
 
     private final PerfilDeAcessoRepository repository;
-    private final PerfilDeAcessoService  service;
+    private final AccessProfileService service;
 
     @PostMapping
     @Transactional
     @PreAuthorize("hasRole('Administrador')")
-    public ResponseEntity<PerfilDeAcessoEntity> salvar(@RequestBody @Valid PerfilDeAcessoDTO dto){
-        PerfilDeAcessoEntity perfil = service.salvar(dto);
+    public ResponseEntity<AccessProfileEntity> salvar(@RequestBody @Valid AccessProfileDTO dto){
+        AccessProfileEntity perfil = service.salvar(dto);
         return ResponseEntity.ok(perfil);
     }
 
 
     @GetMapping
     @PreAuthorize("hasRole('Administrador')")
-    public ResponseEntity<List<PerfilDeAcessoEntity>> listar(){
+    public ResponseEntity<List<AccessProfileEntity>> listar(){
         return ResponseEntity.ok(repository.findAll());
     }
 }

@@ -1,11 +1,10 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.entity.StatusCenarioEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
+import io.github.vyctorhugocorreia.entity.ScenarioStatusEntity;
+import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
 import io.github.vyctorhugocorreia.repository.StatusCenarioRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +20,11 @@ public class StatusCenarioController {
     private final CenarioDeTesteRepository cenarioDeTesteRepository;
 
     @GetMapping
-    public List<StatusCenarioEntity> getStatus(@RequestParam(required = false) TimeEntity idTime) {
+    public List<ScenarioStatusEntity> getStatus(@RequestParam(required = false) TeamEntity idTime) {
 
-        List<StatusCenarioEntity> status = repository.findAll();
+        List<ScenarioStatusEntity> status = repository.findAll();
 
-        for (StatusCenarioEntity statusCenario : status) {
+        for (ScenarioStatusEntity statusCenario : status) {
             int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByScenarioStatus(statusCenario,idTime);
             statusCenario.setQuantidadeCenarios(quantidadeCenarios);
         }

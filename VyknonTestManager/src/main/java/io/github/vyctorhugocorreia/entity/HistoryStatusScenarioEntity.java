@@ -24,22 +24,22 @@ public class HistoryStatusScenarioEntity {
     private Long idHistory;
 
     @ManyToOne
-    @JoinColumn(name = "id_cenario")
-    private CenarioDeTesteEntity idCenario;
+    @JoinColumn(name = "id_scenario")
+    private ScenarioEntity idScenario;
 
     @ManyToOne
     @JoinColumn(name = "status_before")
-    private StatusCenarioEntity statusBefore;
+    private ScenarioStatusEntity statusBefore;
 
     @ManyToOne
     @JoinColumn(name = "status_after")
-    private StatusCenarioEntity statusAfter;
+    private ScenarioStatusEntity statusAfter;
 
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_user")
     @ManyToOne
-    private UsuarioEntity usuario;
+    private UserEntity user;
 
 }

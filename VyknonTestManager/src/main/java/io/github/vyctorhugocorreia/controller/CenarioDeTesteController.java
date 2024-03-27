@@ -1,12 +1,11 @@
 package io.github.vyctorhugocorreia.controller;
 
 
-import io.github.vyctorhugocorreia.dto.CenarioDeTesteDTO;
+import io.github.vyctorhugocorreia.dto.ScenarioDTO;
 
 import io.github.vyctorhugocorreia.entity.*;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.SuiteDeTesteRepository;
-import io.github.vyctorhugocorreia.service.CenarioDeTesteService;
+import io.github.vyctorhugocorreia.service.ScenarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,22 +22,22 @@ import java.util.List;
 @CrossOrigin
 public class CenarioDeTesteController {
 
-    private final CenarioDeTesteService service;
+    private final ScenarioService service;
     private final CenarioDeTesteRepository repository;
 
     @PostMapping
-    public ResponseEntity<CenarioDeTesteEntity> save(@RequestBody @Valid CenarioDeTesteDTO dto) {
+    public ResponseEntity<ScenarioEntity> save(@RequestBody @Valid ScenarioDTO dto) {
         return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<CenarioDeTesteEntity> update(
+    public ResponseEntity<ScenarioEntity> update(
             @PathVariable Long id,
-            @RequestBody @Valid CenarioDeTesteDTO dto
+            @RequestBody @Valid ScenarioDTO dto
     ) {
         return new ResponseEntity<>(service.editar(id, dto), HttpStatus.OK);
     }
     @GetMapping
-    public List<CenarioDeTesteEntity> getTestCase(
+    public List<ScenarioEntity> getTestCase(
             @RequestParam(required = false) Long idCenario,
             @RequestParam(required = false) String tituloCenario,
             @RequestParam(required = false) Long idTime,

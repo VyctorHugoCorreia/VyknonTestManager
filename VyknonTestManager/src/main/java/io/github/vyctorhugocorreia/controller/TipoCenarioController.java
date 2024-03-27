@@ -1,11 +1,8 @@
 package io.github.vyctorhugocorreia.controller;
 
-import io.github.vyctorhugocorreia.entity.StatusAutomatizadoEntity;
-import io.github.vyctorhugocorreia.entity.StatusCenarioEntity;
-import io.github.vyctorhugocorreia.entity.TimeEntity;
-import io.github.vyctorhugocorreia.entity.TipoCenarioEntity;
+import io.github.vyctorhugocorreia.entity.TeamEntity;
+import io.github.vyctorhugocorreia.entity.ScenarioTypeEntity;
 import io.github.vyctorhugocorreia.repository.CenarioDeTesteRepository;
-import io.github.vyctorhugocorreia.repository.StatusAutomatizadoRepository;
 import io.github.vyctorhugocorreia.repository.TipoCenarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,18 +23,18 @@ public class TipoCenarioController {
 
 
     @GetMapping
-    public List<TipoCenarioEntity> getStatus(
-            @RequestParam(required = false) TimeEntity idTime
+    public List<ScenarioTypeEntity> getStatus(
+            @RequestParam(required = false) TeamEntity idTime
     ) {
 
-        List<TipoCenarioEntity> tipoCenarioEntityList = repository.findAll();
+        List<ScenarioTypeEntity> scenarioTypeEntityList = repository.findAll();
 
-        for (TipoCenarioEntity tipoCenario : tipoCenarioEntityList) {
+        for (ScenarioTypeEntity tipoCenario : scenarioTypeEntityList) {
             int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByScenarioType(tipoCenario,idTime);
             tipoCenario.setQuantidadeCenarios(quantidadeCenarios);
         }
 
-        return tipoCenarioEntityList;
+        return scenarioTypeEntityList;
     }
 
 

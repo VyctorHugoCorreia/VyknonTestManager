@@ -2,11 +2,10 @@ package io.github.vyctorhugocorreia.config;
 
 import io.github.vyctorhugocorreia.security.SecurityFilter;
 import io.github.vyctorhugocorreia.security.TokenService;
-import io.github.vyctorhugocorreia.service.impl.UsuarioServiceImpl;
+import io.github.vyctorhugocorreia.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,7 +34,7 @@ public class SecurityConfig {
     private SecurityFilter securityFilter;
 
     @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private UserServiceImpl usuarioService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
