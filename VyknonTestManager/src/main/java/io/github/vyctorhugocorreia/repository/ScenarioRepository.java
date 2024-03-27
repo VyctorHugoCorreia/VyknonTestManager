@@ -47,7 +47,7 @@ public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Intege
     int countScenariosByTeam(@Param("idTeam") TeamEntity idTeam);
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idTestSuite = :idTestSuite")
-    int countScenariosByTestSuite(@Param("idTestSuite") testSuiteEntity idTestSuite);
+    int countScenariosByTestSuite(@Param("idTestSuite") TestSuiteEntity idTestSuite);
 
 
     @Query("SELECT COUNT(c) FROM ScenarioEntity c WHERE c.idScenarioType = :idScenarioType " +

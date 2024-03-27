@@ -3,7 +3,7 @@ package io.github.vyctorhugocorreia.controller;
 
 import io.github.vyctorhugocorreia.dto.TestSuiteDTO;
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
-import io.github.vyctorhugocorreia.entity.testSuiteEntity;
+import io.github.vyctorhugocorreia.entity.TestSuiteEntity;
 import io.github.vyctorhugocorreia.repository.ScenarioRepository;
 import io.github.vyctorhugocorreia.repository.TestSuiteRepository;
 import io.github.vyctorhugocorreia.service.TestSuiteService;
@@ -28,15 +28,15 @@ public class TestSuiteController {
     private final ScenarioRepository scenarioRepository;
 
     @PostMapping
-    public ResponseEntity<testSuiteEntity> save(@RequestBody @Valid TestSuiteDTO dto) {
+    public ResponseEntity<TestSuiteEntity> save(@RequestBody @Valid TestSuiteDTO dto) {
         return new ResponseEntity<>(service.save(dto), HttpStatusCode.valueOf(201));
     }
     @GetMapping("/plano/{idPlano}")
-    public ResponseEntity<List<testSuiteEntity>> getSuitesByPlanoId(@PathVariable Long idTestPlan) {
+    public ResponseEntity<List<TestSuiteEntity>> getSuitesByPlanoId(@PathVariable Long idTestPlan) {
         TestPlanEntity testPlan = new TestPlanEntity();
         testPlan.setIdTestPlan(idTestPlan);
 
-        List<testSuiteEntity> suites = repository.findBySuitesIdTestPlan(testPlan);
+        List<TestSuiteEntity> suites = repository.findBySuitesIdTestPlan(testPlan);
 
         if (suites.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -45,7 +45,7 @@ public class TestSuiteController {
         return ResponseEntity.ok(suites);
     }
     @GetMapping
-    public ResponseEntity<List<testSuiteEntity>> getTestSuite(
+    public ResponseEntity<List<TestSuiteEntity>> getTestSuite(
             @RequestParam(required = false) Long idTestSuite,
             @RequestParam(required = false) Long idTeam,
             @RequestParam(required = false) Long idProduct,
@@ -54,9 +54,9 @@ public class TestSuiteController {
     ) {
 
 
-        List<testSuiteEntity> testSuiteEntities = repository.searchSuite(idTestSuite, idTeam, idProduct, idTestPlan, descTestSuite);
+        List<TestSuiteEntity> testSuiteEntities = repository.searchSuite(idTestSuite, idTeam, idProduct, idTestPlan, descTestSuite);
 
-        for (testSuiteEntity testSuiteEntity : testSuiteEntities) {
+        for (TestSuiteEntity testSuiteEntity : testSuiteEntities) {
             int scenarioQuantity = scenarioRepository.countScenariosByTestSuite(testSuiteEntity);
             testSuiteEntity.setScenarioQuantity(scenarioQuantity);
         }
@@ -65,7 +65,7 @@ public class TestSuiteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<testSuiteEntity> edit(@PathVariable Long id, @RequestBody @Valid TestSuiteDTO dto) {
+    public ResponseEntity<TestSuiteEntity> edit(@PathVariable Long id, @RequestBody @Valid TestSuiteDTO dto) {
         return ResponseEntity.ok(service.edit(id, dto));
     }
 

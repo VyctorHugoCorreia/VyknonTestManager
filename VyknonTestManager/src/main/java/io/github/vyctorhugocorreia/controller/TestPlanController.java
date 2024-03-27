@@ -43,7 +43,7 @@ public class TestPlanController {
         List<TestPlanEntity> testPlanEntities = repository.searchPlano(idTestPlan,idTeam, idProduct, descTestPlan);
 
         for (TestPlanEntity testPlan : testPlanEntities) {
-            int testSuiteQuantity = testSuiteRepository.countSuitesByTestPlan(testPlan);
+            int testSuiteQuantity = testSuiteRepository.countTestSuiteByTestPlan(testPlan);
             testPlan.setTestSuiteQuantity(testSuiteQuantity);
         }
 

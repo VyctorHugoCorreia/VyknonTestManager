@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.repository;
 
 import io.github.vyctorhugocorreia.entity.TestPlanEntity;
-import io.github.vyctorhugocorreia.entity.testSuiteEntity;
+import io.github.vyctorhugocorreia.entity.TestSuiteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface TestSuiteRepository extends JpaRepository<testSuiteEntity, Long> {
+public interface TestSuiteRepository extends JpaRepository<TestSuiteEntity, Long> {
 
     boolean existsByDescTestSuiteAndIdTestPlan(String descSuite, TestPlanEntity idPlano);
 
@@ -17,10 +17,10 @@ public interface TestSuiteRepository extends JpaRepository<testSuiteEntity, Long
 
     boolean existsByIdTestPlan(TestPlanEntity plano);
     @Query("SELECT COUNT(s) FROM TestSuiteEntity s WHERE s.idTestPlan = :idTestPlan")
-    int countSuitesByTestPlan(@Param("plano") TestPlanEntity idTestPlan);
+    int countTestSuiteByTestPlan(@Param("idTestPlan") TestPlanEntity idTestPlan);
 
     @Query("SELECT s FROM TestSuiteEntity s WHERE s.idTestPlan = :idTestPlan")
-    List<testSuiteEntity> findBySuitesIdTestPlan(@Param("idTestPlan") TestPlanEntity idTestPlan);
+    List<TestSuiteEntity> findBySuitesIdTestPlan(@Param("idTestPlan") TestPlanEntity idTestPlan);
 
 
     @Query("SELECT p FROM TestSuiteEntity p WHERE " +
@@ -29,7 +29,7 @@ public interface TestSuiteRepository extends JpaRepository<testSuiteEntity, Long
             "(:idProduct IS NULL OR p.idProduct.idProduct = :idProduct) AND" +
             "(:idTestPlan IS NULL OR p.idTestPlan.idTestPlan = :idTestPlan) AND" +
             "(:descTestSuite IS NULL OR p.descTestSuite LIKE %:descTestSuite%)")
-    List<testSuiteEntity> searchSuite(
+    List<TestSuiteEntity> searchSuite(
             @Param("idTestSuite") Long idTestSuite,
             @Param("idTeam") Long idTeam,
             @Param("idProduct") Long idProduct,

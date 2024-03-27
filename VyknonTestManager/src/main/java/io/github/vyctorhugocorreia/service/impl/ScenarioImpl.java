@@ -68,7 +68,7 @@ public class ScenarioImpl implements ScenarioService {
                 .findById(idTestPlan.intValue())
                 .orElseThrow(TestPlanNotFoundException::new);
 
-        testSuiteEntity testSuite = testSuiteRepository
+        TestSuiteEntity testSuite = testSuiteRepository
                 .findById(idTestSuite)
                 .orElseThrow(TestSuiteNotFoundException::new);
 
@@ -146,7 +146,7 @@ ScenarioEntity scenario = ScenarioEntity.builder()
                 .findById(idTestPlan.intValue())
                 .orElseThrow(TestPlanNotFoundException::new);
 
-        testSuiteEntity testSuite = testSuiteRepository
+        TestSuiteEntity testSuite = testSuiteRepository
                 .findById(idTestSuite)
                 .orElseThrow(TestSuiteNotFoundException::new);
 

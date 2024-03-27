@@ -46,7 +46,7 @@ public class ScenarioEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_testSuite")
-    private testSuiteEntity idTestSuite;
+    private TestSuiteEntity idTestSuite;
 
     @ManyToOne
     @JoinColumn(name = "id_product")

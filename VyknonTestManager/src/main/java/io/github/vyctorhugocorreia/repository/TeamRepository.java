@@ -16,6 +16,6 @@ public interface TeamRepository extends JpaRepository<TeamEntity, Integer> {
             "(:idTeam IS NULL OR t.idTeam = :idTeam) AND " +
             "(:nameTeam IS NULL OR t.nameTeam LIKE %:nameTeam%)")
     List<TeamEntity> searchTeam(@Param("idTeam") Long idTeam,
-                                @Param("nomeTeam") String nameTeam);
+                                @Param("nameTeam") String nameTeam);
 }
 

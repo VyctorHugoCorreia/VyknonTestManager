@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "testSuite")
+@Table(name = "testsuite")
 
-public class testSuiteEntity {
+public class TestSuiteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

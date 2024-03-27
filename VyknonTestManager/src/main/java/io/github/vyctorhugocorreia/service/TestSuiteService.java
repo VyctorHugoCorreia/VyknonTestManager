@@ -1,13 +1,13 @@
 package io.github.vyctorhugocorreia.service;
 
 import io.github.vyctorhugocorreia.dto.TestSuiteDTO;
-import io.github.vyctorhugocorreia.entity.testSuiteEntity;
+import io.github.vyctorhugocorreia.entity.TestSuiteEntity;
 
 public interface TestSuiteService {
 
-    testSuiteEntity save(TestSuiteDTO dto);
+    TestSuiteEntity save(TestSuiteDTO dto);
 
-    testSuiteEntity edit(Long id, TestSuiteDTO dto);
+    TestSuiteEntity edit(Long id, TestSuiteDTO dto);
 
     String delete(Long id);
 

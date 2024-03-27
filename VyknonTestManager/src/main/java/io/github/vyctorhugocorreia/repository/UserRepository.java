@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     @Query("""
             SELECT u FROM UserEntity u WHERE
-            (:name IS NULL OR u.nome LIKE %:name%)
+            (:name IS NULL OR u.name LIKE %:name%)
             AND(:accessProfile IS NULL OR u.accessProfile.name LIKE %:accessProfile%)
             AND(:login IS NULL OR u.login LIKE %:login%)
             
@@ -36,7 +36,7 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     boolean existsByLoginAndStatus(String login, String status);
     boolean existsByLogin(String login);
 
-    @Query("SELECT u.accessProfile.nome FROM UserEntity u WHERE u.login = :login")
+    @Query("SELECT u.accessProfile.name FROM UserEntity u WHERE u.login = :login")
     String findAccessProfileByLogin(@Param("login") String login);
 
 

@@ -23,7 +23,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
 
     @Override
-    public testSuiteEntity save(TestSuiteDTO dto) {
+    public TestSuiteEntity save(TestSuiteDTO dto) {
         Long idTeam = dto.getIdTeam();
         TeamEntity teamEntity = teamRepository
                 .findById(idTeam.intValue())
@@ -46,7 +46,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
         validateIfSuiteExistsForPlan(descTestSuite, testPlan);
 
-        testSuiteEntity suite = testSuiteEntity.builder()
+        TestSuiteEntity suite = TestSuiteEntity.builder()
                 .descTestSuite(descTestSuite)
                 .idTeam(teamEntity)
                 .idProduct(product)
@@ -63,8 +63,8 @@ public class TestSuiteServiceImpl implements TestSuiteService {
     }
 
     @Override
-    public testSuiteEntity edit(Long id, TestSuiteDTO dto) {
-        testSuiteEntity existingSuite = testSuiteRepository
+    public TestSuiteEntity edit(Long id, TestSuiteDTO dto) {
+        TestSuiteEntity existingSuite = testSuiteRepository
                 .findById(id)
                 .orElseThrow(() -> new RuleBusinessException("Suite não encotrada"));
 
@@ -98,7 +98,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
         return testSuiteRepository.save(existingSuite);
     }
 
-    void validateIfSuiteExistsForPlan(String descTestPlan, TestPlanEntity testPlan, testSuiteEntity existingSuite) {
+    void validateIfSuiteExistsForPlan(String descTestPlan, TestPlanEntity testPlan, TestSuiteEntity existingSuite) {
         if (testSuiteRepository.existsByDescTestSuiteAndIdTestPlanAndIdTestSuiteNot(descTestPlan, testPlan, existingSuite.getIdTestSuite())) {
             throw new RuleBusinessException("Já existe uma suite de testes com o mesmo nome para este plano de testes.");
         }
@@ -106,7 +106,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
     @Override
     public String delete(Long idSuite) {
-        testSuiteEntity testSuiteEntity = testSuiteRepository.findById(idSuite)
+        TestSuiteEntity testSuiteEntity = testSuiteRepository.findById(idSuite)
                 .orElseThrow(() -> new RuleBusinessException("Suite não encontrada"));
 
         int scenarioQuantity = scenarioRepository.countScenariosByTestSuite(testSuiteEntity);
@@ -124,7 +124,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
     }
 
 
-    private testSuiteEntity getExistingSuite(Long id) {
+    private TestSuiteEntity getExistingSuite(Long id) {
         return testSuiteRepository.findById(id)
                 .orElseThrow(TestSuiteNotFoundException::new);
     }

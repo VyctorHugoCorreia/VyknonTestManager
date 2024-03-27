@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "accessProfile")
+@Table(name = "accessprofile")
 public class AccessProfileEntity implements Serializable {
 
     @Id

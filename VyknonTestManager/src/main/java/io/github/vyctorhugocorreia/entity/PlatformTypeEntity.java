@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "plataformType")
+@Table(name = "plataformtype")
 public class PlatformTypeEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_platformtype")
-    private Long idPlataforma;
+    private Long idPlatformType;
 
     @Column(name = "desc_platformtype")
     private String descPlatformType;
