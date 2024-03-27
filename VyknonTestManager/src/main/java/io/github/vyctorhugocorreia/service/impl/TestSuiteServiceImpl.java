@@ -27,19 +27,19 @@ public class TestSuiteServiceImpl implements TestSuiteService {
         Long idTeam = dto.getIdTeam();
         TeamEntity teamEntity = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
 
         Long idProduct = dto.getIdProduct();
         ProductEntity product = productRepository
                 .findById(idProduct.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(ProdutoNaoEncontradoException::new);
+                .orElseThrow(ProductNotFoundException::new);
 
         Long idTestPlan = dto.getIdTestPlan();
         TestPlanEntity testPlan = testPlanRepository
                 .findById(idTestPlan.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(() -> new RegraNegocioException("Plano não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Plano não encontrado"));
 
 
         String descTestSuite = dto.getDescTestSuite();
@@ -58,7 +58,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
     private void validateIfSuiteExistsForPlan(String descTestSuite, TestPlanEntity testPlan) {
         if (testSuiteRepository.existsByDescSuiteAndIdPlano(descTestSuite, testPlan)) {
-            throw new RegraNegocioException("Já existe uma suite de testes com o mesmo nome para este plano.");
+            throw new RuleBusinessException("Já existe uma suite de testes com o mesmo nome para este plano.");
         }
     }
 
@@ -66,24 +66,24 @@ public class TestSuiteServiceImpl implements TestSuiteService {
     public testSuiteEntity edit(Long id, TestSuiteDTO dto) {
         testSuiteEntity existingSuite = testSuiteRepository
                 .findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Suite não encotrada"));
+                .orElseThrow(() -> new RuleBusinessException("Suite não encotrada"));
 
         Long idTeam = dto.getIdTeam();
         TeamEntity teamEntity = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Time não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Time não encontrado"));
 
         Long idProduct = dto.getIdProduct();
         ProductEntity product = productRepository
                 .findById(idProduct.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(() -> new RegraNegocioException("Produto não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Produto não encontrado"));
 
         Long idTestPlan = dto.getIdTestPlan();
         TestPlanEntity testPlanEntity = testPlanRepository
                 .findById(idTestPlan.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(() -> new RegraNegocioException("Produto não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Produto não encontrado"));
 
         String descTestSuite = dto.getDescTestSuite();
 
@@ -100,19 +100,19 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
     void validateIfSuiteExistsForPlan(String descTestPlan, TestPlanEntity testPlan, testSuiteEntity existingSuite) {
         if (testSuiteRepository.existsByDescSuiteAndIdPlanoAndIdSuiteNot(descTestPlan, testPlan, existingSuite.getIdTestSuite())) {
-            throw new RegraNegocioException("Já existe uma suite de testes com o mesmo nome para este plano de testes.");
+            throw new RuleBusinessException("Já existe uma suite de testes com o mesmo nome para este plano de testes.");
         }
     }
 
     @Override
     public String delete(Long idSuite) {
         testSuiteEntity testSuiteEntity = testSuiteRepository.findById(idSuite)
-                .orElseThrow(() -> new RegraNegocioException("Suite não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Suite não encontrada"));
 
         int scenarioQuantity = scenarioRepository.countCenariosBySuite(testSuiteEntity);
 
         if (haveLinkedScenario(scenarioQuantity)) {
-            throw new RegraNegocioException("Não é possível excluir a suíte pois existem cenários vinculados a ela.");
+            throw new RuleBusinessException("Não é possível excluir a suíte pois existem cenários vinculados a ela.");
         }
 
         testSuiteRepository.delete(testSuiteEntity);
@@ -126,7 +126,7 @@ public class TestSuiteServiceImpl implements TestSuiteService {
 
     private testSuiteEntity getExistingSuite(Long id) {
         return testSuiteRepository.findById(id)
-                .orElseThrow(SuiteDeTesteNaoEncotradoException::new);
+                .orElseThrow(TestSuiteNotFoundException::new);
     }
 }
 

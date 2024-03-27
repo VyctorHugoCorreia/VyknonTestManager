@@ -3,8 +3,8 @@ package io.github.vyctorhugocorreia.service.impl;
 import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
-import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
+import io.github.vyctorhugocorreia.exception.TeamNotFoundException;
 import io.github.vyctorhugocorreia.dto.TeamDTO;
 import io.github.vyctorhugocorreia.service.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +25,10 @@ public class TeamServiceImpl implements TeamService {
     public TeamEntity save(TeamDTO dto) {
         String name = dto.getName();
         if (dto.getName().trim().isEmpty()) {
-            throw new RegraNegocioException("Preencha um nome válido");
+            throw new RuleBusinessException("Preencha um nome válido");
         }
         if (dto.getName().trim().length() > 100) {
-            throw new RegraNegocioException("O nome do time deve ter no máximo 100 caracteres");
+            throw new RuleBusinessException("O nome do time deve ter no máximo 100 caracteres");
         }
         validateIfTeamIsAlreadyRegistered(name);
 
@@ -47,10 +47,10 @@ public class TeamServiceImpl implements TeamService {
         TeamEntity existingTime = getTeamById(id);
         String newName = dto.getName();
         if (newName.trim().isEmpty()) {
-            throw new RegraNegocioException("Preencha um nome válido");
+            throw new RuleBusinessException("Preencha um nome válido");
         }
         if (newName.trim().length() > 100) {
-            throw new RegraNegocioException("O nome do time deve ter no máximo 100 caracteres");
+            throw new RuleBusinessException("O nome do time deve ter no máximo 100 caracteres");
         }
         if (!newName.toLowerCase(Locale.ROOT).equals(existingTime.getNameTeam().toLowerCase(Locale.ROOT))) {
             validateIfTeamIsAlreadyRegistered(newName);
@@ -74,18 +74,18 @@ public class TeamServiceImpl implements TeamService {
 
     private TeamEntity getTeamById(Long id) {
         return teamRepository.findById(id.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
     }
 
     private void validateIfTeamIsAlreadyRegistered(String name) {
         if (teamRepository.existsByNomeTime(name)) {
-            throw new RegraNegocioException("Já existe um time com o mesmo nome.");
+            throw new RuleBusinessException("Já existe um time com o mesmo nome.");
         }
     }
 
     private void checkedLinkedProducts(TeamEntity time) {
         if (!productRepository.findByIdTime(time).isEmpty()) {
-            throw new RegraNegocioException("Não é possível excluir o time, pois há produtos vinculados a ele.");
+            throw new RuleBusinessException("Não é possível excluir o time, pois há produtos vinculados a ele.");
         }
     }
 }

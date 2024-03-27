@@ -31,13 +31,13 @@ public class TestPlanServiceImpl implements TestPlanService {
         Long idTeam = dto.getIdTeam();
         TeamEntity team = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Time não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Time não encontrado"));
 
         Long idProduct = dto.getIdProduct();
         ProductEntity product = productRepository
                 .findById(idProduct.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(() -> new RegraNegocioException("Produto não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Produto não encontrado"));
 
 
         String descTestPlan = dto.getDescTestPlan();
@@ -57,18 +57,18 @@ public class TestPlanServiceImpl implements TestPlanService {
     public TestPlanEntity edit(Long idTestPlan, TestPlanDTO dto) {
         TestPlanEntity existingTestPlan = testPlanRepository
                 .findById(idTestPlan.intValue())
-                .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
+                .orElseThrow(TestPlanNotFoundException::new);
 
         Long idTeam = dto.getIdTeam();
         TeamEntity time = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
 
         Long idProduto = dto.getIdProduct();
         ProductEntity product = productRepository
                 .findById(idProduto.intValue())
                 .filter(p -> p.getIdTeam().getIdTeam().equals(idTeam))
-                .orElseThrow(ProdutoNaoEncontradoException::new);
+                .orElseThrow(ProductNotFoundException::new);
 
         String descTestPlan = dto.getDescTestPlan();
 
@@ -95,26 +95,26 @@ public class TestPlanServiceImpl implements TestPlanService {
         TestPlanEntity testPlan = getExistingPlano(id);
         boolean SuitesVinculadas = testSuiteRepository.existsByIdPlano(testPlan);
         if (SuitesVinculadas) {
-            throw new RegraNegocioException("Não é possível excluir o plano, pois existem suites vinculadas a ele.");
+            throw new RuleBusinessException("Não é possível excluir o plano, pois existem suites vinculadas a ele.");
         }
 
     }
 
     private TestPlanEntity getExistingPlano(Long id) {
         return testPlanRepository.findById(id.intValue())
-                .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
+                .orElseThrow(TestPlanNotFoundException::new);
     }
 
 
     void validateIfPlanExistsForProduct(String descTestPlan, ProductEntity product) {
         if (testPlanRepository.existsByDescPlanoAndIdTproduto(descTestPlan, product)) {
-            throw new RegraNegocioException("Já existe um plano com o mesmo nome para este produto.");
+            throw new RuleBusinessException("Já existe um plano com o mesmo nome para este produto.");
         }
     }
 
     void validateIfPlanExistsForProductAndOthers(String descTestPlan, ProductEntity product, TestPlanEntity existingTestPlan) {
         if (testPlanRepository.existsByDescPlanoAndIdTprodutoAndIdPlanoNot(descTestPlan, product, existingTestPlan.getIdTestPlan())) {
-            throw new RegraNegocioException("Já existe um plano de testes com o mesmo nome para este produto.");
+            throw new RuleBusinessException("Já existe um plano de testes com o mesmo nome para este produto.");
         }
     }
 }

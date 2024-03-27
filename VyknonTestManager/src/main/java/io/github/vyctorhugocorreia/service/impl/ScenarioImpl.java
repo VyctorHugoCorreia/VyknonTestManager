@@ -62,35 +62,35 @@ public class ScenarioImpl implements ScenarioService {
 
         TeamEntity team = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
 
         TestPlanEntity testPlan = testPlanRepository
                 .findById(idTestPlan.intValue())
-                .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
+                .orElseThrow(TestPlanNotFoundException::new);
 
         testSuiteEntity testSuite = testSuiteRepository
                 .findById(idTestSuite)
-                .orElseThrow(SuiteDeTesteNaoEncotradoException::new);
+                .orElseThrow(TestSuiteNotFoundException::new);
 
         ProductEntity product = productRepository
                 .findById(idProduct.intValue())
-                .orElseThrow(ProdutoNaoEncontradoException::new);
+                .orElseThrow(ProductNotFoundException::new);
 
         ScenarioTypeEntity scenarioType = scenarioTypeRepository
                 .findById(idScenarioType.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Tipo de cenário não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Tipo de cenário não encontrado"));
 
         PlatformTypeEntity platformType = platformTypeRepository
                 .findById(idPlatformType.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Plataforma não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Plataforma não encontrada"));
 
         ScenarioStatusEntity scenarioStatus = scenarioStatusRepository
                 .findById(idScenarioStatus.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Status do cenário não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Status do cenário não encontrada"));
 
         AutomationStatusEntity automationStatus = automationStatusRepository
                 .findById(idAutomationStatus.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Status automatizado não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Status automatizado não encontrada"));
 
 
 ScenarioEntity scenario = ScenarioEntity.builder()
@@ -136,39 +136,39 @@ ScenarioEntity scenario = ScenarioEntity.builder()
 
         ScenarioEntity existingScenario = scenarioRepository
                 .findById(id.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Cenário não encontrado"));
 
         TeamEntity team = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
 
         TestPlanEntity testPlan = testPlanRepository
                 .findById(idTestPlan.intValue())
-                .orElseThrow(PlanoDeTestesNaoEncontradaException::new);
+                .orElseThrow(TestPlanNotFoundException::new);
 
         testSuiteEntity testSuite = testSuiteRepository
                 .findById(idTestSuite)
-                .orElseThrow(SuiteDeTesteNaoEncotradoException::new);
+                .orElseThrow(TestSuiteNotFoundException::new);
 
         ProductEntity product = productRepository
                 .findById(idProduct.intValue())
-                .orElseThrow(ProdutoNaoEncontradoException::new);
+                .orElseThrow(ProductNotFoundException::new);
 
         ScenarioTypeEntity scenarioType = scenarioTypeRepository
                 .findById(idScenarioType.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Tipo de cenário não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Tipo de cenário não encontrado"));
 
         PlatformTypeEntity platformType = platformTypeRepository
                 .findById(idPlatformType.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Plataforma não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Plataforma não encontrada"));
 
         ScenarioStatusEntity scenarioStatus = scenarioStatusRepository
                 .findById(idScenarioStatus.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Status do cenário não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Status do cenário não encontrada"));
 
         AutomationStatusEntity automationStatus = automationStatusRepository
                 .findById(idAutomationStatus.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Status automatizado não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Status automatizado não encontrada"));
 
         existingScenario.setTitleScenario(titleScenario);
         existingScenario.setDescScenario(descScenario);
@@ -195,7 +195,7 @@ ScenarioEntity scenario = ScenarioEntity.builder()
     public String delete(Long id) {
 
         ScenarioEntity scenario = scenarioRepository.findById(id.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Cenário não encontrado"));
 
         historyStatusScenarioRepository.deleteByCenario(id);
 

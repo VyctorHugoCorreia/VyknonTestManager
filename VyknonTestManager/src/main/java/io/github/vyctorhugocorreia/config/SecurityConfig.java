@@ -34,7 +34,7 @@ public class SecurityConfig {
     private SecurityFilter securityFilter;
 
     @Autowired
-    private UserServiceImpl usuarioService;
+    private UserServiceImpl userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

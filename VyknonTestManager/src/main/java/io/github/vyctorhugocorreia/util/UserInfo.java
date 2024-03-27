@@ -1,7 +1,7 @@
 package io.github.vyctorhugocorreia.util;
 
 import io.github.vyctorhugocorreia.entity.UserEntity;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -25,7 +25,7 @@ public class UserInfo {
 
     public UserEntity user() {
         Optional<UserEntity> userEntityOptional =  getLoggedInUser();
-        UserEntity user = userEntityOptional.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+        UserEntity user = userEntityOptional.orElseThrow(() -> new RuleBusinessException("Usuário não encontrado"));
         return user;
     }
 }

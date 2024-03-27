@@ -25,7 +25,7 @@ public class HistoryStatusScenarioController {
 
     @PostMapping
     public ResponseEntity<HistoryStatusScenarioEntity> save(@RequestBody @Valid HistoryStatusScenarioDTO dto) {
-        return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
+        return new ResponseEntity<>(service.save(dto), HttpStatusCode.valueOf(201));
     }
 
     @GetMapping

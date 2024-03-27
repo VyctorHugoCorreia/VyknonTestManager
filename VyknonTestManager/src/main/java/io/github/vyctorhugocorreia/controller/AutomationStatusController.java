@@ -14,23 +14,23 @@ import java.util.List;
 @RequestMapping("/api/statusAutomatizado")
 @AllArgsConstructor
 @CrossOrigin
-public class StatusAutomatizadoController {
+public class AutomationStatusController {
 
     final StatusAutomatizadoRepository repository;
-    final CenarioDeTesteRepository cenarioDeTesteRepository;
+    final CenarioDeTesteRepository scenarioRepository;
 
 
     @GetMapping
-    public List<AutomationStatusEntity> getStatus(@RequestParam(required = false) TeamEntity idTime) {
+    public List<AutomationStatusEntity> getAutomationStatus(@RequestParam(required = false) TeamEntity idTeam) {
 
-        List<AutomationStatusEntity> status = repository.findAll();
+        List<AutomationStatusEntity> automationStatusEntities = repository.findAll();
 
-        for (AutomationStatusEntity statusAutomatizado : status) {
-            int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByAutomationStatus(statusAutomatizado,idTime);
-            statusAutomatizado.setQuantidadeCenarios(quantidadeCenarios);
+        for (AutomationStatusEntity automationStatus : automationStatusEntities) {
+            int scenarioQuantity = scenarioRepository.countCenariosByAutomationStatus(automationStatus,idTeam);
+            automationStatus.setScenarioQuantity(scenarioQuantity);
         }
 
-        return status;
+        return automationStatusEntities;
     }
 
 

@@ -3,7 +3,7 @@ package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.dto.HistoryStatusScenarioDTO;
 import io.github.vyctorhugocorreia.entity.*;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.repository.*;
 import io.github.vyctorhugocorreia.service.HistoryStatusScenarioService;
 import io.github.vyctorhugocorreia.util.UserInfo;
@@ -33,14 +33,14 @@ private final UserInfo userInfo;
         int idStatusAfter = dto.getStatusAfter().intValue();
 
         ScenarioEntity scenario = scenarioDeTesteRepository.findById(idScenario)
-                .orElseThrow(() -> new RegraNegocioException("Cenário não encontrado com ID: " + dto.getIdScenario()));
+                .orElseThrow(() -> new RuleBusinessException("Cenário não encontrado com ID: " + dto.getIdScenario()));
 
         ScenarioStatusEntity statusBefore = scenarioStatusRepository.findById(idStatusBefore)
-                .orElseThrow(() -> new RegraNegocioException("Status Before não encontrado com ID: " + idStatusBefore));
+                .orElseThrow(() -> new RuleBusinessException("Status Before não encontrado com ID: " + idStatusBefore));
 
         ScenarioStatusEntity statusAfter = scenarioStatusRepository
                 .findById(idStatusAfter)
-                .orElseThrow(() -> new RegraNegocioException("Status do cenário não encontrada"));
+                .orElseThrow(() -> new RuleBusinessException("Status do cenário não encontrada"));
 
         HistoryStatusScenarioEntity historyStatusScenario = HistoryStatusScenarioEntity.builder()
                 .idScenario(scenario)

@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
-    @ExceptionHandler(RegraNegocioException.class)
+    @ExceptionHandler(RuleBusinessException.class)
     @ResponseBody
-    public ResponseEntity<List<String>> handleRegraNegocioException(RegraNegocioException ex) {
+    public ResponseEntity<List<String>> handleRegraNegocioException(RuleBusinessException ex) {
         return ResponseEntity.badRequest().body(new ApiErrors(ex.getMessage()).errors);
     }
 
@@ -27,27 +27,22 @@ public class ApplicationControllerAdvice {
         return ResponseEntity.badRequest().body(new ApiErrors(errors).errors);
     }
 
-    @ExceptionHandler(TimeNaoEncontradoException.class)
+    @ExceptionHandler(TeamNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handleTimeNotFoundException(TimeNaoEncontradoException ex) {
+    public ResponseEntity<String> handleTimeNotFoundException(TeamNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
-    @ExceptionHandler(FuncionalidadeNaoEncontradaException.class)
+
+    @ExceptionHandler(TestPlanNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handleFuncionalidadeNotFoundException(FuncionalidadeNaoEncontradaException ex) {
+    public ResponseEntity<String> handlePlanoNotFoundException(TestPlanNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
-    @ExceptionHandler(PlanoDeTestesNaoEncontradaException.class)
+    @ExceptionHandler(ProductNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<String> handlePlanoNotFoundException(PlanoDeTestesNaoEncontradaException ex) {
-        return ResponseEntity.status(404).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(ProdutoNaoEncontradoException.class)
-    @ResponseBody
-    public ResponseEntity<String> handleProdutoNotFoundException(ProdutoNaoEncontradoException ex) {
+    public ResponseEntity<String> handleProdutoNotFoundException(ProductNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
 
     }

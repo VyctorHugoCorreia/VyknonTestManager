@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/trocar-senha")
 @RequiredArgsConstructor
 @CrossOrigin
-public class TrocarSenhaController {
+public class ChangePasswordController {
 
 
     private final UserService userService;
 
     @PutMapping
     public ResponseEntity<UserEntity> editar(@RequestBody @Valid UserDTO dto) {
-        return ResponseEntity.ok(userService.editarSenha(dto));
+        return ResponseEntity.ok(userService.passwordEdit(dto));
     }
 }

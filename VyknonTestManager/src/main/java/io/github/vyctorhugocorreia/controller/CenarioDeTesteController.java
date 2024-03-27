@@ -27,37 +27,37 @@ public class CenarioDeTesteController {
 
     @PostMapping
     public ResponseEntity<ScenarioEntity> save(@RequestBody @Valid ScenarioDTO dto) {
-        return new ResponseEntity<>(service.salvar(dto), HttpStatusCode.valueOf(201));
+        return new ResponseEntity<>(service.save(dto), HttpStatusCode.valueOf(201));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ScenarioEntity> update(
+    public ResponseEntity<ScenarioEntity> edit(
             @PathVariable Long id,
             @RequestBody @Valid ScenarioDTO dto
     ) {
-        return new ResponseEntity<>(service.editar(id, dto), HttpStatus.OK);
+        return new ResponseEntity<>(service.edit(id, dto), HttpStatus.OK);
     }
     @GetMapping
     public List<ScenarioEntity> getTestCase(
-            @RequestParam(required = false) Long idCenario,
-            @RequestParam(required = false) String tituloCenario,
-            @RequestParam(required = false) Long idTime,
-               @RequestParam(required = false) Long idPlano,
-            @RequestParam(required = false) Long idSuite,
-            @RequestParam(required = false) Long idTproduto,
-            @RequestParam(required = false) Long idTpcenario,
-            @RequestParam(required = false) Long idPlataforma,
-            @RequestParam(required = false) Long idStatus,
-            @RequestParam(required = false) Long idAutomatizado,
+            @RequestParam(required = false) Long idScenario,
+            @RequestParam(required = false) String titleScenario,
+            @RequestParam(required = false) Long idTeam,
+               @RequestParam(required = false) Long idTestPlan,
+            @RequestParam(required = false) Long idTestSuite,
+            @RequestParam(required = false) Long idProduct,
+            @RequestParam(required = false) Long idScenarioType,
+            @RequestParam(required = false) Long idPlatformType,
+            @RequestParam(required = false) Long idScenarioStatus,
+            @RequestParam(required = false) Long idAutomationStatus,
             @RequestParam(required = false) String tags
     ) {
 
-        return repository.searchCenario(idCenario, tituloCenario,idTime, idPlano, idSuite, idTproduto,idTpcenario,idPlataforma,idStatus,idAutomatizado,tags);
+        return repository.searchCenario(idScenario, titleScenario,idTeam, idTestPlan, idTestSuite, idProduct,idScenarioType,idPlatformType,idScenarioStatus,idAutomationStatus,tags);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String deletar(@PathVariable Long id) {
-        return service.deletar(id);
+    public String delete(@PathVariable Long id) {
+        return service.delete(id);
     }
 
 }

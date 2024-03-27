@@ -6,9 +6,9 @@ import io.github.vyctorhugocorreia.entity.TeamEntity;
 import io.github.vyctorhugocorreia.repository.PlanoDeTestesRepository;
 import io.github.vyctorhugocorreia.repository.ProdutoRepository;
 import io.github.vyctorhugocorreia.repository.TimeRepository;
-import io.github.vyctorhugocorreia.exception.ProdutoNaoEncontradoException;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
-import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.exception.ProductNotFoundException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
+import io.github.vyctorhugocorreia.exception.TeamNotFoundException;
 import io.github.vyctorhugocorreia.dto.ProductDTO;
 import io.github.vyctorhugocorreia.service.ProductService;
 import io.github.vyctorhugocorreia.util.UserInfo;
@@ -33,15 +33,15 @@ public class ProductServiceImpl implements ProductService {
         Long idTeam = dto.getIdTeam();
         TeamEntity teamEntity = teamRepository
                 .findById(idTeam.intValue())
-                .orElseThrow(() -> new RegraNegocioException("Time não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Time não encontrado"));
 
         String descProduct = dto.getDescProduct();
         validateProductForExistingTeam(descProduct, teamEntity);
         if (dto.getDescProduct().trim().isEmpty()) {
-            throw new RegraNegocioException("Preencha um nome válido");
+            throw new RuleBusinessException("Preencha um nome válido");
         }
         if (dto.getDescProduct().trim().length() > 100) {
-            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+            throw new RuleBusinessException("O nome deve ter no máximo 100 caracteres");
         }
 
         ProductEntity product = ProductEntity.builder().
@@ -66,10 +66,10 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setIdTeam(newTeam);
         }
         if (dto.getDescProduct().trim().isEmpty()) {
-            throw new RegraNegocioException("Preencha um nome válido");
+            throw new RuleBusinessException("Preencha um nome válido");
         }
         if (dto.getDescProduct().trim().length() > 100) {
-            throw new RegraNegocioException("O nome deve ter no máximo 100 caracteres");
+            throw new RuleBusinessException("O nome deve ter no máximo 100 caracteres");
         }
         return productRepository.save(existingProduct);
     }
@@ -89,14 +89,14 @@ public class ProductServiceImpl implements ProductService {
 
         boolean planoDeTesteVinculado = testPlanRepository.existsByIdTproduto(produto);
         if (planoDeTesteVinculado) {
-            throw new RegraNegocioException("Não é possível excluir o produto, pois existem planos de teste vinculado a ele.");
+            throw new RuleBusinessException("Não é possível excluir o produto, pois existem planos de teste vinculado a ele.");
         }
     }
 
 
     private ProductEntity getExistingProduto(Long id) {
         return productRepository.findById(id.intValue())
-                .orElseThrow(ProdutoNaoEncontradoException::new);
+                .orElseThrow(ProductNotFoundException::new);
     }
 
     private void updatedescProduct(ProductEntity product, String newProductDesc) {
@@ -108,12 +108,12 @@ public class ProductServiceImpl implements ProductService {
 
     private TeamEntity getTeam(Long idTeam) {
         return teamRepository.findById(idTeam.intValue())
-                .orElseThrow(TimeNaoEncontradoException::new);
+                .orElseThrow(TeamNotFoundException::new);
     }
 
     private void validateProductForExistingTeam(String newProductDesc, TeamEntity time) {
         if (productRepository.existsByDescProdutoAndIdTime(newProductDesc, time)) {
-            throw new RegraNegocioException("Já existe um produto com o mesmo nome para este time.");
+            throw new RuleBusinessException("Já existe um produto com o mesmo nome para este time.");
         }
     }
 

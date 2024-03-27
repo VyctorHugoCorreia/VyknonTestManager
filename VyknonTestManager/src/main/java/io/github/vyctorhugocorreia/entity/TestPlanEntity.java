@@ -39,4 +39,7 @@ public class TestPlanEntity {
     @Transient
     private int scenarioQuantity;
 
+    @Transient
+    private int testSuiteQuantity;
+
 }

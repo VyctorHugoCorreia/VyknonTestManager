@@ -14,22 +14,22 @@ import java.util.List;
 @RequestMapping("/api/statusCenario")
 @AllArgsConstructor
 @CrossOrigin
-public class StatusCenarioController {
+public class ScenarioStatusController {
 
     final StatusCenarioRepository repository;
-    private final CenarioDeTesteRepository cenarioDeTesteRepository;
+    private final CenarioDeTesteRepository scenarioRepository;
 
     @GetMapping
-    public List<ScenarioStatusEntity> getStatus(@RequestParam(required = false) TeamEntity idTime) {
+    public List<ScenarioStatusEntity> getScenarioStatus(@RequestParam(required = false) TeamEntity idTeam) {
 
-        List<ScenarioStatusEntity> status = repository.findAll();
+        List<ScenarioStatusEntity> scenarioStatusEntities = repository.findAll();
 
-        for (ScenarioStatusEntity statusCenario : status) {
-            int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByScenarioStatus(statusCenario,idTime);
-            statusCenario.setQuantidadeCenarios(quantidadeCenarios);
+        for (ScenarioStatusEntity scenarioStatus : scenarioStatusEntities) {
+            int quantidadeCenarios = scenarioRepository.countCenariosByScenarioStatus(scenarioStatus,idTeam);
+            scenarioStatus.setScenarioQuantity(quantidadeCenarios);
         }
 
-        return status;
+        return scenarioStatusEntities;
     }
 
 

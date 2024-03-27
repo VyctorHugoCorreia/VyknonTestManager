@@ -15,17 +15,17 @@ import com.auth0.jwt.JWT;
 @Service
 public class TokenService {
 
-    @Value("${security.jwt.expiracao}")
-    private String expiracao;
-    @Value("${security.jwt.chave-assinatura}")
-    private String chaveAutenticacao;
+    @Value("${security.jwt.expired}")
+    private String expired;
+    @Value("${security.jwt.key-authentication}")
+    private String keyAuthentication;
 
-    public String generateToken(UserEntity usuario){
+    public String generateToken(UserEntity user){
         try{
-            Algorithm algorithm = Algorithm.HMAC256(chaveAutenticacao);
+            Algorithm algorithm = Algorithm.HMAC256(keyAuthentication);
             String token = JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(usuario.getLogin())
+                    .withSubject(user.getLogin())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
@@ -37,7 +37,7 @@ public class TokenService {
 
     public String validateToken(String token){
         try {
-            Algorithm algorithm = Algorithm.HMAC256(chaveAutenticacao);
+            Algorithm algorithm = Algorithm.HMAC256(keyAuthentication);
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .build()

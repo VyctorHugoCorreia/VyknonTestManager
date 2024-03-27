@@ -3,7 +3,7 @@ package io.github.vyctorhugocorreia.service.impl;
 
 import io.github.vyctorhugocorreia.dto.AccessProfileDTO;
 import io.github.vyctorhugocorreia.entity.AccessProfileEntity;
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.repository.PerfilDeAcessoRepository;
 import io.github.vyctorhugocorreia.service.AccessProfileService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class AccessProfileServiceImpl implements AccessProfileService {
         String name = dto.getName();
 
         if (repository.existsByNome(name)) {
-            throw new RegraNegocioException("Já existe um perfil com este nome.");
+            throw new RuleBusinessException("Já existe um perfil com este nome.");
         }
 
         AccessProfileEntity perfil = AccessProfileEntity.builder()

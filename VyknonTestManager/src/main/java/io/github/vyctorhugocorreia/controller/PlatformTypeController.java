@@ -14,21 +14,21 @@ import java.util.List;
 @RequestMapping("/api/tipoPlataforma")
 @AllArgsConstructor
 @CrossOrigin
-public class TipoPlataformaController {
+public class PlatformTypeController {
 
     final TipoPlataformaRepository repository;
-     final CenarioDeTesteRepository cenarioDeTesteRepository;
+     final CenarioDeTesteRepository scenarioRepository;
 
 
     @GetMapping
-    public List<PlatformTypeEntity> getPlataforma(@RequestParam(required = false) TeamEntity idTime
+    public List<PlatformTypeEntity> getPlataforma(@RequestParam(required = false) TeamEntity idTeam
     ) {
 
-        List<PlatformTypeEntity> tipoPlataformaEntityList = repository.findAll();
+        List<PlatformTypeEntity> platformTypeEntitiesList = repository.findAll();
 
-        for (PlatformTypeEntity tipoPlataforma : tipoPlataformaEntityList) {
-            int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByPlataformType(tipoPlataforma,idTime);
-            tipoPlataforma.setQuantidadeCenarios(quantidadeCenarios);
+        for (PlatformTypeEntity platformType : platformTypeEntitiesList) {
+            int scenarioQuantity = scenarioRepository.countCenariosByPlataformType(platformType,idTeam);
+            platformType.setScenarioQuantity(scenarioQuantity);
         }
 
         return repository.findAll();

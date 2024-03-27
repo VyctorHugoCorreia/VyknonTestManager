@@ -5,8 +5,7 @@ import io.github.vyctorhugocorreia.dto.UserDTO;
 import io.github.vyctorhugocorreia.entity.AccessProfileEntity;
 import io.github.vyctorhugocorreia.entity.UserEntity;
 
-import io.github.vyctorhugocorreia.exception.RegraNegocioException;
-import io.github.vyctorhugocorreia.exception.TimeNaoEncontradoException;
+import io.github.vyctorhugocorreia.exception.RuleBusinessException;
 import io.github.vyctorhugocorreia.repository.PerfilDeAcessoRepository;
 import io.github.vyctorhugocorreia.repository.UsuarioRepository;
 import io.github.vyctorhugocorreia.service.UserService;
@@ -35,16 +34,16 @@ public class UserServiceImpl implements UserService {
         String accessProfile = dto.getAccessProfile().getName();
 
         if (repository.existsByNome(name)) {
-            throw new RegraNegocioException("Já existe um usuário com este nome.");
+            throw new RuleBusinessException("Já existe um usuário com este nome.");
         }
 
         if (repository.existsByLogin(login)) {
-            throw new RegraNegocioException("Já existe um usuário com este login.");
+            throw new RuleBusinessException("Já existe um usuário com este login.");
         }
 
         AccessProfileEntity accessProfileEntity = accessProfileRepository
                 .findByNome(accessProfile)
-                .orElseThrow(() -> new RegraNegocioException("Perfil de acesso não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Perfil de acesso não encontrado"));
 
         UserEntity userEntity = UserEntity.builder()
                 .name(name)
@@ -66,20 +65,20 @@ public class UserServiceImpl implements UserService {
         String accessProfile = dto.getAccessProfile().getName();
 
         if (Objects.nonNull(name) && !name.isEmpty() && repository.existsByNome(name) && !Objects.equals(existingUser.getName(), name)) {
-            throw new RegraNegocioException("Já existe um usuário com este nome.");
+            throw new RuleBusinessException("Já existe um usuário com este nome.");
         }
 
         if (Objects.nonNull(login) && !login.isEmpty() && repository.existsByLogin(login) && !Objects.equals(existingUser.getLogin(), login)) {
-            throw new RegraNegocioException("Já existe um usuário com este login.");
+            throw new RuleBusinessException("Já existe um usuário com este login.");
         }
 
         if (Objects.nonNull(oldPassword) && !oldPassword.isEmpty() && !passwordEncoder.matches(oldPassword, existingUser.getPassword())) {
-            throw new RegraNegocioException("Senha atual inválida.");
+            throw new RuleBusinessException("Senha atual inválida.");
         }
 
         AccessProfileEntity accessProfileEntity = accessProfileRepository
                 .findByNome(accessProfile)
-                .orElseThrow(() -> new RegraNegocioException("Perfil de acesso não encontrado"));
+                .orElseThrow(() -> new RuleBusinessException("Perfil de acesso não encontrado"));
 
         if(Objects.nonNull(name) && !name.isEmpty()){
             existingUser.setName(name);
@@ -103,11 +102,11 @@ public class UserServiceImpl implements UserService {
         String oldPassword = dto.getOldPassword();
 
         if (Objects.nonNull(login) && !login.isEmpty() && repository.existsByLogin(login) && !Objects.equals(existingUser.getLogin(), login)) {
-            throw new RegraNegocioException("Já existe um usuário com este login.");
+            throw new RuleBusinessException("Já existe um usuário com este login.");
         }
 
         if (Objects.nonNull(oldPassword) && !oldPassword.isEmpty() && !passwordEncoder.matches(oldPassword, existingUser.getPassword())) {
-            throw new RegraNegocioException("Senha atual inválida.");
+            throw new RuleBusinessException("Senha atual inválida.");
         }
 
         existingUser.setLogin(login);
@@ -119,7 +118,7 @@ public class UserServiceImpl implements UserService {
 
     private UserEntity getExistingUser(String login) {
         return repository.findByLogin(login)
-                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado com o login: " + login));
+                .orElseThrow(() -> new RuleBusinessException("Usuário não encontrado com o login: " + login));
     }
 
     @Override
@@ -136,17 +135,17 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    public UserDetails authentication(UserEntity usuario) throws RegraNegocioException {
+    public UserDetails authentication(UserEntity usuario) throws RuleBusinessException {
         boolean userExists = repository.existsByLogin(usuario.getLogin());
 
         if (!userExists) {
-            throw new RegraNegocioException("Usuário não encontrado.");
+            throw new RuleBusinessException("Usuário não encontrado.");
         }
 
         boolean userExistsInactive = repository.existsByLoginAndStatus(usuario.getLogin(), "INACTIVE");
 
         if (userExistsInactive) {
-            throw new RegraNegocioException("Usuário inativo, entre em contato com o administrador para ativar.");
+            throw new RuleBusinessException("Usuário inativo, entre em contato com o administrador para ativar.");
         }
 
         UserDetails userDetails = loadUserByUsername(usuario.getLogin());
@@ -155,7 +154,7 @@ public class UserServiceImpl implements UserService {
         if (passwordEquals) {
             return userDetails;
         } else {
-            throw new RegraNegocioException("Usuário ou senha inválidos.");
+            throw new RuleBusinessException("Usuário ou senha inválidos.");
         }
     }
 
@@ -180,7 +179,7 @@ public class UserServiceImpl implements UserService {
 
     private UserEntity getUserByLogin(String id) {
         return repository.findById(id)
-                .orElseThrow( () -> new RegraNegocioException("Time não encontrado"));
+                .orElseThrow( () -> new RuleBusinessException("Time não encontrado"));
     }
 
 

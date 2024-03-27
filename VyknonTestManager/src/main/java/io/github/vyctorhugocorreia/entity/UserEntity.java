@@ -55,7 +55,7 @@ public class UserEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return Collections.singleton(new SimpleGrantedAuthority(getAccessProfile().getNome()));
+        return Collections.singleton(new SimpleGrantedAuthority(getAccessProfile().getName()));
     }
 
     @Override

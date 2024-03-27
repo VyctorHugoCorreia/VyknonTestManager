@@ -15,23 +15,23 @@ import java.util.List;
 @CrossOrigin
 @AllArgsConstructor
 
-public class TipoCenarioController {
+public class ScenarioTypeController {
 
     final TipoCenarioRepository repository;
-    final CenarioDeTesteRepository cenarioDeTesteRepository;
+    final CenarioDeTesteRepository scenarioRepository;
 
 
 
     @GetMapping
     public List<ScenarioTypeEntity> getStatus(
-            @RequestParam(required = false) TeamEntity idTime
+            @RequestParam(required = false) TeamEntity idTeam
     ) {
 
         List<ScenarioTypeEntity> scenarioTypeEntityList = repository.findAll();
 
-        for (ScenarioTypeEntity tipoCenario : scenarioTypeEntityList) {
-            int quantidadeCenarios = cenarioDeTesteRepository.countCenariosByScenarioType(tipoCenario,idTime);
-            tipoCenario.setQuantidadeCenarios(quantidadeCenarios);
+        for (ScenarioTypeEntity scenarioType : scenarioTypeEntityList) {
+            int scenarioQuantity = scenarioRepository.countCenariosByScenarioType(scenarioType,idTeam);
+            scenarioType.setScenarioQuantity(scenarioQuantity);
         }
 
         return scenarioTypeEntityList;
