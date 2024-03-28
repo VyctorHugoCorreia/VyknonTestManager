@@ -1,5 +1,6 @@
 package io.github.vyctorhugocorreia.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.vyctorhugocorreia.ListConverter;
 import io.github.vyctorhugocorreia.dto.StepDTO;
 import jakarta.persistence.*;
@@ -38,35 +39,43 @@ public class ScenarioEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_team")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private TeamEntity idTeam;
 
     @ManyToOne
-    @JoinColumn(name = "id_testPlan")
+    @JoinColumn(name = "id_testplan")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private TestPlanEntity idTestPlan;
 
     @ManyToOne
-    @JoinColumn(name = "id_testSuite")
+    @JoinColumn(name = "id_testsuite")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private TestSuiteEntity idTestSuite;
 
     @ManyToOne
     @JoinColumn(name = "id_product")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ProductEntity idProduct;
 
 
     @ManyToOne
-    @JoinColumn(name = "id_scenarioType")
+    @JoinColumn(name = "id_scenariotype")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ScenarioTypeEntity idScenarioType;
 
     @ManyToOne
-    @JoinColumn(name = "id_platformType")
+    @JoinColumn(name = "id_platformtype")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PlatformTypeEntity idPlatformType;
 
     @ManyToOne
     @JoinColumn(name = "id_scenariostatus")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ScenarioStatusEntity idScenarioStatus;
 
     @ManyToOne
     @JoinColumn(name = "id_automationstatus")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private AutomationStatusEntity idAutomationStatus;
 
 
@@ -86,5 +95,70 @@ public class ScenarioEntity {
 
     @JoinColumn(name = "id_user")
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UserEntity user;
+
+    public String getNameTeam() {
+        if (idTeam != null) {
+            return idTeam.getNameTeam();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescProduct() {
+        if (idProduct != null) {
+            return idProduct.getDescProduct();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescTesPlan() {
+        if (idTestPlan != null) {
+            return idTestPlan.getDescTestPlan();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescTesSuite() {
+        if (idTestSuite != null) {
+            return idTestSuite.getDescTestSuite();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescScenarioType() {
+        if (idScenarioType != null) {
+            return idScenarioType.getDescScenarioType();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescPlatformType() {
+        if (idPlatformType != null) {
+            return idPlatformType.getDescPlatformType();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescScenarioStatus() {
+        if (idScenarioStatus != null) {
+            return idScenarioStatus.getDescScenarioStatus();
+        } else {
+            return null;
+        }
+    }
+
+    public String getDescAutomationStatus() {
+        if (idAutomationStatus != null) {
+            return idAutomationStatus.getDescAutomationStatus();
+        } else {
+            return null;
+        }
+    }
 }

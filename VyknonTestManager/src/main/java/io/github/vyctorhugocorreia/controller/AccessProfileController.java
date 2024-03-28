@@ -25,7 +25,6 @@ public class AccessProfileController {
 
     @PostMapping
     @Transactional
-    @PreAuthorize("hasRole('Administrador')")
     public ResponseEntity<AccessProfileEntity> save(@RequestBody @Valid AccessProfileDTO dto){
         AccessProfileEntity perfil = service.save(dto);
         return ResponseEntity.ok(perfil);

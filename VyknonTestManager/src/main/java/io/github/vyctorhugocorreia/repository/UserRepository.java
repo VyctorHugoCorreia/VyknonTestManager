@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     Optional<UserEntity> findByLogin(String login);
 
-    @Query("SELECT u.name FROM UserEntity u WHERE u.login = :login")
+    @Query("SELECT u.login FROM UserEntity u WHERE u.login = :login")
     String findNameByLogin(String login);
 
 

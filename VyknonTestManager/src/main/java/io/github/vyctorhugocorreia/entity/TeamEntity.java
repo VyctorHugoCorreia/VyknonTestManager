@@ -1,5 +1,6 @@
 package io.github.vyctorhugocorreia.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class TeamEntity {
 
     @JoinColumn(name = "id_user")
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UserEntity user;
 
     @Transient

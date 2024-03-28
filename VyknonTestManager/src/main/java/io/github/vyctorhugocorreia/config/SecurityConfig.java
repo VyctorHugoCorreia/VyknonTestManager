@@ -47,11 +47,10 @@ public class SecurityConfig {
                     customizer.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilter(corsFilter())
+                 .addFilter(corsFilter())
                 .build();
 
     }
-
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

@@ -48,7 +48,7 @@ public class UserEntity implements UserDetails {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "id_accessProfile")
+    @JoinColumn(name = "id_accessprofile")
     private AccessProfileEntity accessProfile;
 
     @Override
